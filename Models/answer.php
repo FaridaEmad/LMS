@@ -2,10 +2,10 @@
 
 class Answer
 {
- public $answerId;
- public $answerContant;
- public $flag;
- public $question_id;
+    public $answerId;
+    public $answerContent;
+    public $flag;
+    public $question_id;
 
 }
 

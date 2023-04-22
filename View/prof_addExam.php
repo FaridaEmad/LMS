@@ -1,3 +1,6 @@
+<?php
+    require_once "../Controllers/DBController.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,7 +59,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
-                            <a href="prof_viewExam.php" class="dropdown-item">View all exams </a>
+                            <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
@@ -112,8 +115,25 @@
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>Prof page</h3>
+                <div class="col-sm-12 col-xl-10">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h5 class="mb-4">Add Exam</h5>
+                            <form>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Exam Title</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="inputEmail3">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Exam Duration</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="inputPassword3">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,6 +176,14 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
 </body>
 
 </html>
+
+<?php
+    if(isset($_POST["addExam"]))
+    {
+        echo "Testing";
+    }
+?>

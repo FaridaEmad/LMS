@@ -5,15 +5,15 @@ require_once '../../Models/exam.php';
 require_once '../../Controllers/DBController.php';
 class ExamController
 {
-    protected $db;
+   protected $db;
 
     //1. Open connection.
     //2. Run query & logic.
     //3. Close connection
 
 
-    public function getExam()
-    {
+   public function getExam()
+   {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
@@ -25,11 +25,11 @@ class ExamController
             echo "Error in Database Connection";
             return false; 
          }
-    }
+   }
 
 
-    public function addExam(Exam $exam)
-    {
+   public function addExam(Exam $exam)
+   {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
@@ -41,19 +41,20 @@ class ExamController
             echo "Error in Database Connection";
             return false; 
          }
+   }
+   public function deletetExam($examId)
+   {
+      $this->db=new DBController;
+      if($this->db->openConnection())
+      {
+         $query= "delete from exam where examId = $examId";
+         return $this->db->delete($query);
       }
-         public function deletetExam($examId)
-         {
-              $this->db=new DBController;
-              if(this->db->openConnection())
-              {
-                 $query="delete from exam where examId = "$examId";
-                 return $this->db->delete($query);
-              }
-              else
-              {
-                 echo "Error in Database Connection";
-                 return false; 
-              }
-         }
-    ?>
+      else
+      {
+         echo "Error in Database Connection";
+         return false; 
+      }
+   }
+}
+?>

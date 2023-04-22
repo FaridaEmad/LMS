@@ -56,7 +56,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
-                            <a href="prof_viewExam.php" class="dropdown-item">View all exams </a>
+                            <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
@@ -112,8 +112,50 @@
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>Prof page</h3>
+                    <div class="col-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">All Exams</h6>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Exam ID</th>
+                                            <th scope="col">Exam Title</th>
+                                            <th scope="col">Exam Duration</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>John</td>
+                                            <td>Doe</td>
+                                            <td>jhon@email.com</td>
+                                            <td>USA</td>
+                                            <td>123</td>
+                                            <td>Member</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>mark@email.com</td>
+                                            <td>UK</td>
+                                            <td>456</td>
+                                            <td>Member</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Jacob</td>
+                                            <td>Thornton</td>
+                                            <td>jacob@email.com</td>
+                                            <td>AU</td>
+                                            <td>789</td>
+                                            <td>Member</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -156,6 +198,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
 </body>
 
 </html>
