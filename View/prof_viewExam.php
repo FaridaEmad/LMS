@@ -1,3 +1,6 @@
+<?php
+    require_once '../Controllers/ExamController.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +50,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <span>Proffesor</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -122,8 +125,13 @@
                                             <th scope="col">Exam ID</th>
                                             <th scope="col">Exam Title</th>
                                             <th scope="col">Exam Duration</th>
+                                            <th scope="col">Edit</i></th>
+                                            <th scope="col">Delete</th>
                                         </tr>
                                     </thead>
+                                    <?php
+                                        
+                                    ?>
                                     <tbody>
                                         <tr>
                                             <th scope="row">1</th>
@@ -131,17 +139,12 @@
                                             <td>Doe</td>
                                             <td>jhon@email.com</td>
                                             <td>USA</td>
-                                            <td>123</td>
-                                            <td>Member</td>
-                                        </tr>
                                         <tr>
                                             <th scope="row">2</th>
                                             <td>Mark</td>
                                             <td>Otto</td>
                                             <td>mark@email.com</td>
                                             <td>UK</td>
-                                            <td>456</td>
-                                            <td>Member</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">3</th>
@@ -149,8 +152,6 @@
                                             <td>Thornton</td>
                                             <td>jacob@email.com</td>
                                             <td>AU</td>
-                                            <td>789</td>
-                                            <td>Member</td>
                                         </tr>
                                     </tbody>
                                 </table>

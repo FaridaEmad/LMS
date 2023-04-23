@@ -12,12 +12,12 @@ class ExamController
     //3. Close connection
 
 
-   public function getExam()
+   public function getExam($userId)
    {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select * from exam";
+            $query="select * from exam where user_id = $userId";
             return $this->db->select($query);
          }
          else
