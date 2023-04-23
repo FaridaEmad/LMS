@@ -1,16 +1,16 @@
 <?php
 
 require_once '../Models/user.php';
-require_once '../../Controllers/DBController.php';
+require_once '../Controllers/DBController.php';
 class UserController
 {
-    protected $db;
+   protected $db;
 
     //1. Open connection.
     //2. Run query & logic.
     //3. Close connection
-    public function getUser()
-    {
+   public function getUser()
+   {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
@@ -22,11 +22,11 @@ class UserController
             echo "Error in Database Connection";
             return false; 
          }
-    }
+   }
 
 
-    public function addUser(User $user)
-    {
+   public function addUser(User $user)
+   {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
@@ -39,8 +39,8 @@ class UserController
             return false; 
          }
       }
-          public function deletetUser( $userId)
-          {
+         public function deletetUser( $userId)
+         {
                $this->db=new DBController;
                if($this->db->openConnection())
                {
@@ -52,9 +52,9 @@ class UserController
                   echo "Error in Database Connection";
                   return false; 
                }
-          }
-          public function update(User $user)
-          {
+         }
+         public function update(User $user)
+         {
                $this->db=new DBController;
                if($this->db->openConnection())
                {
@@ -70,4 +70,3 @@ class UserController
          } 
       
 ?>
-    

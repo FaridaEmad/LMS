@@ -45,7 +45,7 @@ class DBController
         }
         else
         {
-             return $result->fetch_all(MYSQLI_ASSOC);
+            return $result->fetch_all(MYSQLI_ASSOC);
         }
 
     }
@@ -59,7 +59,7 @@ class DBController
         }
         else
         {
-             return $this->connection->insert_id;
+            return $this->connection->insert_id;
         }
 
     }
@@ -73,7 +73,7 @@ class DBController
         }
         else
         {
-             return $result;
+            return $result;
         }
     }
         public function update($qry)
@@ -86,7 +86,7 @@ class DBController
             }
             else
             {
-                 return $result;
+                return $result;
             }
 
 

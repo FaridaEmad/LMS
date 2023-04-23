@@ -275,3 +275,9 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+
+/*** Farida ****/
+
+.errMsg {
+    color: red;
+}

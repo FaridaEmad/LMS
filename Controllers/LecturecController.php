@@ -1,8 +1,8 @@
 <?php
 
 
-require_once '../../Models/lecture.php';
-require_once '../../Controllers/DBController.php';
+require_once '../Models/lecture.php';
+require_once '../Controllers/DBController.php';
 class LectureController
 {
     protected $db;
