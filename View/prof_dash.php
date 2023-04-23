@@ -1,7 +1,3 @@
-<?php
-    require_once "../Controllers/ExamController.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 

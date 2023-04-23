@@ -123,7 +123,7 @@
                                             <th scope="col">Student ID</th>
                                             <th scope="col">Student name</th>
                                             <th scope="col">Course</th>
-                                             <th scope="col">Grade</th>
+                                            <th scope="col">Grade</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -132,9 +132,6 @@
                                             <td>Ali Azi</td>
                                             <td>IT</td>
                                             <td>45</td>
-                                           
-                                        
-                                          
                                         </tr>
                                         <tr>
                                             <th scope="row">2</th>
