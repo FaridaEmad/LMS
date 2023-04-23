@@ -1,5 +1,37 @@
 <?php
-    require_once "../Controllers/DBController.php";
+
+    require_once '../Models/exam.php';
+    require_once '../Controllers/ExamController.php';
+
+    if(!isset($_SESSION["userId"]))
+    {
+        session_start();
+    }
+    $errMsq = "";
+    if(isset($_POST['examName']) && isset($_POST['examDur']))
+    {
+        if(!empty($_POST['examName']) && isset($_POST['examDur']))
+        {
+            $exam = new Exam;
+            $examCon = new ExamController;
+            $exam->examName = $_POST['examName'];
+            $exam->examTime = $_POST['examDur'];
+            $exam->$_SESSION["userId"];
+            if($examCon->addExam($exam))
+            {
+                header("location: prof_viewExam.php");
+            }
+            else
+            {
+                $errMsq = $_SESSION["errMsg"];
+            }
+        }
+        else
+        {
+            $errMsq = "Please fill all fields";
+        }
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,6 +162,9 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="inputPassword3" name="examDur">
                                     </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <span class="errMsg"><?php echo $errMsq; ?></span>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </form>

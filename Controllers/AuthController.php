@@ -1,7 +1,7 @@
 <?php 
 
-require_once '../../Models/user.php';
-require_once '../../Controllers/DBController.php';
+require_once '../Models/user.php';
+require_once '../Controllers/DBController.php';
 class AuthController
 {
     protected $db;
@@ -43,7 +43,7 @@ class AuthController
                     {
                         $_SESSION["userRole"]="professsor";
                     }
-                   elseif($result[2]["roleId"]==3)
+                    elseif($result[2]["roleId"]==3)
                     {
                         $_SESSION["userRole"]="co_teacher";
                     }
