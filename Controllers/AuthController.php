@@ -15,7 +15,7 @@ class AuthController
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-            $query="select * from users where email='$user->email' and password ='$user->password'";
+            $query="select * from user where email='$user->email' and password ='$user->password'";
             $result=$this->db->select($query);
             if($result===false)
             {
