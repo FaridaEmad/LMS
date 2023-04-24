@@ -1,7 +1,8 @@
 <?php 
 
-require_once '../Models/user.php';
-require_once '../Controllers/DBController.php';
+require_once 'Models/user.php';
+require_once 'DBController.php';
+
 class AuthController
 {
     protected $db;

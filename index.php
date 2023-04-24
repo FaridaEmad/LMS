@@ -4,28 +4,25 @@ require_once 'Controllers/AuthController.php';
 $errMsg="";
 if(isset($_POST['email']) && isset($_POST['password']) )
 {
-    if(!empty($_POST['email']) && !empty($_POST['paassword']))
+    if(!empty($_POST['email']) && !empty($_POST['password']))
     {
         $user=new User;
         $auth=new AuthController;
         $user->email=$_POST['email'];
         $user->password=$_POST['password'];
-       if(!$auth->login($user))
-       {
-        if(!isset($_SESSION["userId"]))
+        if(!$auth->login($user))
         {
-            session_start();
-        }
+            if(!isset($_SESSION["userId"]))
+            {
+                session_start();
+            }
         
-        $errMsg=$_SESSION["errMsg"];
-       }
-      /* else 
-       {
-        echo 'logged in';
-
-       }
-         
-       */
+            $errMsg=$_SESSION["errMsg"];
+        }
+        else 
+        {
+            echo 'logged in';
+        }
     }
 }
 else
@@ -91,7 +88,7 @@ else
                         
                         ?>
                         
-                        <form id="formAuthentication" class="mb_3"action="index.php" method="POST">
+                        <form class="mb_3"action="index.php" method="POST">
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
                             <label for="floatingInput">Email address</label>
