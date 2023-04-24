@@ -1,3 +1,38 @@
+<?php
+require_once 'Models/user.php';
+require_once 'Controllers/AuthController.php';
+$errMsg="";
+if(isset($_POST['email']) && isset($_POST['password']) )
+{
+    if(!empty($_POST['email']) && !empty($_POST['paassword']))
+    {
+        $user=new User;
+        $auth=new AuthController;
+        $user->email=$_POST['email'];
+        $user->password=$_POST['password'];
+       if(!$auth->login($user))
+       {
+        if(!isset($_SESSION["userId"]))
+        {
+            session_start();
+        }
+        
+        $errMsg=$_SESSION["errMsg"];
+       }
+      /* else 
+       {
+        echo 'logged in';
+
+       }
+         
+       */
+    }
+}
+else
+{
+    $errMsg="Please fill all fields";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,12 +80,24 @@
                             </a>
                             <h3>Sign In</h3>
                         </div>
+                        <?php
+                       /* if($errMsg!="")
+                        {
+                            ?>
+                            <div class="alert alert-danger" role ="alert"> <?php echo $errMsg?></div>
+                            <?php
+                        }*/
+                        echo $errMsg;
+                        
+                        ?>
+                        
+                        <form id="formAuthentication" class="mb_3"action="index.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
                             <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
                             <label for="floatingPassword">Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -82,6 +129,7 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    
 </body>
 
 </html>
