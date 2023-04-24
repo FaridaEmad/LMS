@@ -46,11 +46,12 @@ if(isset($_POST['email']) && isset($_POST['password']) )
 
         }
     }
+    else
+      {
+        $errMsg="Please fill all fields";
+      }
 }
-else
-{
-    $errMsg="Please fill all fields";
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
