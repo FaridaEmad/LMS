@@ -34,17 +34,17 @@ class AuthController
                 else
                 {
                     session_start();
-                    $_SESSION["userId"]=$result[0]["id"];
-                    $_SESSION["userName"]=$result[0]["name"];
-                    if($result[0]["roleId"]==1)
+                    $_SESSION["userId"]=$result[0]["userId"];
+                    $_SESSION["userName"]=$result[0]["userName"];
+                    if($result[0]["role_id"]==1)
                     {
                         $_SESSION["userRole"]="Admin";
                     }
-                    elseif($result[1]["roleId"]==2)
+                    elseif($result[1]["role_id"]==2)
                     {
                         $_SESSION["userRole"]="professsor";
                     }
-                    elseif($result[2]["roleId"]==3)
+                    elseif($result[2]["role_id"]==3)
                     {
                         $_SESSION["userRole"]="co_teacher";
                     }
@@ -98,4 +98,3 @@ class AuthController
 }
 
 ?>
-
