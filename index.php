@@ -21,7 +21,29 @@ if(isset($_POST['email']) && isset($_POST['password']) )
         }
         else 
         {
-            echo 'logged in';
+            if(!isset($_SESSION["userId"]))
+            {
+                session_start();
+            }
+            if($_SESSION["userRole"]==1)
+            {
+                header("Location:View/admin_dash.php");
+            }
+            else if($_SESSION["userRole"]==2)
+            {
+                header("Location:View/prof_dash.php");
+            }
+            else if($_SESSION["userRole"]==3)
+            {
+                header("Location:View/ta_dash.php");
+            }
+            else
+            {
+                header("Location:View/student_dash.php");
+            }
+
+           // echo 'logged in';
+
         }
     }
 }
@@ -78,23 +100,23 @@ else
                             <h3>Sign In</h3>
                         </div>
                         <?php
-                       /* if($errMsg!="")
+                        if($errMsg!="")
                         {
                             ?>
                             <div class="alert alert-danger" role ="alert"> <?php echo $errMsg?></div>
                             <?php
-                        }*/
-                        echo $errMsg;
+                        }
+                       // echo $errMsg;
                         
                         ?>
                         
-                        <form class="mb_3"action="index.php" method="POST">
+                        <form  id="formAuthentication" class="mb_3"action="index.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" autofocus>
                             <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" aria-describedby="password">
                             <label for="floatingPassword">Password</label>
                         </div>
                         <div class="d-flex align-items-center justify-content-between mb-4">
@@ -103,15 +125,18 @@ else
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
                             </div>
                             <a href="">Forgot Password</a>
-                        </div>
+                     </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
+
                         <p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Sign In End -->
     </div>
+                    
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
