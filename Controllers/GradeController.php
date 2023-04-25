@@ -1,9 +1,9 @@
 <?php
 
 
-require_once '../Models/exam.php';
+require_once '../Models/grade.php';
 require_once '../Controllers/DBController.php';
-class ExamController
+class GradeController
 {
    protected $db;
 
@@ -12,12 +12,12 @@ class ExamController
     //3. Close connection
 
 
-   public function getExam($userId)
+   public function getGrade()
    {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select * from exam where user_id = $userId";
+            $query="select * from grade ";
             return $this->db->select($query);
          }
          else
@@ -28,12 +28,12 @@ class ExamController
    }
 
 
-   public function addExam(Exam $exam)
+   public function addGrade(Grade $grade)
    {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into exam values ('','$exam->examName','$exam->examTime','$exam->user_id')";
+            $query="insert into grade values ('','$grade->course_id','$grade->user_id','$grade->studentGrade')";
             return $this->db->insert($query);
          }
          else
@@ -42,13 +42,12 @@ class ExamController
             return false; 
          }
    }
-   
-   public function deletetExam($examId)
+   public function deletetGrade($gradeId)
    {
       $this->db=new DBController;
       if($this->db->openConnection())
       {
-         $query= "delete from exam where examId = $examId";
+         $query= "delete from grade where gradeId = $gradeId";
          return $this->db->delete($query);
       }
       else
