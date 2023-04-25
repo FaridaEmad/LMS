@@ -127,7 +127,7 @@ if(isset($_POST['email']) && isset($_POST['password']) )
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
                             </div>
                             <a href="">Forgot Password</a>
-                     </div>
+                        </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
 
                         <p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>

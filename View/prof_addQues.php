@@ -12,20 +12,46 @@
             header("location:../index.php");
         }
     }
+
+    require_once '../Models/question.php';
+    require_once '../Controllers/QuestionController.php';
     require_once '../Controllers/ExamController.php';
     require_once '../Models/exam.php';
 
     $examController = new ExamController;
 
-    if(isset($_POST["deleteExam"]))
+    if(!isset($_SESSION["userId"]))
     {
-        if(!empty($_POST["exIdD"]))
-        {
-            $examController->deletetExam($_POST["exIdD"]);
-        }
+        session_start();
     }
+    $errMsq = "";
 
     $exams = $examController->getExam($_SESSION["userId"]);
+
+    if(isset($_POST['question']) && isset($_POST['addQbtn']))
+    {
+        if(!empty($_POST['question']) && !empty($_POST['examQ']))
+        {
+            $question = new Question;
+            $questionCon = new QuestionController;
+            $question->questionContent = $_POST['question'];
+            $question->exam_id = $_POST['examQ'];
+
+            if($questionCon->addQuestion($question))
+            {
+                header("location: prof_addQues.php");
+            }
+            else
+            {
+                $errMsq = $_SESSION["errMsg"];
+            }
+        }
+        else
+        {
+            $errMsq = "Please fill all fields";
+        }
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +102,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Proffesor</span>
+                        <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -141,74 +167,33 @@
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-12">
+                <div class="col-sm-12 col-xl-10">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">All Exams</h6>
-                            <?php
-                                if(count($exams) == 0)
-                                {
-                                    ?>
-                                    <div class="alert alert-danger" role="alert"> No Available Exams</div>
+                            <h5 class="mb-4">Add Queston</h5>
+                            <form action="prof_addQues.php" method="POST">
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="examQ">
+                                    <option selected disabled>Select Exam</option>
                                     <?php
-                                }
-                                else
-                                {
-                                    ?>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Exam ID</th>
-                                                    <th scope="col">Exam Title</th>
-                                                    <th scope="col">Exam Duration</th>
-                                                    <th scope="col">Add Questions</i></th>
-                                                    <th scope="col">Delete</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                    <?php
-                                    foreach($exams as $exam)
-                                    {
+                                        foreach($exams as $exam)
+                                        {
                                         ?>
-                                                    <tr>
-                                                        <th scope="row"><?php echo $exam["examId"] ?></th>
-                                                        <td><?php echo $exam["examName"] ?></td>
-                                                        <td><?php echo $exam["examTime"] ?></td>
-                                                        <td>
-                                                            <form action="prof_addQues.php" method="POST">
-                                                                <input type="hidden" name="exIdA" value="<?php echo $exam["examId"] ?>">
-                                                                <button type="submit" name="addQues" class="btn btn-light">
-                                                                    <a href="prof_addQues.php"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                        <td>
-                                                            <form action="prof_viewExam.php" method="POST">
-                                                                <input type="hidden" name="exIdD" value="<?php echo $exam["examId"] ?>">
-                                                                <button type="submit" name="deleteExam" class="btn btn-danger">
-                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                                </button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
-                                                
+                                                    
+                                                    <option value= "<?php echo $exam["examId"] ?>" > <?php echo $exam["examName"] ?></option>
                                         <?php
-                                    }
-                                    ?>
-                                            </tbody>
-                                        </table>
+                                        }
+                                        ?>
+                                </select>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Question</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputEmail3" name="question">
                                     </div>
-                                    <?php
-                                }
-                            ?>
-                            <div class="row">
-                                <div class="col-6 d-flex justify-content-center">
-                                    <button class="btn btn-primary"><a href="prof_addQues.php" class="text-light">Questions</a></button>
                                 </div>
-                                <div class="col-6 d-flex justify-content-center">
-                                    <button class="btn btn-primary"><a href="prof_addAns.php" class="text-light">Answers</a></button>
+                                <div class="row mb-3">
+                                    <span class="errMsg"><?php echo $errMsq; ?></span>
                                 </div>
-                            </div>
+                                <input type="submit" name="addQbtn" class="btn btn-primary" value="Add">
+                            </form>
                         </div>
                     </div>
                 </div>

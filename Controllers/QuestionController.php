@@ -15,7 +15,22 @@ class QuestionController
       $this->db=new DBController;
       if($this->db->openConnection())
       {
-         $query="select * from question";
+         $query="select * from question ";
+         return $this->db->select($query);
+      }
+      else
+      {
+         echo "Error in Database Connection";
+         return false; 
+      }
+   }
+
+   public function getQuestionContent($examId)
+   {
+      $this->db=new DBController;
+      if($this->db->openConnection())
+      {
+         $query="select questionContent from question where exam_id = $examId";
          return $this->db->select($query);
       }
       else

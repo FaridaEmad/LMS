@@ -17,7 +17,7 @@ class ExamController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select * from exam where user_id = $userId";
+            $query="select examId , examName , examTime from exam where user_id = $userId";
             return $this->db->select($query);
          }
          else
