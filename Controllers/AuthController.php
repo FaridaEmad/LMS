@@ -40,11 +40,11 @@ class AuthController
                     {
                         $_SESSION["userRole"]="Admin";
                     }
-                    elseif($result[1]["role_id"]==2)
+                    elseif($result[0]["role_id"]==2)
                     {
                         $_SESSION["userRole"]="professsor";
                     }
-                    elseif($result[2]["role_id"]==3)
+                    elseif($result[0]["role_id"]==3)
                     {
                         $_SESSION["userRole"]="co_teacher";
                     }
