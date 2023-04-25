@@ -34,7 +34,7 @@ class CourseController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into course values ('','$course->courseName','$course->coursePrerequisite','$course->user_id')";
+            $query="insert into course values ('','$course->courseName','$course->coursePrerequisite','$course->user_id','$course->day','$course->from','$course->to)";
             return $this->db->insert($query);
          }
          else
@@ -42,26 +42,21 @@ class CourseController
             echo "Error in Database Connection ";
             return false; 
          }
-    }
+      }
       
     public function deletetCourse($courseId)
     {
-        $this->db=new DBController;
-        if($this->db->openConnection())
-        {
-                   
-           $query= "delete from course where courseId = $courseId";
-            return $this->db->delete($query);
-        }
-        else
-        {
-            echo "Error in Database Connection";
-             return false; 
-        }
-   }
-            
-}
-        
-    
-    ?>
-      
+       $this->db=new DBController;
+       if($this->db->openConnection())
+       {
+          $query= "delete from course where courseId = $courseId";
+          return $this->db->delete($query);
+       }
+       else
+       {
+          echo "Error in Database Connection";
+          return false; 
+       }
+    }
+ }
+ ?>
