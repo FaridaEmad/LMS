@@ -1,13 +1,28 @@
 <?php 
 
+require_once '../Models/grade.php';
+require_once '../Controllers/GradeController.php';
+$errMsg="";
 
-require_once "../Controllers/DBController.php";
-
-require_once '../Models/exam.php';
-require_once '../Controllers/ExamController.php';
-
-
-
+if (isset($_POST['gradeId']) && isset($_POST['course_id']) && isset($_POST['user_id'])&& isset($_POST['studentGrade']) ) {
+    if (!empty($_POST['gradeId']) && !empty($_POST['course_id']) && !empty($_POST['user_id']) && !empty($_POST['studentGrade'])) {
+   
+        $grade = new Grade ;
+        $grade-> user_id= $_POST['user_id'];
+        $grade->course_id = $_POST['course_id'];
+        $grade->studentGrade = $_POST['studentGrade'];
+        if($gradeController->addGrade($grade))
+        {
+            header("location: prof_viewgrade.php");
+        }
+      
+    }
+    else
+       {
+        $errMsg="something went wrong please;.... try again";
+       }
+    
+}
 ?>
 
 
@@ -133,7 +148,7 @@ require_once '../Controllers/ExamController.php';
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Grades</h6>
                             
-                            <form method="post">
+                            <form method="post" action="addgrade.php">
                                 <div class="mb-3">
                                     <label for="exampleInputStudentid" class="form-label">Student ID</label>
                                     <input type="id" class="form-control" id="exampleInputStudentid"
@@ -149,6 +164,23 @@ require_once '../Controllers/ExamController.php';
                                     <label for="exampleInputStudentgrade" class="form-label">Student Grade</label>
                                     <input type="grade" class="form-control" id="exampleInputStudentgrade">
                                 </div> 
+                                <div class="alert alert-primary" role="alert">
+
+            <!--alert start-->
+                       <?php 
+
+                           if($errMsg!="")
+                           {
+                              ?>
+                                <div class="alert alert-primary" role="alert"><?php echo $errMsg; ?></div>
+                              <?php
+                           }
+                        ?>
+                              <div class="alert alert-primary" role="alert">
+                                A simple primary alert—check it out!
+                            </div>
+
+
 
                                 <button type="submit" class="btn btn-primary">Add</button>
                             </form>
