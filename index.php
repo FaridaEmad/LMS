@@ -25,15 +25,15 @@ if(isset($_POST['email']) && isset($_POST['password']) )
             {
                 session_start();
             }
-            if($_SESSION["userRole"]="Admin")
+            if($_SESSION["userRole"]=="Admin")
             {
                 header("Location:View/admin_dash.php");
             }
-            else if($_SESSION["userRole"]="professsor")
+            else if($_SESSION["userRole"]=="professsor")
             {
                 header("Location:View/prof_dash.php");
             }
-            else if( $_SESSION["userRole"]="co_teacher")
+            else if( $_SESSION["userRole"]=="co_teacher")
             {
                 header("Location:View/ta_dash.php");
             }
