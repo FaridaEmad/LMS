@@ -105,7 +105,7 @@ if(isset($_POST['email']) && isset($_POST['password']) )
                         if($errMsg!="")
                         {
                             ?>
-                            <div class="alert alert_danger" role ="alert"> <?php echo $errMsg?></div>
+                            <div class="alert alert-danger" role ="alert"> <?php echo $errMsg?></div>
                             <?php
                         }
                        // echo $errMsg;
