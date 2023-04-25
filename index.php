@@ -25,7 +25,6 @@ if(isset($_POST['email']) && isset($_POST['password']) )
             {
                 session_start();
             }
-<<<<<<< HEAD
             if($_SESSION["userRole"]="Admin")
             {
                 header("Location:View/admin_dash.php");
@@ -35,17 +34,6 @@ if(isset($_POST['email']) && isset($_POST['password']) )
                 header("Location:View/prof_dash.php");
             }
             else if( $_SESSION["userRole"]="co_teacher")
-=======
-            if($_SESSION["userRole"]=="Admin")
-            {
-                header("Location:View/admin_dash.php");
-            }
-            else if($_SESSION["userRole"]=="professsor")
-            {
-                header("Location:View/prof_dash.php");
-            }
-            else if($_SESSION["userRole"]=="co_teacher")
->>>>>>> 25e4a0143b1b3e3af59d82debc18ea82a06d629f
             {
                 header("Location:View/ta_dash.php");
             }
@@ -139,7 +127,7 @@ if(isset($_POST['email']) && isset($_POST['password']) )
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
                             </div>
                             <a href="">Forgot Password</a>
-                     </div>
+                        </div>
                         <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
 
                         <p class="text-center mb-0">Don't have an Account? <a href="">Sign Up</a></p>
