@@ -25,6 +25,7 @@ if(isset($_POST['email']) && isset($_POST['password']) )
             {
                 session_start();
             }
+<<<<<<< HEAD
             if($_SESSION["userRole"]="Admin")
             {
                 header("Location:View/admin_dash.php");
@@ -34,6 +35,17 @@ if(isset($_POST['email']) && isset($_POST['password']) )
                 header("Location:View/prof_dash.php");
             }
             else if( $_SESSION["userRole"]="co_teacher")
+=======
+            if($_SESSION["userRole"]=="Admin")
+            {
+                header("Location:View/admin_dash.php");
+            }
+            else if($_SESSION["userRole"]=="professsor")
+            {
+                header("Location:View/prof_dash.php");
+            }
+            else if($_SESSION["userRole"]=="co_teacher")
+>>>>>>> 25e4a0143b1b3e3af59d82debc18ea82a06d629f
             {
                 header("Location:View/ta_dash.php");
             }
