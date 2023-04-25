@@ -42,22 +42,26 @@ class CourseController
             echo "Error in Database Connection ";
             return false; 
          }
-    
-         public function deletetCourse( $courseId)
-         {
-              $this->db=new DBController;
-              if($this->db->openConnection())
-              {
-                 $query="delete from course where courseeId = "$courseId"
-                 return $this->db->delete($query);
-              }
-              else
-              {
-                 echo "Error in Database Connection" ;
-                 return false; 
-              }
-         }
+    }
+      
+    public function deletetCourse($courseId)
+    {
+        $this->db=new DBController;
+        if($this->db->openConnection())
+        {
+                   
+           $query= "delete from course where courseId = $courseId";
+            return $this->db->delete($query);
         }
+        else
+        {
+            echo "Error in Database Connection";
+             return false; 
+        }
+   }
+            
+}
+        
     
     ?>
       

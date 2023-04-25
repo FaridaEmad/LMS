@@ -115,7 +115,11 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">All Grades</h6>
+                            <h6 class="mb-4">Grades</h6>
+                            <a href="addgrade.php" class="col-md-2 btn btn-primary float-end" >
+                            <span class="tf-icon bx-add-to-queue">Add Grade</span>
+                        </a>
+                        <br>
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
