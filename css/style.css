@@ -281,3 +281,33 @@
 .errMsg {
     color: red;
 }
+
+.quesCon {
+    color: black;
+    font-weight: bold;
+    font-size: larger;
+}
+
+.owl-nav {
+    position: relative;
+}
+
+.owl-carousel .owl-nav .owl-prev {
+    position: absolute;
+    left: 0;
+    background-color: #009cff;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    font-weight: 500;
+}
+
+.owl-carousel .owl-nav .owl-next {
+    position: absolute;
+    right: 0;
+    background-color: #009cff;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    font-weight: 500;
+}

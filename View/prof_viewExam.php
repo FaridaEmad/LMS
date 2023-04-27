@@ -86,7 +86,6 @@
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
                             <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
-                            <a href="prof_addQues.php" class="dropdown-item">Add Questions</a>
                         </div>
                     </div>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widget</a>
@@ -161,7 +160,6 @@
                                                     <th scope="col">Exam ID</th>
                                                     <th scope="col">Exam Title</th>
                                                     <th scope="col">Exam Duration</th>
-                                                    <th scope="col">Add Questions</i></th>
                                                     <th scope="col">Delete</th>
                                                 </tr>
                                             </thead>
@@ -174,14 +172,6 @@
                                                         <th scope="row"><?php echo $exam["examId"] ?></th>
                                                         <td><?php echo $exam["examName"] ?></td>
                                                         <td><?php echo $exam["examTime"] ?></td>
-                                                        <td>
-                                                            <form action="prof_addQues.php" method="POST">
-                                                                <input type="hidden" name="exIdA" value="<?php echo $exam["examId"] ?>">
-                                                                <button type="submit" name="addQues" class="btn btn-light">
-                                                                    <a href="prof_addQues.php"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                                                </button>
-                                                            </form>
-                                                        </td>
                                                         <td>
                                                             <form action="prof_viewExam.php" method="POST">
                                                                 <input type="hidden" name="exIdD" value="<?php echo $exam["examId"] ?>">
@@ -208,6 +198,8 @@
                                 <div class="col-6 d-flex justify-content-center">
                                     <button class="btn btn-primary"><a href="prof_addAns.php" class="text-light">Answers</a></button>
                                 </div>
+                                <button onclick="downloadPDFWithBrowserPrint()">print</button>
+                                <button onclick="downloadPDFWithjsPDF()">print2</button>
                             </div>
                         </div>
                     </div>
@@ -252,7 +244,27 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+    //    function downloadPDFWithBrowserPrint() {
+  //window.print();
+//}
+//document.querySelector('#browserPrint').addEventListener('click', downloadPDFWithBrowserPrint);
 
+function downloadPDFWithjsPDF() {
+  var doc = new jspdf.jsPDF('p', 'pt', 'a4');
+
+  doc.html(document.querySelector('#styledTable'), {
+    callback: function (doc) {
+      doc.save('MLB World Series Winners.pdf');
+    },
+    margin: [60, 60, 60, 60],
+    x: 32,
+    y: 32,
+  });
+}
+
+document.querySelector('#jsPDF').addEventListener('click', downloadPDFWithjsPDF);
+    </script>
 </body>
 
 </html>

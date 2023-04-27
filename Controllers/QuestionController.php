@@ -10,12 +10,12 @@ class QuestionController
     //1. Open connection.
     //2. Run query & logic.
     //3. Close connection
-   public function getQuestion()
+   public function getQuestion($exam)
    {
       $this->db=new DBController;
       if($this->db->openConnection())
       {
-         $query="select * from question ";
+         $query="select * from question where exam_id = $exam";
          return $this->db->select($query);
       }
       else
@@ -25,12 +25,12 @@ class QuestionController
       }
    }
 
-   public function getQuestionContent($examId)
+   public function getQuestionContent($userId)
    {
       $this->db=new DBController;
       if($this->db->openConnection())
       {
-         $query="select questionContent from question where exam_id = $examId";
+         $query="select questionId , examName , questionContent from question join exam on examId = exam_id where user_id = $userId order by examId";
          return $this->db->select($query);
       }
       else

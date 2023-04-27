@@ -27,6 +27,50 @@ class ExamController
          }
    }
 
+   public function getExamTime($examId)
+   {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select examTime from exam where examId = $examId";
+            return $this->db->select($query);
+         }
+         else
+         {
+            echo "Error in Database Connection";
+            return false; 
+         }
+   }
+   public function getExamName($examId)
+   {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select examName from exam where examId = $examId";
+            return $this->db->select($query);
+         }
+         else
+         {
+            echo "Error in Database Connection";
+            return false; 
+         }
+   }
+
+   public function getExamForStudent()
+   {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select userName , examId , examName , examTime from exam join user on user_id = userId";
+            return $this->db->select($query);
+         }
+         else
+         {
+            echo "Error in Database Connection";
+            return false; 
+         }
+   }
+
 
    public function addExam(Exam $exam)
    {

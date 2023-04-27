@@ -7,51 +7,27 @@
     }
     else
     {
-        if($_SESSION["userRole"] != "professsor")
+        if($_SESSION["userRole"] != "student")
         {
             header("location:../index.php");
         }
     }
-
+    require_once '../Controllers/ExamController.php';
+    require_once '../Models/exam.php';
     require_once '../Models/answer.php';
     require_once '../Controllers/AnswerController.php';
     require_once '../Models/question.php';
     require_once '../Controllers/QuestionController.php';
 
-    $questionController = new QuestionController;
+    $examController = new ExamController;
 
-    if(!isset($_SESSION["userId"]))
-    {
-        session_start();
-    }
-    $errMsq = "";
-    $questions = $questionController->getQuestionContent($_SESSION["userId"]);
-    if(isset($_POST['addAbtn']) && isset($_POST["answer"]))
-    {
-        if( !empty($_POST["answer"]) && !empty($_POST['quesForA']))
-        {
-            $answer = new Answer;
-            $answerCon = new AnswerController;
-            $answer->answerContent = $_POST["answer"];
-            $answer->flag = $_POST["answerFalg"];
-            $answer->question_id = $_POST['quesForA'];
+    $examTime = $examController->getExamTime($_POST["stex"]);
+    $examName = $examController->getExamName($_POST["stex"]);
+    $questions = new QuestionController;
 
-            if($answerCon->addAnswer($answer))
-            {
-                header("location: prof_dash.php");
-            }
-            else
-            {
-                $errMsq = $_SESSION["errMsg"];
-            }
-        }
-        else 
-        {
-            $errMsq = "Please Fill All";
-        }
-    }
-    
+    $questions = $questions->getQuestion($_POST["stex"]);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,11 +57,46 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
 
+    <!--Timer stylesheet-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../lib/count/inc/TimeCircles.js"></script>
+    <link href="../lib/count/inc/TimeCircles.css" rel="stylesheet">
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
 <body>
+    <style>
+        .owl-nav {
+    position: relative;
+}
+
+.owl-carousel .owl-nav .owl-prev {
+    position: absolute;
+    left: 0;
+    background-color: #009cff;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    font-weight: 500;
+}
+
+.owl-carousel .owl-nav .owl-next {
+    position: absolute;
+    right: 0;
+    background-color: #009cff;
+    border-radius: 10px;
+    padding: 5px;
+    color: black;
+    font-weight: 500;
+}
+
+.exam-timer {
+    max-width: 400px;
+    width: 100%;
+    height: 200px;
+}
+    </style>
     <div class="container-xxl position-relative bg-white d-flex p-0">
 
         <!-- Sidebar Start -->
@@ -101,19 +112,20 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <span>Student</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
-                            <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
+                            <a href="button.html" class="dropdown-item">Buttons</a>
+                            <a href="typography.html" class="dropdown-item">Typography</a>
+                            <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widget</a>
+                    <a href="student_exam.php" class="nav-item nav-link active"><i class="far fa-file-alt me-2"></i>Exams</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
@@ -123,7 +135,7 @@
                             <a href="signin.html" class="dropdown-item">Sign In</a>
                             <a href="signup.html" class="dropdown-item">Sign Up</a>
                             <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item active">Prof Page</a>
+                            <a href="blank.html" class="dropdown-item active">Blank Page</a>
                         </div>
                     </div>
                 </div>
@@ -148,7 +160,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -165,42 +177,56 @@
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                <div class="col-sm-12 col-xl-10">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h5 class="mb-4">Add Answer</h5>
-                            <form action="prof_addAns.php" method="POST">
-                                <div class="row mb-3">
-                                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="quesForA">
-                                        <option selected disabled>Select Question</option>
+                    <div class="col-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="row">
+                            <h3 class="mb-4"></h3>
+                            <div class="d-flex justify-content-between direction-row">
+                                <h4><?php echo $examName[0]["examName"]?></h4>
+                                <div class="exam-timer " data-timer="<?php echo $examTime[0]["examTime"]?>"></div>
+                            </div>
+                        </div>
+                            <?php
+                                if(count($questions) == 0)
+                                {
+                                    ?>
+                                    <div class="alert alert-danger" role="alert"> No Available Exams</div>
+                                    <?php
+                                }
+                                else
+                                {
+                                    ?>
+                                    <div class="owl-carousel owl-theme" id="exam-car">
                                         <?php
-                                            foreach($questions as $question)
-                                            {
-                                            ?>
-                                                <option value= "<?php echo $question["questionId"] ?>" > <?php echo $question["examName"] ?> : <?php echo $question["questionContent"] ?> </option>
-                                            <?php
-                                            }
-                                            ?>
-                                    </select>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-4">
-                                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name="answerFalg">
-                                            <option selected >False</option>
-                                            <option value="1">True</option>
-                                        </select>
+                                        foreach($questions as $question)
+                                        {
+                                        ?>
+                                            <div class="item">
+                                                <div class="row text-dark p-3">
+                                                    <h4><?php echo $question["questionContent"] ?></h4>
+                                                </div>
+                                                <?php
+                                                    $answers = new AnswerController;
+                                                    $answers = $answers->getAnswer( $question["questionId"]);
+                                                    foreach($answers as $answer)
+                                                    {
+                                                        ?>
+                                                        <label>
+                                                        <input type="radio" name="<?php echo $answer["question_id"] ?>" value="<?php echo $answer["flag"] ?>"><h6> <?php echo $answer["answerContent"];?></h6>
+                                                        </label>
+                                                        <br>
+                                                        <?php 
+                                                    }
+                                                ?>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
+                                        
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Answer</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputEmail3" name="answer">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <span class="errMsg"><?php echo $errMsq; ?></span>
-                                </div>
-                                <input type="submit" name="addAbtn" class="btn btn-primary" value="Add">
-                            </form>
+                                    <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -234,17 +260,55 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
+    <script src="../lib/chart/chart.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../lib/count/inc/TimeCircles.js"></script>
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 
+    <script>
+        $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:1
+        }
+    }
+})
+
+$(".exam-timer").TimeCircles({
+    circle_bg_color: "#fff",
+    time: {
+        Days: { show: false },
+        Hours: { color: "#009cff" },
+        Minutes: { color: "#009cff" },
+        Seconds: { color: "#009cff" }
+    }
+
+});
+
+setInterval(function(){
+    var remaining_seconds = $('.exam-timer').TimeCircles().getTime();
+    if(remaining_seconds < 1)
+    {
+        alert('Exam time is over');
+        location.reload();
+    }
+}, 1000)
+    </script>
+    
 </body>
-
 </html>

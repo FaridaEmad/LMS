@@ -112,7 +112,6 @@
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
                             <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
-                            <a href="prof_addQues.php" class="dropdown-item">Add Questions</a>
                         </div>
                     </div>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widget</a>

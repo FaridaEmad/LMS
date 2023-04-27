@@ -9,12 +9,12 @@ class AnswerController
     //1. Open connection.
     //2. Run query & logic.
     //3. Close connection
-   public function getAnswer()
+   public function getAnswer($qesId)
    {
       $this->db=new DBController;
       if($this->db->openConnection())
       {
-         $query="select * from answer";
+         $query="select * from answer where question_id = $qesId";
          return $this->db->select($query);
       }
       else

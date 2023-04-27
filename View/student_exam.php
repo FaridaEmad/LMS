@@ -1,3 +1,25 @@
+<?php
+
+    session_start();
+    if(!isset($_SESSION["userRole"]))
+    {
+        header("location:../index.php");
+    }
+    else
+    {
+        if($_SESSION["userRole"] != "student")
+        {
+            header("location:../index.php");
+        }
+    }
+    require_once '../Controllers/ExamController.php';
+    require_once '../Models/exam.php';
+
+    $examController = new ExamController;
+
+    $exams = $examController->getExamForStudent();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,12 +82,12 @@
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="student_exam.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Exams</a>
+                    <a href="student_exam.php" class="nav-item nav-link active"><i class="far fa-file-alt me-2"></i>Exams</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="signin.html" class="dropdown-item">Sign In</a>
                             <a href="signup.html" class="dropdown-item">Sign Up</a>
@@ -113,43 +135,58 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-12">
-                        <div class="bg-light rounded h-100 p-4">
+                    <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">All Exams</h6>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Exam ID</th>
-                                            <th scope="col">Exam Title</th>
-                                            <th scope="col">Exam Duration</th>
-                                            <th scope="col">Edit</i></th>
-                                            <th scope="col">Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>John</td>
-                                            <td>Doe</td>
-                                            <td>jhon@email.com</td>
-                                            <td>USA</td>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>mark@email.com</td>
-                                            <td>UK</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>jacob@email.com</td>
-                                            <td>AU</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <?php
+                                if(count($exams) == 0)
+                                {
+                                    ?>
+                                    <div class="alert alert-danger" role="alert"> No Available Exams</div>
+                                    <?php
+                                }
+                                else
+                                {
+                                    ?>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Professsor Name</th>
+                                                    <th scope="col">Exam ID</th>
+                                                    <th scope="col">Exam Title</th>
+                                                    <th scope="col">Exam Duration</th>
+                                                    <th scope="col">Take Exam</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    <?php
+                                    foreach($exams as $exam)
+                                    {
+                                        ?>
+                                                    <tr>
+                                                        <th scope="row"><?php echo $exam["userName"] ?></th>
+                                                        <td><?php echo $exam["examId"] ?></td>
+                                                        <td><?php echo $exam["examName"] ?></td>
+                                                        <td><?php echo $exam["examTime"] ?></td>
+                                                        <td>
+                                                            <form action="student_takeExam.php" method="POST">
+                                                                <input type="hidden" name="stex" value="<?php echo $exam["examId"] ?>">
+                                                                <button type="submit" name="takeExam" class="btn btn-primary">
+                                                                    Take Exam
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                
+                                        <?php
+                                    }
+                                    ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
