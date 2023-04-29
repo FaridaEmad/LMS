@@ -33,7 +33,7 @@ class GradeController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into grade values ('','$grade->course_id','$grade->user_id','$grade->studentGrade')";
+            $query="insert into grade values ('','$grade->exam_id','$grade->user_id','$grade->studentGrade')";
             return $this->db->insert($query);
          }
          else
