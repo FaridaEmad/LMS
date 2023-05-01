@@ -1,3 +1,10 @@
+<?php
+require_once '../Models/user.php';
+require_once '../Controllers/UserController.php';
+
+//if(isset($_SESSION['email']) && isset($_SESSION['password']) )
+//{
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,10 +15,10 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     
-	
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
+
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +46,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="../index.php" class="navbar-brand mx-4 mb-3">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -101,7 +108,7 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
+                            
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
@@ -115,6 +122,28 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
+                       
+                    <form action="edit_password.php" method="POST">
+                         <h3>Edit Password</h3>
+                            <?php if (isset($_GET['error'])) { ?>
+     		                   <p class="error"><?php echo $_GET['error']; ?></p>
+     	                    <?php } ?>
+                            <?php if (isset($_GET['success'])) { ?>
+                              <p class="success"><?php echo $_GET['success']; ?></p>
+                            <?php } ?>
+                            <label>Old Password</label>
+     	                    <input type="password" name="op" placeholder="Old Password">
+                            <br>
+                            <label>New Password</label>
+     	                    <input type="password"  name="np" placeholder="New Password"> 
+                            <br>
+                            <label>Confirm New Password</label>
+     	                    <input type="password" name="c_np" placeholder="Confirm New Password">
+                            <br>
+                            <button type="submit">CHANGE</button>
+                        
+                        </form>
+     	      
                     </div>
                 </div>
             </div>
@@ -160,4 +189,6 @@
 </body>
 
 </html>
+
+
 

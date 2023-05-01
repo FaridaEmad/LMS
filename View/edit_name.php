@@ -1,3 +1,10 @@
+<?php
+require_once '../Models/user.php';
+require_once '../Controllers/UserController.php';
+
+//if(isset($_SESSION['email']) && isset($_SESSION['password']) )
+//{
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +46,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="../index.php" class="navbar-brand mx-4 mb-3">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -101,7 +108,7 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
+                            
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
@@ -115,6 +122,26 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
+                    <form action="edit_password.php" method="POST">
+                         <h3>Edit Name</h3>
+                            <?php if (isset($_GET['error'])) { ?>
+     		                   <p class="error"><?php echo $_GET['error']; ?></p>
+     	                    <?php } ?>
+                            <?php if (isset($_GET['success'])) { ?>
+                              <p class="success"><?php echo $_GET['success']; ?></p>
+                            <?php } ?>
+                            <label>Old Name</label>
+     	                    <input type="text" name="on" placeholder="Old Name">
+                            <br>
+                            <label>New Name</label>
+     	                    <input type="text"  name="nn" placeholder="New Name"> 
+                            <br>
+                            <label>Confirm New Name</label>
+     	                    <input type="Name" name="c_nn" placeholder="Confirm New Name">
+                            <br>
+                            <button type="submit">CHANGE</button>
+                        
+                        </form>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,13 @@
 require_once 'Models/user.php';
 require_once 'Controllers/AuthController.php';
 $errMsg="";
+if(isset($_GET["Log Out"]))
+    {
+      session_start();
+      session_destroy();
+             
+   }
+   
 if(isset($_POST['email']) && isset($_POST['password']) )
 {
     if(!empty($_POST['email']) && !empty($_POST['password']))

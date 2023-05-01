@@ -17,6 +17,7 @@ class AuthController
         {
             $query="select * from user where email='$user->email' and password ='$user->password'";
             $result=$this->db->select($query);
+        
             if($result===false)
             {
                 echo "Error in Query";
@@ -98,3 +99,4 @@ class AuthController
 }
 
 ?>
+
