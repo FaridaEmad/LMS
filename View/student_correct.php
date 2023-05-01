@@ -34,7 +34,10 @@
 
         foreach($questions as $question)
         {
-            $grades = $grades + $_POST[$question["questionId"]];
+            if(!empty($_POST[$question["questionId"]]))
+            {
+                $grades = $grades + $_POST[$question["questionId"]];
+            }
         }
         $grade = new Grade;
         $gradeCon = new GradeController;
@@ -143,8 +146,7 @@
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                    <a href="student_exam.php" class="nav-item nav-link active"><i class="far fa-file-alt me-2"></i>Exams</a>                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
