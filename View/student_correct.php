@@ -1,3 +1,55 @@
+<?php
+
+    session_start();
+    if(!isset($_SESSION["userRole"]))
+    {
+        header("location:../index.php");
+    }
+    else
+    {
+        if($_SESSION["userRole"] != "student")
+        {
+            header("location:../index.php");
+        }
+    }
+    require_once '../Controllers/ExamController.php';
+    require_once '../Models/exam.php';
+    require_once '../Models/answer.php';
+    require_once '../Controllers/AnswerController.php';
+    require_once '../Models/question.php';
+    require_once '../Controllers/QuestionController.php';
+    require_once '../Controllers/GradeController.php';
+    require_once '../Models/grade.php';
+
+    $errMsq = "";
+
+    
+    $examController = new ExamController;
+    $examId = $_POST["stex2"]; 
+
+    $questions = new QuestionController;
+
+    $questions = $questions->getQuestion($examId);
+    $grades = 0;
+
+        foreach($questions as $question)
+        {
+            $grades = $grades + $_POST[$question["questionId"]];
+        }
+        $grade = new Grade;
+        $gradeCon = new GradeController;
+        $grade->user_id = $_SESSION["userId"];
+        $grade->exam_id = $examId;
+        $grade->studentGrade = $grades;
+        if($gradeCon->addGrade($grade))
+        {
+            $done = "Exam submitted successfully";
+        }
+        else
+        {
+            $errMsq = $_SESSION["errMsg"];
+        }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,6 +84,37 @@
 </head>
 
 <body>
+    <style>
+.grCir {
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border-color: #198754 !important;
+    border: 25px;
+    align-items: center;
+    display: flex;
+    border-style: double;
+}
+.grCir h1{
+    margin-left: 95px;
+}
+.rdCir
+{
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border-color: #dc3545 !important;
+    border: 25px;
+    align-items: center;
+    display: flex;
+    border-style: double;
+}
+.rdCir h1{
+    margin-left: 95px;
+}
+    </style>
     <div class="container-xxl position-relative bg-white d-flex p-0">
 
         <!-- Sidebar Start -->
@@ -47,7 +130,7 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <span>Student</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -70,7 +153,7 @@
                             <a href="signin.html" class="dropdown-item">Sign In</a>
                             <a href="signup.html" class="dropdown-item">Sign Up</a>
                             <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item active">Prof Page</a>
+                            <a href="blank.html" class="dropdown-item active">Blank Page</a>
                         </div>
                     </div>
                 </div>
@@ -95,7 +178,7 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -112,8 +195,23 @@
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>Admin page</h3>
+                    <div class="col-md-6 text-center d-flex align-items-center justify-content-center">
+                        <?php 
+                            if($grades < count($questions)/2)
+                            {?>
+                            <div class="bg-seccuess rdCir"> 
+                                <h1 class="text-danger"><?php echo $grades?>/<?php echo count($questions); ?></h1>
+                            </div>
+                        <?php
+                            }
+                            else
+                            {?>
+                            <div class="bg-seccuess grCir"> 
+                                <h1 class="text-success"><?php echo $grades?>/<?php echo count($questions); ?></h1>
+                            </div>
+                            <?php 
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -146,16 +244,16 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../lib/chart/chart.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>

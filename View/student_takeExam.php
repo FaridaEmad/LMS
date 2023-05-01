@@ -19,23 +19,42 @@
     require_once '../Models/question.php';
     require_once '../Controllers/QuestionController.php';
 
-    $examController = new ExamController;
+    $errMsq = "";
 
-    $examTime = $examController->getExamTime($_POST["stex"]);
-    $examName = $examController->getExamName($_POST["stex"]);
+    
+    $examController = new ExamController;
+    $examId = $_POST["stex"]; 
+
+    $examTime = $examController->getExamTime($examId);
+    $examName = $examController->getExamName($examId);
     $questions = new QuestionController;
 
-    $questions = $questions->getQuestion($_POST["stex"]);
+    $questions = $questions->getQuestion($examId);
     $grades = 0;
+
     if(isset($_POST["subAns"]))
     {
         foreach($questions as $question)
         {
             $grades = $grades + $_POST[$answer["question_id"]];
         }
-        //$grade = new Grade;
-        //$gradeCon = new GradeController;
-        echo $grades;
+        $grade = new Grade;
+        $gradeCon = new GradeController;
+        $grade->user_id = $_SESSION["userId"];
+        $grade->exam_id = $examId;
+        $grade->studentGrade = $grades;
+        if($gradeCon->addGrade($grade))
+        {
+            header("location: student_dash.php");
+        }
+        else
+        {
+            $errMsq = $_SESSION["errMsg"];
+        }
+    }
+    else
+    {
+
     }
 ?>
 
@@ -207,7 +226,7 @@
                                 else
                                 {
                                     ?>
-                                <form action="student_takeExam.php" method="POST">
+                                <form action="student_correct.php" method="POST">
                                     <div class="owl-carousel owl-theme" id="exam-car">
                                         <?php
                                         foreach($questions as $question)
@@ -240,7 +259,11 @@
                                 }
                             ?>
                             <input type="submit" value="Submit" name="subAns" class="btn btn-primary">
+                            <input type="hidden" name="stex2" value="<?php echo $examId ?>">
                             </form>
+                            <?php
+                            
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -319,7 +342,7 @@ setInterval(function(){
     if(remaining_seconds < 1)
     {
         alert('Exam time is over');
-        location.reload();
+        
     }
 }, 1000)
     </script>
