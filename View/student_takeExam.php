@@ -26,6 +26,17 @@
     $questions = new QuestionController;
 
     $questions = $questions->getQuestion($_POST["stex"]);
+    $grades = 0;
+    if(isset($_POST["subAns"]))
+    {
+        foreach($questions as $question)
+        {
+            $grades = $grades + $_POST[$answer["question_id"]];
+        }
+        //$grade = new Grade;
+        //$gradeCon = new GradeController;
+        echo $grades;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -196,6 +207,7 @@
                                 else
                                 {
                                     ?>
+                                <form action="student_takeExam.php" method="POST">
                                     <div class="owl-carousel owl-theme" id="exam-car">
                                         <?php
                                         foreach($questions as $question)
@@ -227,6 +239,8 @@
                                     <?php
                                 }
                             ?>
+                            <input type="submit" value="Submit" name="subAns" class="btn btn-primary">
+                            </form>
                         </div>
                     </div>
                 </div>
