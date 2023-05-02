@@ -1,5 +1,5 @@
 <?php 
-require_once '../Models/user.php';
+require_once 'Models/user.php';
 require_once 'DBController.php';
 
 class AuthController
@@ -68,7 +68,7 @@ class AuthController
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-            $query="insert into users values ('','$user->userName','$user->email','$user->password',1,1)";
+            $query="insert into user values ('','$user->userName','$user->email','$user->password',1,1)";
             $result=$this->db->insert($query);
             if($result!=false)
             {

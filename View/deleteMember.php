@@ -1,18 +1,3 @@
-<?php
-require_once '../Models/user.php';
-require_once '../Controllers/AuthController.php';
-
-    if(!isset($_SESSION["userId"]))
-    {
-        session_start();
-    }
-    $errMsg= "";
-    if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name']) )
-{
-    if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['name']))
-    {}
-}      
-    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,9 +115,9 @@ require_once '../Controllers/AuthController.php';
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
-                        <h3>Delet Member</h3>
+                       <h3>Delete Member</h3>
                     <form  id="formAuthentication" class="mb_3"action="index.php" method="POST">
-                     <div class="form-floating mb-3">
+                        <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="userName" placeholder="Inter yiur name" name="name" autofocus>
                             <label for="floatingInput">Name</label>
                         </div>
@@ -151,16 +136,16 @@ require_once '../Controllers/AuthController.php';
                             </div>
                             <a href="">Forgot Password</a>
                         </div>
-                        <button type="submit" class="btn btn-outline-danger">Delet </button>
-                        
-                        
-                     </div>
-                    </form>
-                    </div>
+                        <button type="submit" class="btn btn-outline-danger">Delete </button>
+                        </div>
+                    </form>  
+                     
+                    
                 </div>
             </div>
             <!-- Blank End -->
-           
+
+
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
@@ -200,3 +185,4 @@ require_once '../Controllers/AuthController.php';
 </body>
 
 </html>
+
