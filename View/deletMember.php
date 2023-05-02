@@ -1,4 +1,18 @@
+<?php
+require_once '../Models/user.php';
+require_once '../Controllers/AuthController.php';
 
+    if(!isset($_SESSION["userId"]))
+    {
+        session_start();
+    }
+    $errMsg= "";
+    if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name']) )
+{
+    if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['name']))
+    {}
+}      
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +54,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -102,7 +116,7 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            
+                            <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>
@@ -116,32 +130,37 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
-                    <h3>Edit Name</h3>
-                    
-                    <form  id="formAuthentication" class="mb_3"action="edit_name.php" method="POST">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" autofocus>
-                            <label for="floatingInput">Old Name</label>
+                        <h3>Delet Member</h3>
+                    <form  id="formAuthentication" class="mb_3"action="index.php" method="POST">
+                     <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="userName" placeholder="Inter yiur name" name="name" autofocus>
+                            <label for="floatingInput">Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="name" placeholder="Enter your new name" name="name" autofocus>
-                            <label for="floatingInput">New Name</label>
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" autofocus>
+                            <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="name" placeholder="confirm your name" name="name" aria-describedby="password">
-                            <label for="floatingPassword">Confirm Name</label>
-                         
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Change</button>
-                         
-
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" aria-describedby="password">
+                            <label for="floatingPassword">Password</label>
                         </div>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+                            <a href="">Forgot Password</a>
+                        </div>
+                        <button type="submit" class="btn btn-outline-danger">Delet </button>
+                        
+                        
+                     </div>
                     </form>
                     </div>
                 </div>
             </div>
             <!-- Blank End -->
-
-
+           
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
@@ -181,4 +200,3 @@
 </body>
 
 </html>
-

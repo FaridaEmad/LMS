@@ -1,10 +1,52 @@
 <?php
-require_once '../Models/user.php';
-require_once '../Controllers/UserController.php';
+ session_start();
+ if(!isset($_SESSION["userRole"]))
+ {
+     header("location:../index.php");
+ }
+ 
+    require_once '../Models/user.php';
+    require_once '../Controllers/UserController.php';
+    $errMsg = "";
+    if(!isset($_SESSION["userId"]))
+    {
+        session_start();
+    }
+    
+    if(isset($_POST['userName'])&& ($_POST['email']) && ($_POST['password']))
+    {
+        if(!empty($_POST['userName']) && !empty($_POST['email']) &&!empty($_POST['password']))
+        {
+            $user = new user;
+            $userCon = new UserController;
+            $user->userName=$_POST['userName'];
+            $user->email=$_POST['email'];
+            $user->password=$_POST['password'];
+            $user->dept_id=$_SESSION['dept_id'];
+            $user->role_id=$_SESSION['role_id'];
+            if($UserCon->update($user))
+            {
+                header("Location:View/prof_dash.php");
+                
+              /*if(!isset($_SESSION["userId"]))
+                {
+                    session_start();
+                }
 
-//if(isset($_SESSION['email']) && isset($_SESSION['password']) )
-//{
-    ?>
+                $errMsg=$_SESSION["errMsg"];*/
+            
+            }
+        } 
+        else
+        {
+            $errMsg="Please fill all fields";  
+
+        }
+       
+    }
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -122,29 +164,35 @@ require_once '../Controllers/UserController.php';
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
-                       
-                    <form action="edit_password.php" method="POST">
-                         <h3>Edit Password</h3>
-                            <?php if (isset($_GET['error'])) { ?>
-     		                   <p class="error"><?php echo $_GET['error']; ?></p>
-     	                    <?php } ?>
-                            <?php if (isset($_GET['success'])) { ?>
-                              <p class="success"><?php echo $_GET['success']; ?></p>
-                            <?php } ?>
-                            <label>Old Password</label>
-     	                    <input type="password" name="op" placeholder="Old Password">
-                            <br>
-                            <label>New Password</label>
-     	                    <input type="password"  name="np" placeholder="New Password"> 
-                            <br>
-                            <label>Confirm New Password</label>
-     	                    <input type="password" name="c_np" placeholder="Confirm New Password">
-                            <br>
-                            <button type="submit">CHANGE</button>
-                        
-                        </form>
-     	      
-                    </div>
+                        <h3>Edit Password</h3>
+                        <?php
+                        if($errMsg!="")
+                        {
+                            ?>
+                            <div class="alert alert-danger" role ="alert"> <?php echo $errMsg?></div>
+                            <?php
+                        }
+                       // echo $errMsg;
+                        ?>
+                    <form  id="formAuthentication" class="mb_3"action="edit_password.php" method="POST">
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="password" name="password" aria-describedby="password">
+                            <label for="floatingInput">Old password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="password" name="password" aria-describedby="password">
+                            <label for="floatingInput">New Password</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" aria-describedby="password">
+                            <label for="floatingPassword">Confirm Password</label>
+                         
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Change</button>
+                         
+
+                        </div>
+                    </form>
+                  </div>
                 </div>
             </div>
             <!-- Blank End -->

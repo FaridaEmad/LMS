@@ -1,6 +1,5 @@
 <?php 
-
-require_once 'Models/user.php';
+require_once '../Models/user.php';
 require_once 'DBController.php';
 
 class AuthController
