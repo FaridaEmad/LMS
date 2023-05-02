@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../Modells/course.php';
+require_once '../Models/course.php';
 require_once '../Controllers/DBController.php';
 class CourseController
 {
@@ -34,7 +34,7 @@ class CourseController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into course values ('','$course->courseName','$course->coursePrerequisite','$course->user_id','$course->day','$course->from','$course->to)";
+            $query="insert into course values ('','$course->courseName','$course->coursePrerequisite','$course->user_id','$course->day','$course->from','$course->to')";
             return $this->db->insert($query);
          }
          else
