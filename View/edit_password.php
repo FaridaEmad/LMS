@@ -13,33 +13,32 @@
         session_start();
     }
     
-    if(isset($_POST['userName'])&& ($_POST['email']) && ($_POST['password']))
+    if(isset ($_SESSION['password']))
     {
-        if(!empty($_POST['userName']) && !empty($_POST['email']) &&!empty($_POST['password']))
+        if(!empty($_SESSION['password']))
         {
-            $user = new user;
-            $userCon = new UserController;
-            $user->userName=$_POST['userName'];
-            $user->email=$_POST['email'];
-            $user->password=$_POST['password'];
-            $user->dept_id=$_SESSION['dept_id'];
-            $user->role_id=$_SESSION['role_id'];
-            if($UserCon->update($user))
+            $user=new User;
+            $User=new UserController;
+            $user-> old_password= $_POST['password'];
+            if($User->update($user))
             {
-                header("Location:View/prof_dash.php");
+                header("location: editprofile.php");
+            }
+            else
+            {
                 
-              /*if(!isset($_SESSION["userId"]))
-                {
-                    session_start();
-                }
-
-                $errMsg=$_SESSION["errMsg"];*/
+        
+              $errMsq = $_SESSION["errMsg"];
             
             }
-        } 
+           
+        }
+       
+           
+            
         else
         {
-            $errMsg="Please fill all fields";  
+            $errMsg="Please fill the field";  
 
         }
        
@@ -240,3 +239,4 @@
 
 
 
+ 

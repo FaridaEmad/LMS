@@ -1,6 +1,6 @@
 <?php
 require_once '../Models/user.php';
-require_once '../Controllers/AuthController.php';
+require_once '../Controllers/AuthController2.php';
 
     if(!isset($_SESSION["userId"]))
     {
@@ -13,7 +13,7 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name']) 
     if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['name']))
     {
         $user = new user;
-        $auth=new AuthController;
+        $auth=new AuthController2;
         $user->userName=$_POST['name'];
         $user->email=$_POST['email'];
         $user->password=$_POST['password'];
