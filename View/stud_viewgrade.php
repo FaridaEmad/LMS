@@ -74,6 +74,16 @@ $grades = $gradeController->getstudGrade();
                             <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
+
+                        <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Grades</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="addgrade.php" class="dropdown-item">Add Grade</a>
+                            <a href="prof_viewgrade.php" class="dropdown-item">View  Grade</a>
+                         
+                        </div>
+
+
                     </div>
 
                     <div class="nav-item dropdown">
@@ -237,13 +247,13 @@ $grades = $gradeController->getstudGrade();
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="./lib/chart/chart.min.js"></script>
+    <script src="./lib/easing/easing.min.js"></script>
+    <script src="./lib/waypoints/waypoints.min.js"></script>
+    <script src="./lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="./lib/tempusdominus/js/moment.min.js"></script>
+    <script src="./lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="./lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
