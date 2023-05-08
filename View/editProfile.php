@@ -1,3 +1,17 @@
+<?php
+ session_start();
+ if(!isset($_SESSION["userRole"]))
+ {
+     header("location:../index.php");
+ }
+ /*else
+ {
+    if($_SESSION["userRole"] !="Admin")
+        {
+            header("location:../index.php");
+        }
+ }*/
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +61,9 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Professor</span>
+                        <span><?php
+                       echo $_SESSION["userRole"];
+                        ?></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">

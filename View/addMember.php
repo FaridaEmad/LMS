@@ -1,6 +1,13 @@
 <?php
 require_once '../Models/user.php';
 require_once '../Controllers/AuthController2.php';
+require_once '../Controllers/RoleController.php';
+require_once '../Controllers/DeptController.php';
+$RoleCont= new RoleController;
+$DeptCont= new DeptController;
+$roles = $RoleCont->getRoles();
+$depts = $DeptCont->getDept();
+
 
    /* if(!isset($_SESSION["userId"]))
     {
@@ -9,16 +16,18 @@ require_once '../Controllers/AuthController2.php';
     $errMsg= "";
     $AddMsg="";
 
-if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR']) )
+if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR']) &&  isset($_POST['roleR']) &&  isset($_POST['deptR']) )
 {
-    if(!empty($_POST['name'] )&& !empty($_POST['emailR'] )&& !empty($_POST['passwordR']))
+    if(!empty($_POST['name'] )&& !empty($_POST['emailR'] )&& !empty($_POST['passwordR']) && !empty($_POST['roleR'] ) && !empty($_POST['deptR'] ))
     {
         $user = new User;
-        $authController2=new AuthController2;
+        $authController2 =new AuthController2;
         $user->userName=$_POST['name'];
         $user->email=$_POST['emailR'];
         $user->password=$_POST['passwordR'];
-        if($authController2->register($user))
+        $user->role_id=$_POST['roleR'];
+        $user->dept_id=$_POST['deptR'];
+        if( $authController2->register($user))
         {
             $AddMsg="Added successfully";
 
@@ -43,7 +52,7 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
         else
         {
             
-            $errMsg= $_SESSION =["errMsg"];
+            $errMsg= "You Have Entered Something Wrong";
         }
     }
     else
@@ -190,9 +199,44 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
                             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="passwordR" aria-describedby="password">
                             <label for="floatingPassword">Password</label>
                         </div>
+                        <div>
+                        <div class="form-floating mb-4">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="roleR">
+                                    <option selected disabled>Select Role</option>
+                                    <?php
+                                        foreach($roles as $role)
+                                        {
+                                        ?>
+                                                    
+                                                    <option value= "<?php echo $role["roleId"] ?>" > <?php echo $role["roleName"] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                        </select>
+
+
+                        </div>
+                        <div class="form-floating mb-4">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="deptR">
+                                    <option selected disabled>Select Department</option>
+                                    <?php
+                                        foreach($depts as $dept)
+                                        {
+                                        ?>
+                                                    
+                                                    <option value= "<?php echo $dept["deptId"] ?>" > <?php echo $dept["deptName"] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                        </select>
+                        
+
+                        </div>
                         <div class="row mb-3">
                                     <span class="errMsg"><?php echo $errMsg; ?></span>
+
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">Add</button>
 
                        
