@@ -66,9 +66,8 @@ class UserController
                   echo "Error in Database Connection";
                   return false; 
                }
-               public function update(User $user)
-         {
-               $this->db=new DBController;
+               function update(User $user)
+         {$this->db=new DBController;
                if($this->db->openConnection())
                {
                   $query="update into user values where userId= ?('$user->role_id')";
@@ -80,6 +79,6 @@ class UserController
                   return false; 
                }
             }
-         } 
+         } }
       
 ?>

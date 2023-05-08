@@ -5,6 +5,7 @@ require_once '../Models/exam.php';
 require_once '../Controllers/DBController.php';
 class ExamController
 {
+   
    protected $db;
 
     //1. Open connection.
