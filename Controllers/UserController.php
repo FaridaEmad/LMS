@@ -44,7 +44,7 @@ class UserController
                $this->db=new DBController;
                if($this->db->openConnection())
                {
-                  $query="delete from user where userId = $userId";
+                  $query="delete from user where userId = $C";
                   return $this->db->delete($query);
                }
                else
@@ -53,7 +53,7 @@ class UserController
                   return false; 
                }
          }
-         public function update(User $user)
+         /*public function update(User $user)
          {
                $this->db=new DBController;
                if($this->db->openConnection())
@@ -65,13 +65,13 @@ class UserController
                {
                   echo "Error in Database Connection";
                   return false; 
-               }
-               public function update(User $user)
+               }*/
+               public function updatePassword(User $user)
          {
                $this->db=new DBController;
                if($this->db->openConnection())
                {
-                  $query="update into user values where userId= ?('$user->role_id')";
+                  $query="update user  SET password = $user->password where userId = $user->userId";
                   return $this->db->update($query);
                }
                else
@@ -80,6 +80,21 @@ class UserController
                   return false; 
                }
             }
+            public function updateName(User $user)
+            {
+                  $this->db=new DBController;
+                  if($this->db->openConnection())
+                  {
+                     $query="update user 
+                      SET userName = \"$user->userName\" where userId = $user->userId";
+                     return $this->db->update($query);
+                  }
+                  else
+                  {
+                     echo "Error in Database Connection";
+                     return false; 
+                  }
+               }
          } 
       
 ?>

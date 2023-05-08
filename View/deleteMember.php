@@ -1,18 +1,61 @@
 <?php
  session_start();
- if(!isset($_SESSION["userRole"]))
+ /*if(!isset($_SESSION["userRole"]))
  {
      header("location:../index.php");
  }
- 
+ else
+ {
+    if($_SESSION["userRole"] != "Admin")
+        {
+            header("location:../index.php");
+        }
+ }*/
     require_once '../Models/user.php';
     require_once '../Controllers/UserController.php';
     $errMsg = "";
+    $deleteMsg="";
+   
     if(!isset($_SESSION["userId"]))
     {
         session_start();
     }
     
+    if(isset($_POST['userIdD']))
+    {
+        if(!empty($_POST['userIdD']))
+        {
+            $user=new User;
+            $UserContro=new UserController;
+            $user->userId= $_POST['userIdD'];
+           // $user->userId=$_SESSION["userId"];
+            if($UserContro->deletetUser($userId))
+            {
+                //if(isset($_POST['passwordN'])===isset( $_POST['passwordC']))
+                //{
+                    $deleteMsg="Deleted Successfully";
+               // }
+              
+                
+            }
+            else
+                {
+                    
+            
+                  $errMsg = $_SESSION["errMsg"];
+                
+                }
+        }
+    
+        else
+        {
+            $errMsg="Please Fill The Field";  
+
+        }
+       
+    }
+    
+
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,15 +177,19 @@
                        <h3>Delete Member</h3>
                     <form  id="formAuthentication" class="mb_3"action="index.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="userName" placeholder="Inter yiur name" name="id" autofocus>
-                            <label for="floatingInput">ID</label>
+                            <input type="text" class="form-control" id="userName" placeholder="Inter yiur name" name="userIdD" autofocus>
+                            <label for="floatingInput">User Id</label>
                     
                         </div>
     
                         <button type="submit" class="btn btn-outline-danger">Delete </button>
                         </div>
                     </form>  
-                     
+                    <div class="deleteMsg">
+                    <?php
+                    echo $deleteMsg;
+                    ?>
+                  </div>
                     
                 </div>
             </div>
