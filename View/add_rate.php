@@ -7,7 +7,7 @@
     }
     else
     {
-        if($_SESSION["userRole"] != "Admin")
+        if($_SESSION["userRole"] != "student")
         {
             header("location:../index.php");
         }
