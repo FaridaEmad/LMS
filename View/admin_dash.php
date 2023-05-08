@@ -61,7 +61,8 @@
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="addMember.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
+                    <a href="addMember.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Member</a>
+                    <a href="deleteMember.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Delete Member</a>
                     
                     
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
@@ -73,7 +74,7 @@
                             <a href="signin.html" class="dropdown-item">Sign In</a>
                             <a href="signup.html" class="dropdown-item">Sign Up</a>
                             <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="deleteMember.php" class="dropdown-item">Delete Member</a>
+                           
                             
                             </a>
                         </div>

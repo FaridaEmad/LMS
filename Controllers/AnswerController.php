@@ -1,5 +1,5 @@
 <?php
-require_once 'Models/answer.php';
+require_once '../Models/answer.php';
 require_once '../Controllers/DBController.php';
 class AnswerController
 {

@@ -64,6 +64,7 @@
                     <a href="" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
                     <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>enroll subject</a>
                     <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
+                    <a href="student_exam.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Take Exam</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">

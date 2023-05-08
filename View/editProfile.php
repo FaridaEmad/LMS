@@ -97,11 +97,7 @@
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="edit_name.php" class="dropdown-item" >Edit Name</a>
-                            <a href="edit_password.php" class="dropdown-item" >Edit Password</a>
-                           
-                        </div>
+                    
 
                     </div>
                 </div>

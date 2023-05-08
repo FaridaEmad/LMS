@@ -15,10 +15,14 @@
         session_start();
     }
     
-    if(isset($_POST['nameO'])&& isset($_POST['nameN'])&&isset($_POST['nameC']))
+    if(isset($_POST['nameN'])&&isset($_POST['nameC']))
     {
-        if(!empty(($_POST['nameO'])&& !empty($_POST['nameN'])&& !empty($_POST['nameC'])))
+        if(!empty($_POST['nameN'])&& !empty($_POST['nameC']))
         {
+            if(($_POST['nameN'])==($_POST['nameC']))
+            {
+
+            }
             $user=new User;
             $UserContr=new UserController;
             $user->password= $_POST['nameN'];
@@ -28,7 +32,7 @@
             {
                 if(isset($_POST['nameN'])===isset( $_POST['nameC']))
                 {
-                    $changeMsg="Password has been changed successfully";
+                    $changeMsg="Name has been changed successfully";
                 }
               
                 
@@ -172,10 +176,7 @@
                     <h3>Edit Name</h3>
                     
                     <form  id="formAuthentication" class="mb_3"action="edit_name.php" method="POST">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="userName" placeholder="Enter your name" name="nameO" autofocus>
-                            <label for="floatingInput">Old Name</label>
-                        </div>
+                        
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="userName" placeholder="Enter your new name" name="nameN" autofocus>
                             <label for="floatingInput">New Name</label>
