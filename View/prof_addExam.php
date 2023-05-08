@@ -107,6 +107,8 @@
                             <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
                         </div>
                     </div>
+
+                    <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widget</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>

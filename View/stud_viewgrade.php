@@ -1,36 +1,20 @@
-<?php 
+<?php
 
-require_once '../Models/grade.php';
+
 require_once '../Controllers/GradeController.php';
-$errMsg="";
+require_once '../Models/grade.php';
 
-if (isset($_POST['gradeId']) && isset($_POST['course_id']) && isset($_POST['user_id'])&& isset($_POST['studentGrade']) ) {
-    if (!empty($_POST['gradeId']) && !empty($_POST['course_id']) && !empty($_POST['user_id']) && !empty($_POST['studentGrade'])) {
-   
-        $grade = new Grade ;
-        $grade-> user_id= $_POST['user_id'];
-        $grade->course_id = $_POST['course_id'];
-        $grade->studentGrade = $_POST['studentGrade'];
-        if($gradeController->addGrade($grade))
-        {
-            header("location: prof_viewgrade.php");
-        }
-      
-    }
-    else
-       {
-        $errMsg="something went wrong please;.... try again";
-       }
-    
-}
+$gradeController = new GradeController;
+
+
+$grades = $gradeController->getstudGrade();
 ?>
-
-
 
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 
 <head>
     <meta charset="utf-8">
@@ -87,10 +71,19 @@ if (isset($_POST['gradeId']) && isset($_POST['course_id']) && isset($_POST['user
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
-                            <a href="prof_viewExam.php" class="dropdown-item">View all exams </a>
+                            <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Grades</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="stud_viewgrade.php" class="dropdown-item">View grade </a>
+                            
+                        </div>
+                    </div>
+
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widget</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
@@ -140,55 +133,82 @@ if (isset($_POST['gradeId']) && isset($_POST['course_id']) && isset($_POST['user
             <!-- Navbar End -->
 
 
-          
-               <!--Form Start -->
-               <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
+            <!-- table Start -->
+   
+              <div class="container-fluid pt-4 px-4">
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                    <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Grades</h6>
-                            
-                            <form method="post" action="addgrade.php">
-                                <div class="mb-3">
-                                    <label for="exampleInputStudentid" class="form-label">Student ID</label>
-                                    <input type="id" class="form-control" id="exampleInputStudentid"
-                                        aria-describedby="idHelp">
-                                 
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputStudentName" class="form-label">Coure ID</label>
-                                    <input type="name" class="form-control" id="exampleInputStudentName">
-                                </div>
-                       
-                                <div class="mb-3">
-                                    <label for="exampleInputStudentgrade" class="form-label">Student Grade</label>
-                                    <input type="grade" class="form-control" id="exampleInputStudentgrade">
-                                </div> 
-                                <div class="alert alert-primary" role="alert">
+                         <!--   <a href="#" class="col-md-3 btn btn-primary float-end" >
+                           
+                           <span class="tf-icons bx bx-add-to-queue"></span>Add new Grade
+                       </a>
+                       <br>
+                       <br>-->
+                      
+                            <?php
+                                if(count($grades) == 0)
+                                {
+                                    ?>
+                                    <div class="alert alert-danger" role="alert"> No Added Grade</div>
+                                    <?php
+                                }
 
-            <!--alert start-->
-                       <?php 
+                                else
+                                {
+                                   ?>
 
-                           if($errMsg!="")
-                           {
+                                      <div class="table-responsive">
+                                        <table class="table table-striped">
+                                          <thead>
+                                            <tr>
+                                                
+                                                <th scope="col">Exam ID</th>
+                                                <th scope="col">Student Grade</th>
+                                                
+                                            </tr>
+                                          </thead>
+                                        <tbody>
+
+                                    <?php
+                                  foreach($grades as$grade)
+                                  {
+                                    ?>
+                                  
+                                                <tr>
+                                                    <th scope="row"><?php echo $grade["exam_id"] ?></th>
+                                                    
+                                                    <td><?php echo $grade["studentGrade"] ?></td>
+                                                    <td></td>
+                                                </tr>
+                                            
+                                    <?php
+                                  }
+                                  ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?php
+                                }
                               ?>
-                                <div class="alert alert-primary" role="alert"><?php echo $errMsg; ?></div>
-                              <?php
-                           }
-                        ?>
-                              <div class="alert alert-primary" role="alert">
-                                A simple primary alert—check it out!
-                            </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+         
+                                 
+ 
+                                
+                                
+                            
+                                    
+                            
+                      
 
-
-
-                                <button type="submit" class="btn btn-primary">Add</button>
-                            </form>
-                        </div>
-                    </div>
-        
-           <!--  Form End  -->
-            <!-- Blank End -->
+                    <!-- table End -->
+                    
+            
 
 
             <!-- Footer Start -->
@@ -227,6 +247,7 @@ if (isset($_POST['gradeId']) && isset($_POST['course_id']) && isset($_POST['user
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
 </body>
 
 </html>

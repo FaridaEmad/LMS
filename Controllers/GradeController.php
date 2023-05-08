@@ -17,7 +17,7 @@ class GradeController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select * from grade ";
+            $query="select exam_id,user_id,studentGrade from grade";
             return $this->db->select($query);
          }
          else
@@ -56,5 +56,21 @@ class GradeController
          return false; 
       }
    }
+
+   public function getstudGrade()
+   {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select exam_id,studentGrade from grade join user on user_id = userId";
+            return $this->db->select($query);
+         }
+         else
+         {
+            echo "Error in Database Connection";
+            return false; 
+         }
+   }
 }
+
 ?>
