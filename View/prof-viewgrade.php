@@ -1,3 +1,11 @@
+
+<?php
+require_once '../Models/grade.php';
+require_once '../Controllers/GradeController.php';
+$gradeController = new GradeController;
+
+$grades = $gradeController->getGrade();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,6 +69,9 @@
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
+
+                    
+                    <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
                     <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widget</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
@@ -109,56 +120,90 @@
             </nav>
             <!-- Navbar End -->
 
+            <!-- table start -->
+          
+             
 
             <!-- table Start -->
-            <div class="container-fluid pt-4 px-4">
+   
+              <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Grades</h6>
-                            <a href="addgrade.php" class="col-md-2 btn btn-primary float-end" >
-                            <span class="tf-icon bx-add-to-queue">Add Grade</span>
-                        </a>
-                        <br>
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Student ID</th>
-                                            <th scope="col">Student name</th>
-                                            <th scope="col">Course</th>
-                                            <th scope="col">Grade</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Ali Azi</td>
-                                            <td>IT</td>
-                                            <td>45</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Bakr Mostafa</td>
-                                            <td>IT</td>
-                                            <td>38</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Saif Safwat</td>
-                                            <td>IT</td>
-                                            <td>49</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                         <!--   <a href="#" class="col-md-3 btn btn-primary float-end" >
+                           
+                           <span class="tf-icons bx bx-add-to-queue"></span>Add new Grade
+                       </a>
+                       <br>
+                       <br>-->
+                      
+                            <?php
+                                if(count($grades) == 0)
+                                {
+                                    ?>
+                                    <div class="alert alert-danger" role="alert"> No Added Grade</div>
+                                    <?php
+                                }
+
+                                else
+                                {
+                                   ?>
+
+                                      <div class="table-responsive">
+                                        <table class="table table-striped">
+                                          <thead>
+                                            <tr>
+                                                
+                                                <th scope="col">Exam ID</th>
+                                                <th scope="col">Student ID</th>
+                                                <th scope="col">Student Grade</th>
+                                                
+                                            </tr>
+                                          </thead>
+                                        <tbody>
+
+                                    <?php
+                                  foreach($grades as$grade)
+                                  {
+                                    ?>
+                                  
+                                                <tr>
+                                                    <th scope="row"><?php echo $grade["exam_id"] ?></th>
+                                                    <td><?php echo $grade["user_id"] ?></td>
+                                                    <td><?php echo $grade["studentGrade"] ?></td>
+                                                    <td></td>
+                                                </tr>
+                                            
+                                    <?php
+                                  }
+                                  ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <?php
+                                }
+                              ?>
+                   </div>
                 </div>
             </div>
-            <!-- Blank End -->
+        </div>
+         
+                                 
+ 
+                                
+                                
+                            
+                                    
+                            
+                      
+
+                    <!-- table End -->
+                    
+            
 
 
+           
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
