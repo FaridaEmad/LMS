@@ -1,3 +1,18 @@
+<?php
+   session_start();
+   if(!isset($_SESSION["userRole"]))
+   {
+       header("location:../index.php");
+   }
+   else
+   {
+       if($_SESSION["userRole"] != "student")
+       {
+           header("location:../index.php");
+       }
+   }
+   $errMsq = "";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
