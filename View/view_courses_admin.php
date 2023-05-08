@@ -4,23 +4,23 @@ require_once '../Models/course.php';
 require_once '../Models/user.php';
 $course=new CourseController;
 $courses=$course->getCourse();
-
-
+$deleteMsg = false;
 if (isset($_POST["delete"])) {
     if (!empty($_POST["courseId"])) {
       if ($course->deletetCourse($_POST["courseId"])) {
         $deleteMsg = true;
-        $courses =$course->getCourse();
+        $courses = $course->getCourse();
       }
     }
   }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>LMS</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -38,31 +38,23 @@ if (isset($_POST["delete"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 
-<body> 
-    <!-- <div class="container-xxl position-relative bg-white d-flex p-0">  -->
-        <!-- Spinner Start -->
-        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div> -->
-        <!-- Spinner End -->
-
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
 
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -72,7 +64,7 @@ if (isset($_POST["delete"])) {
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Student</span>
+                        <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -85,9 +77,9 @@ if (isset($_POST["delete"])) {
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="student_exam.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Exam</a>
-                    <a href="view_courses_admin.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
-                    <a href="add_course.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>add course</a>
+                    <a href="add_course.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>add course</a>
+                    <a href="view_courses_admin.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view courses</a>
+                    <a href="prof_addExam.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
@@ -114,73 +106,10 @@ if (isset($_POST["delete"])) {
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
+                <!-- <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+                </form> -->
                 <div class="navbar-nav align-items-center ms-auto">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
@@ -189,51 +118,19 @@ if (isset($_POST["delete"])) {
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a class="dropdown-item" href="../index.php?Log Out">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                            </a>   
                         </div>
                     </div>
                 </div>
-            </nav> 
+            </nav>
             <!-- Navbar End -->
-                       <div class="col-12">
-                       <form action="" method="post">
-                                <input type="text" name="Search"/>
-                                <input type="submit" name="search bu" value="Search">
-                            </form>
-                            <?php
-                            if(isset($_POST["search bu"])){
-                            ?>
-                              <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">coerseID</th>
-                                            <th scope="col">courseNAME</th>
-                                            <th scope="col">coursePrerequisite</th>
-                                            </tr>
-                                    </thead>
-                                    <tbody> 
-                                        <?php
-
-                                        $search=$_POST['Search'];
-                                        if(isset($search)){
-                                        $sql=" select * from course where coursName like %Search% or courseId like %Search% or coursePrerequisite like %Search%";
-                                        return select($sql);
-                                    }
-                            
-                                        ?>
-                                       <?php
-
-                                                foreach ($courses as $course) {
-                                                ?>   
-
-                                      <tr>
-                                        <td scope="col"><?php echo $course["courseID"] ?></td>
-                                        <td scope="col"><?php echo $course["courseName"] ?></td>
-                                        <td scope="col"><?php echo $course["coursePrerequisite"] ?></td> </tr>
-                                        <?php
-                                                }}
-                                        ?>
-                            <a class="binmjh" href="add_course.php" role="button"> <button type="button" class="btn btn-outline-primary m-2">add course</button></a>
+            
+     <div class="col-12">
+                     
+                            <a class="binmjh" href="add_course.php" role="button"> <button type="button" class="btn btn-outline-primary m-2" >add course</button></a>
                         <div class="bg-light rounded h-100 p-4">
                             courses list</div>
                             <?php
@@ -241,7 +138,7 @@ if (isset($_POST["delete"])) {
               ?>
                 <div class="alert alert-danger" role="alert">
                                 there are no courses
-                            </div>
+                            </div> 
               <?php
               } else {
 
@@ -255,6 +152,7 @@ if (isset($_POST["delete"])) {
                                             <th scope="col">action</th>
                                           
                                         </tr>
+                                        
                                     </thead>
                                     <tbody>  
                                     <?php
@@ -265,8 +163,9 @@ if (isset($_POST["delete"])) {
                                         <td scope="col"><?php echo $course["courseId"] ?></td>
                                         <td scope="col"><?php echo $course["courseName"] ?></td>
                                         <td scope="col"><?php echo $course["coursePrerequisite"] ?></td>
-                                        <td scope="col">  <form action="index.php" method="POST">
-                              <!-- <input type="hidden" name="courseId" value=""> -->
+                                      <td>  <form action="view_courses_admin.php" method="POST">
+                              <input type="hidden" name="courseId" value="<?php 
+                               echo $course["courseId"] ?>  "> 
                               <button type="submit" name="delete" class="btn btn-outline-danger">
                                 <span class="tf-icons bx bx-trash"></span> delete
                               </button>
@@ -298,22 +197,32 @@ if (isset($_POST["delete"])) {
 
             ?>
                         </div>
-                    <!-- </div> -->
-                          <!-- Footer Start -->
+
+
+         
+
+
+            <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Learning Management System</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            lms <a href="https://htmlcodex.com">lms</a>
+                            Designed By <a href="https://htmlcodex.com">FCAI Students</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -330,4 +239,5 @@ if (isset($_POST["delete"])) {
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
+
 </html>

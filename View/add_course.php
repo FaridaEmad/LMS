@@ -1,9 +1,10 @@
 
+
 <?php
 
 
 
- session_start();
+//  session_start();
 // if(!isset($_SESSION["userRole"]))
 // {
 //     header("location:../index.php");
@@ -21,32 +22,33 @@ require_once '../Controllers/CourseController.php';
 
 
 $courseA=new CourseController;
-$adder=$courseA->getCourse();
-$errmsg='';
- if(isset($_POST['add'])){
-if(isset($_POST['userId'])&& isset($_POST['courseId'])&&isset($_POST['courseName'])&& isset($_POST['coursePrerequisite']) ){
-    if(!empty(!empty($_POST['coursePrerequisite'])&&$_POST['courseId'])&&!empty($_POST['courseName'])&& !empty($_POST['coursePrerequisite'])){
+$courses=$courseA->getCourse();
+$errMsg='';
+
+  
+if(isset($_POST['courseName'])&& isset($_POST['coursePrerequisite'])&&isset($_POST['coursePrerequisite_id']) &&isset($_POST['user_id'])&&isset($_POST['add'])) {
+    if( !empty($_POST['courseName'])&&!empty($_post['coursePrerequisite_id'])&&!empty($_post['coursePrerequisite'])&&!empty($_post['user_id'])&&!empty($_POST['add'])){
       $course_=new Course;
-      $course_->user_id=$_POST['userId'];
-      $course_->courseId=$_POST['courseId'];
+     
       $course_->courseName=$_POST['courseName'];
       $course_->coursePrerequisite=$_POST['coursePrerequisit'];
+      $course_->coursePrerequisite_id=$_POST['coursePrerequisit_id'];
+      $course_->user_id=$_POST['userId'];
       if($courseA->addCourse($course_)){
         header("location: view_courses_admin.php");
       }
       else{
         $errmsg="failed addition";
       }
-    }
-}} 
+    }}
+  
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>LMS</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -64,31 +66,23 @@ if(isset($_POST['userId'])&& isset($_POST['courseId'])&&isset($_POST['courseName
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 </head>
 
-<body> 
-    <!-- <div class="container-xxl position-relative bg-white d-flex p-0">  -->
-        <!-- Spinner Start -->
-        <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div> -->
-        <!-- Spinner End -->
-
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
 
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -98,7 +92,7 @@ if(isset($_POST['userId'])&& isset($_POST['courseId'])&&isset($_POST['courseName
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Student</span>
+                        <span>Admin</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
@@ -111,9 +105,9 @@ if(isset($_POST['userId'])&& isset($_POST['courseId'])&&isset($_POST['courseName
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="student_exam.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Exam</a>
-                    <a href="view_courses_admin.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
-                    <a href="add_course.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>add course</a>
+                    <a href="add_course.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>add course</a>
+                    <a href="view_courses_admin.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view courses</a>
+                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
@@ -128,11 +122,11 @@ if(isset($_POST['userId'])&& isset($_POST['courseId'])&&isset($_POST['courseName
             </nav>
         </div>
         <!-- Sidebar End -->
-        
 
 
         <!-- Content Start -->
         <div class="content">
+            
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
@@ -147,130 +141,88 @@ if(isset($_POST['userId'])&& isset($_POST['courseId'])&&isset($_POST['courseName
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-envelope me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Message</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <div class="d-flex align-items-center">
-                                    <img class="rounded-circle" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                                    <div class="ms-2">
-                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
-                                        <small>15 minutes ago</small>
-                                    </div>
-                                </div>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all message</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="fa fa-bell me-lg-2"></i>
-                            <span class="d-none d-lg-inline-flex">Notificatin</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Profile updated</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">New user added</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                <h6 class="fw-normal mb-0">Password changed</h6>
-                                <small>15 minutes ago</small>
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item text-center">See all notifications</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a class="dropdown-item" href="../index.php?Log Out">
+                                <i class="bx bx-power-off me-2"></i>
+                                <span class="align-middle">Log Out</span>
+                            </a>   
                         </div>
                     </div>
                 </div>
-            </nav> 
+            </nav>
             <!-- Navbar End -->
-<div class="col-12">
+            <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
                            
                             <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">new course</h6>
                             <form>
-                            <div class="mb-3">
-                                    <label for="courseName" class="form-label">user id</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1">
+                            <?php
+
+if ($errMsg != "") {
+?>
+    <div class="alert alert-danger" role="alert"><?php echo $errMsg ?></div>
+<?php
+}
+
+?>
+                         
+                                  
+                                <form action="add_course.php" method="POST">
+                                <div class="mb-3">
+                                    <label for="courseName" class="form-label">courseName</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" name="courseName">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="courseID" class="form-label">courseID</label>
-                                    <input type="TEXT" class="form-control" id="exampleInputcourseID"
-                                        aria-describedby="emailHelp">
+                                    <label for="courseID" class="form-label">coursePrerequisiteId</label>
+                                    <input type="text" class="form-control" id="exampleInputcourse_id"
+                                        aria-describedby="emailHelp" name="coursePrerequisite_id">
                                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
                                     <!-- </div> -->
                                 </div>
                                 <div class="mb-3">
-                                    <label for="courseName" class="form-label">courseName</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1">
+                                    <label for="coursePrequisite" class="form-label">coursePrequisite</label>
+                                    <input type="text" class="form-control" id="exampleInputPassword1" name="coursePrerequisite">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="coursePrequisite" class="form-label">coursePrequisite</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1">
+                                    <label for="courseID" class="form-label">user id</label>
+                                    <input type="text" class="form-control" id="exampleInputcourseID"
+                                        aria-describedby="emailHelp" name="user_id">
+                                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
+                                    <!-- </div> -->
                                 </div>
-                              
-                              
-                                <button type="submit" class="btn btn-primary" value="add" name="add">add</button>
+                                <div class="col-sm-10">
+                                                    <button type="submit" class="btn btn-primary">Add</button>
+                                                </div>
                             </form>
                         </div>
-                    </div>
-
-                            </div>
-                    <!-- </div> -->
-                          <!-- Footer Start -->
+                    </div> </div>
+            <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
                     <div class="row">
                         <div class="col-12 col-sm-6 text-center text-sm-start">
-                            &copy; <a href="#">Your Site Name</a>, All Right Reserved. 
+                            &copy; <a href="#">Learning Management System</a>, All Right Reserved. 
                         </div>
                         <div class="col-12 col-sm-6 text-center text-sm-end">
                             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            lms <a href="https://htmlcodex.com">lms</a>
+                            Designed By <a href="https://htmlcodex.com">FCAI Students</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
 
     <!-- JavaScript Libraries -->
@@ -286,7 +238,6 @@ if(isset($_POST['userId'])&& isset($_POST['courseId'])&&isset($_POST['courseName
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-                
-
 </body>
+
 </html>
