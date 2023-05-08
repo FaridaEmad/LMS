@@ -164,7 +164,7 @@
                 <div class="col-sm-12 col-xl-10">
                         <div class="bg-light rounded h-100 p-4">
                             <h5 class="mb-4">Add Rating</h5>
-                            <form action="prof_addExam.php" method="POST">
+                            <form action="add_rate.php" method="POST">
                             <div class="row mb-3">
                                     <label for="inputPassword3" class="col-sm-2 col-form-label">Enter The Faculty Member's Name You Want</label>
                                     <div class="col-sm-10">
