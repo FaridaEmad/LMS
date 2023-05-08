@@ -44,7 +44,7 @@ class UserController
                $this->db=new DBController;
                if($this->db->openConnection())
                {
-                  $query="delete from user where userId = $C";
+                  $query="delete from user where userId = $userId";
                   return $this->db->delete($query);
                }
                else
@@ -85,8 +85,7 @@ class UserController
                   $this->db=new DBController;
                   if($this->db->openConnection())
                   {
-                     $query="update user 
-                      SET userName = \"$user->userName\" where userId = $user->userId";
+                     $query="update user  SET userName = \"$user->userName\" where userId = $user->userId";
                      return $this->db->update($query);
                   }
                   else

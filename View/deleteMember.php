@@ -1,20 +1,21 @@
 <?php
  session_start();
- /*if(!isset($_SESSION["userRole"]))
+ if(!isset($_SESSION["userRole"]))
  {
      header("location:../index.php");
  }
  else
  {
-    if($_SESSION["userRole"] != "Admin")
+    if($_SESSION["userRole"] !="Admin")
         {
             header("location:../index.php");
         }
- }*/
+ }
     require_once '../Models/user.php';
     require_once '../Controllers/UserController.php';
     $errMsg = "";
     $deleteMsg="";
+    $userId="";
    
     if(!isset($_SESSION["userId"]))
     {
@@ -27,7 +28,7 @@
         {
             $user=new User;
             $UserContro=new UserController;
-            $user->userId= $_POST['userIdD'];
+           $userId= $_POST['userIdD'];
            // $user->userId=$_SESSION["userId"];
             if($UserContro->deletetUser($userId))
             {
@@ -175,7 +176,7 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
                        <h3>Delete Member</h3>
-                    <form  id="formAuthentication" class="mb_3"action="index.php" method="POST">
+                    <form  id="formAuthentication" class="mb_3"action="deleteMember.php" method="POST">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="userName" placeholder="Inter yiur name" name="userIdD" autofocus>
                             <label for="floatingInput">User Id</label>

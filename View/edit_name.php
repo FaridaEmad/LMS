@@ -9,39 +9,41 @@
     require_once '../Controllers/UserController.php';
     $errMsg = "";
     $changeMsg="";
-    
-    if(!isset($_SESSION["userId"]))
+    if(!isset($_SESSION["userRole"]))
     {
-        session_start();
+        header("location:../index.php");
+    }
+    else
+    {
+        if($_SESSION["userRole"] != "Admin")
+        {
+            header("location:../index.php");
+        }
     }
     
-    if(isset($_POST['nameN'])&&isset($_POST['nameC']))
+    if(isset($_POST['nameN']))
     {
-        if(!empty($_POST['nameN'])&& !empty($_POST['nameC']))
+        if(!empty($_POST['nameN']))
         {
-            if(($_POST['nameN'])==($_POST['nameC']))
+            if(($_POST['nameN']))
             {
 
             }
             $user=new User;
             $UserContr=new UserController;
-            $user->password= $_POST['nameN'];
-            $user->password= $_POST['nameC'];
+            $user->userName= $_POST['nameN'];
+            
             $user->userId=$_SESSION["userId"];
-            if($UserContr-> updatePassword($user))
+            if($UserContr->updateName($user))
             {
-                if(isset($_POST['nameN'])===isset( $_POST['nameC']))
-                {
-                    $changeMsg="Name has been changed successfully";
-                }
-              
+                $changeMsg="Name has been changed successfully";
                 
             }
             else
                 {
                     
             
-                  $errMsg = $_SESSION["errMsg"];
+                  $errMsg ="Something Wrong Happen";
                 
                 }
         }
@@ -181,9 +183,7 @@
                             <input type="text" class="form-control" id="userName" placeholder="Enter your new name" name="nameN" autofocus>
                             <label for="floatingInput">New Name</label>
                         </div>
-                        <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="userName" placeholder="confirm your name" name="nameC" autofocus>
-                            <label for="floatingPassword">Confirm Name</label>
+            
                          
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Change</button>
                          

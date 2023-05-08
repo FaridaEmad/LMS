@@ -19,7 +19,7 @@
     {
         if(!empty(($_POST['passwordO'])&& !empty($_POST['passwordN'])&& !empty($_POST['passwordC'])))
         {
-            if( $_POST['passwordO']== 'password' && $_POST['passwordN']==$_POST['passwordC'])
+            if($_POST['passwordO']==$_SESSION["password"]&& $_POST['passwordN']==$_POST['passwordC'])
                 {
                     $user=new User;
                     $UserContr=new UserController;
@@ -35,7 +35,7 @@
                 {
                     
             
-                  $errMsg = $_SESSION["errMsg"];
+                  $errMsg ="YOU have entered something wrong ";
                 
                 }
         }
