@@ -1,3 +1,56 @@
+<?php
+ session_start();
+ if(!isset($_SESSION["userRole"]))
+ {
+     header("location:../index.php");
+ }
+ 
+    require_once '../Models/user.php';
+    require_once '../Controllers/UserController.php';
+    $errMsg = "";
+    $changeMsg="";
+    
+    if(!isset($_SESSION["userId"]))
+    {
+        session_start();
+    }
+    
+    if(isset($_POST['nameO'])&& isset($_POST['nameN'])&&isset($_POST['nameC']))
+    {
+        if(!empty(($_POST['nameO'])&& !empty($_POST['nameN'])&& !empty($_POST['nameC'])))
+        {
+            $user=new User;
+            $UserContr=new UserController;
+            $user->password= $_POST['nameN'];
+            $user->password= $_POST['nameC'];
+            $user->userId=$_SESSION["userId"];
+            if($UserContr-> updatePassword($user))
+            {
+                if(isset($_POST['nameN'])===isset( $_POST['nameC']))
+                {
+                    $changeMsg="Password has been changed successfully";
+                }
+              
+                
+            }
+            else
+                {
+                    
+            
+                  $errMsg = $_SESSION["errMsg"];
+                
+                }
+        }
+    
+        else
+        {
+            $errMsg="Please Fill All Fields";  
+
+        }
+       
+    }
+    
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -120,15 +173,15 @@
                     
                     <form  id="formAuthentication" class="mb_3"action="edit_name.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" autofocus>
+                            <input type="text" class="form-control" id="userName" placeholder="Enter your name" name="nameO" autofocus>
                             <label for="floatingInput">Old Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="name" placeholder="Enter your new name" name="name" autofocus>
+                            <input type="text" class="form-control" id="userName" placeholder="Enter your new name" name="nameN" autofocus>
                             <label for="floatingInput">New Name</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="text" class="form-control" id="name" placeholder="confirm your name" name="name" aria-describedby="password">
+                            <input type="text" class="form-control" id="userName" placeholder="confirm your name" name="nameC" autofocus>
                             <label for="floatingPassword">Confirm Name</label>
                          
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Change</button>
@@ -136,6 +189,10 @@
 
                         </div>
                     </form>
+                     <div class="changeMsg">
+                    <?php
+                    echo $changeMsg;
+                    ?>
                     </div>
                 </div>
             </div>

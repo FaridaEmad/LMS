@@ -8,37 +8,41 @@
     require_once '../Models/user.php';
     require_once '../Controllers/UserController.php';
     $errMsg = "";
+    $changeMsg="";
+    
     if(!isset($_SESSION["userId"]))
     {
         session_start();
     }
     
-    if(isset ($_SESSION['password']))
+    if(isset($_POST['passwordO'])&& isset($_POST['passwordN'])&&isset($_POST['passwordC']))
     {
-        if(!empty($_SESSION['password']))
+        if(!empty(($_POST['passwordO'])&& !empty($_POST['passwordN'])&& !empty($_POST['passwordC'])))
         {
-            $user=new User;
-            $User=new UserController;
-            $user-> old_password= $_POST['password'];
-            if($User->update($user))
-            {
-                header("location: editprofile.php");
-            }
+            if( $_POST['passwordO']== 'password' && $_POST['passwordN']==$_POST['passwordC'])
+                {
+                    $user=new User;
+                    $UserContr=new UserController;
+                    $user->password= $_POST['passwordN'];
+                    $user->password= $_POST['passwordC'];
+                    $user->userId=$_SESSION["userId"];
+                    if($UserContr-> updatePassword($user))
+                    {
+                        $changeMsg="Password Changed Successfully";
+                    }
+                }
             else
-            {
+                {
+                    
+            
+                  $errMsg = $_SESSION["errMsg"];
                 
-        
-              $errMsq = $_SESSION["errMsg"];
-            
-            }
-           
+                }
         }
-       
-           
-            
+    
         else
         {
-            $errMsg="Please fill the field";  
+            $errMsg="Please Fill All Fields";  
 
         }
        
@@ -164,33 +168,31 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
                         <h3>Edit Password</h3>
-                        <?php
-                        if($errMsg!="")
-                        {
-                            ?>
-                            <div class="alert alert-danger" role ="alert"> <?php echo $errMsg?></div>
-                            <?php
-                        }
-                       // echo $errMsg;
-                        ?>
                     <form  id="formAuthentication" class="mb_3"action="edit_password.php" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="password" name="password" aria-describedby="password">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="password" name="passwordO" aria-describedby="password">
                             <label for="floatingInput">Old password</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="password" name="password" aria-describedby="password">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="password" name="passwordN" aria-describedby="password">
                             <label for="floatingInput">New Password</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" aria-describedby="password">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="passwordC" aria-describedby="password">
                             <label for="floatingPassword">Confirm Password</label>
+                            <div class="row mb-3">
+                                    <span class="errMsg"><?php echo $errMsg; ?></span>
+                                </div>
                          
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Change</button>
                          
 
                         </div>
                     </form>
+                    <div class="changeMsg">
+                    <?php
+                    echo $changeMsg;
+                    ?>
                   </div>
                 </div>
             </div>

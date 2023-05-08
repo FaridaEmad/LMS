@@ -88,8 +88,6 @@ class DBController
             {
                 return $result;
             }
-
-
-}
+       }
 }
 ?>

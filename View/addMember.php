@@ -2,24 +2,27 @@
 require_once '../Models/user.php';
 require_once '../Controllers/AuthController2.php';
 
-    if(!isset($_SESSION["userId"]))
+   /* if(!isset($_SESSION["userId"]))
     {
         session_start();
-    }
+    }*/
     $errMsg= "";
+    $AddMsg="";
 
-if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name']) )
+if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR']) )
 {
-    if(!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['name']))
+    if(!empty($_POST['name'] )&& !empty($_POST['emailR'] )&& !empty($_POST['passwordR']))
     {
-        $user = new user;
-        $auth=new AuthController2;
+        $user = new User;
+        $authController2=new AuthController2;
         $user->userName=$_POST['name'];
-        $user->email=$_POST['email'];
-        $user->password=$_POST['password'];
-        if($auth->register($user))
+        $user->email=$_POST['emailR'];
+        $user->password=$_POST['passwordR'];
+        if($authController2->register($user))
         {
-            if($_SESSION["userRole"]=="Admin")
+            $AddMsg="Added successfully";
+
+           /* if($_SESSION["userRole"]=="Admin")
             {
                 header("Location:View/admin_dash.php");
             }
@@ -34,18 +37,18 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name']) 
             else
             {
                 header("Location:View/student_dash.php");
-            }
-            
-
+            }*/
+          
         }
         else
         {
+            
             $errMsg= $_SESSION =["errMsg"];
         }
     }
     else
     {
-        $errMsg="Please fill all fields";
+        $errMsg="Please Fill All Fields";
     }
    
            
@@ -172,16 +175,7 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name']) 
                     <div class="col-md-6 text-center">
 
                         <h3>Add Member</h3>
-                        <?php
-                        if($errMsg!="")
-                        {
-                            ?>
-                            <div class="alert alert-danger" role ="alert"> <?php echo $errMsg?></div>
-                            <?php
-                        }
-                       // echo $errMsg;
                         
-                        ?>
                         
                     <form  id="formAuthentication" class="mb_3"action="addMember.php" method="POST">
                      <div class="form-floating mb-3">
@@ -189,25 +183,28 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name']) 
                             <label for="floatingInput">Name</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" autofocus>
+                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="emailR" autofocus>
                             <label for="floatingInput">Email address</label>
                         </div>
                         <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password" aria-describedby="password">
+                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="passwordR" aria-describedby="password">
                             <label for="floatingPassword">Password</label>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                            </div>
-                            <a href="">Forgot Password</a>
-                        </div>
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Add</button>
+                        <div class="row mb-3">
+                                    <span class="errMsg"><?php echo $errMsg; ?></span>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add</button>
 
                        
                      </div>
                     </form>
+                    <div class="add">
+                    <?php
+                    echo $AddMsg;
+                    ?>
+                    </div>
+                    
+
                 </div>
             </div>
             <!-- Blank End -->
