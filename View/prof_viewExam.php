@@ -66,7 +66,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -156,7 +156,7 @@
                                 else
                                 {
                                     ?>
-                                    <div class="table-responsive">
+                                    <div class="table-responsive" id="tab">
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -195,14 +195,20 @@
                                 }
                             ?>
                             <div class="row">
-                                <div class="col-6 d-flex justify-content-center">
+                                <div class="col-3 d-flex justify-content-center">
                                     <button class="btn btn-primary"><a href="prof_addQues.php" class="text-light">Questions</a></button>
                                 </div>
-                                <div class="col-6 d-flex justify-content-center">
+                                <div class="col-3 d-flex justify-content-center">
                                     <button class="btn btn-primary"><a href="prof_addAns.php" class="text-light">Answers</a></button>
                                 </div>
-                                <button onclick="downloadPDFWithBrowserPrint()">print</button>
-                                <button onclick="downloadPDFWithjsPDF()">print2</button>
+                                    <div class="col-3 d-flex justify-content-center">
+                                        <button class="btn btn-primary" onclick="downloadPDFWithBrowserPrint()">Print Screen</button>
+                                    </div>
+                                    <div class="col-3 d-flex justify-content-center">
+                                        <input type="button" class="btn btn-primary" value="Create PDF" id="btPrint" onclick="createPDF()" />
+                                    </div>
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -248,26 +254,41 @@
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
     <script>
-    //    function downloadPDFWithBrowserPrint() {
-  //window.print();
-//}
-//document.querySelector('#browserPrint').addEventListener('click', downloadPDFWithBrowserPrint);
+    function downloadPDFWithBrowserPrint() {
+        window.print();
+    }
+    document.querySelector('#browserPrint').addEventListener('click', downloadPDFWithBrowserPrint);
 
-function downloadPDFWithjsPDF() {
-  var doc = new jspdf.jsPDF('p', 'pt', 'a4');
 
-  doc.html(document.querySelector('#styledTable'), {
-    callback: function (doc) {
-      doc.save('MLB World Series Winners.pdf');
-    },
-    margin: [60, 60, 60, 60],
-    x: 32,
-    y: 32,
-  });
-}
+function createPDF() {
+        var sTable = document.getElementById('tab').innerHTML;
 
-document.querySelector('#jsPDF').addEventListener('click', downloadPDFWithjsPDF);
+        var style = "<style>";
+        style = style + "table {width: 100%;font: 18px ;}";
+        style = style + "table, th, td {border: solid 1px #000; border-collapse: collapse;";
+        style = style + "padding: 2px 3px;text-align: center;}";
+        style = style + "</style>";
+
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>LMS</title>');
+        win.document.write(style);
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);
+        win.document.write('</body></html>');
+
+        win.document.close();
+
+        win.print();
+    }
     </script>
+
+    
 </body>
+
+
+
 
 </html>

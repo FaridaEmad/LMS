@@ -19,13 +19,43 @@
     require_once '../Models/question.php';
     require_once '../Controllers/QuestionController.php';
 
-    $examController = new ExamController;
+    $errMsq = "";
 
-    $examTime = $examController->getExamTime($_POST["stex"]);
-    $examName = $examController->getExamName($_POST["stex"]);
+    
+    $examController = new ExamController;
+    $examId = $_POST["stex"]; 
+
+    $examTime = $examController->getExamTime($examId);
+    $examName = $examController->getExamName($examId);
     $questions = new QuestionController;
 
-    $questions = $questions->getQuestion($_POST["stex"]);
+    $questions = $questions->getQuestion($examId);
+    $grades = 0;
+
+    /*if(isset($_POST["subAns"]))
+    {
+        foreach($questions as $question)
+        {
+            $grades = $grades + $_POST[$answer["question_id"]];
+        }
+        $grade = new Grade;
+        $gradeCon = new GradeController;
+        $grade->user_id = $_SESSION["userId"];
+        $grade->exam_id = $examId;
+        $grade->studentGrade = $grades;
+        if($gradeCon->addGrade($grade))
+        {
+            header("location: student_dash.php");
+        }
+        else
+        {
+            $errMsq = $_SESSION["errMsg"];
+        }
+    }
+    else
+    {
+
+    }*/
 ?>
 
 <!DOCTYPE html>
@@ -96,13 +126,17 @@
     width: 100%;
     height: 200px;
 }
+
+.sbtn{
+    width: auto;
+}
     </style>
     <div class="container-xxl position-relative bg-white d-flex p-0">
 
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -197,6 +231,7 @@
                                 else
                                 {
                                     ?>
+                                <form action="student_correct.php" method="POST" id="sbtForm">
                                     <div class="owl-carousel owl-theme" id="exam-car">
                                         <?php
                                         foreach($questions as $question)
@@ -227,6 +262,15 @@
                                     </div>
                                     <?php
                                 }
+                            ?>
+                            <div class="row p-4 d-flex justify-content-center">
+                                <input type="hidden" name="stex2" value="<?php echo $examId ?>">
+                                <div class="row d-flex justify-content-center"></div>
+                                <input type="submit" value="Submit" name="subAns" class="btn btn-primary sbtn" >
+                            </div>
+                            </form>
+                            <?php
+                            
                             ?>
                         </div>
                     </div>
@@ -290,6 +334,11 @@
     }
 })
 
+function submitAnswers()
+{
+    document.getElementById("sbtForm").submit();
+}
+
 $(".exam-timer").TimeCircles({
     circle_bg_color: "#fff",
     time: {
@@ -297,18 +346,36 @@ $(".exam-timer").TimeCircles({
         Hours: { color: "#009cff" },
         Minutes: { color: "#009cff" },
         Seconds: { color: "#009cff" }
-    }
+    },
+    count_past_zero : false
 
 });
 
-setInterval(function(){
-    var remaining_seconds = $('.exam-timer').TimeCircles().getTime();
-    if(remaining_seconds < 1)
-    {
-        alert('Exam time is over');
-        location.reload();
+function endTime(){
+    var remainingTime = $(".exam-timer").TimeCircles().getTime();
+    timer = setInterval(function(){
+    remaining_time = $(".exam-timer").TimeCircles().getTime();
+    remainingTime = remaining_time;
+    console.log(remainingTime);
+    if(remainingTime < 1){
+        clearInterval(timer);
+        alert('Exam is over!!!');
+        submitAnswers();
     }
-}, 1000)
+    },1000);
+}
+
+endTime();
+
+/*setInterval(function(){
+    
+    
+    {
+        alert('Exam is over!!!');
+        submitAnswers();
+        clearInterval();
+    }
+},1000)*/
     </script>
     
 </body>

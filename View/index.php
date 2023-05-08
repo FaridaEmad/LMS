@@ -2,12 +2,6 @@
 require_once 'Models/user.php';
 require_once 'Controllers/AuthController.php';
 $errMsg="";
-if(isset($_GET["Log Out"]))
-    {
-        session_start();
-        session_destroy();
-    }
-
 if(isset($_POST['email']) && isset($_POST['password']) )
 {
     if(!empty($_POST['email']) && !empty($_POST['password']))
@@ -65,7 +59,7 @@ if(isset($_POST['email']) && isset($_POST['password']) )
 
 <head>
     <meta charset="utf-8">
-    <title>LMS</title>
+    <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">

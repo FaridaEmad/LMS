@@ -1,5 +1,4 @@
 <?php 
-
 require_once 'Models/user.php';
 require_once 'DBController.php';
 
@@ -17,6 +16,7 @@ class AuthController
         {
             $query="select * from user where email='$user->email' and password ='$user->password'";
             $result=$this->db->select($query);
+        
             if($result===false)
             {
                 echo "Error in Query";
@@ -63,38 +63,8 @@ class AuthController
             return false;
         }
     }
-    public function register(User $user)
-    {
-        $this->db=new DBController;
-        if($this->db->openConnection())
-        {
-            $query="insert into users values ('','$user->userName','$user->email','$user->password',1,1)";
-            $result=$this->db->insert($query);
-            if($result!=false)
-            {
-                session_start();
-                $_SESSION["userId"]=$result;
-                $_SESSION["userName"]=$user->userName;
-                $_SESSION["userPassword"]=$user->password;
-               // $_SESSION["userRole"]="Client";
-            //    $_SESSION["userRole"]="Client";
-                $this->db->closeConnection();
-                return true;
-            }
-            else
-            {
-                $_SESSION["errMsg"]="Somthing went wrong... try again later";
-                $this->db->closeConnection();
-                return false;
-            }
-        }
-        else
-        {
-            echo "Error in Database Connection";
-            return false;
-        }
-    }
-    
+  
 }
 
 ?>
+

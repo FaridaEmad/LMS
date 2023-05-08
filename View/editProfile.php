@@ -34,8 +34,8 @@
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
 
-      <!-- Sidebar Start -->
-      <div class="sidebar pe-4 pb-3">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
@@ -47,21 +47,19 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Student</span>
+                        <span>Professor</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Buttons</a>
-                            <a href="typography.html" class="dropdown-item">Typography</a>
-                            <a href="element.html" class="dropdown-item">Other Elements</a>
+                            <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
+                            <a href="prof_viewExam.php" class="dropdown-item">View all exams </a>
                         </div>
                     </div>
-                    <a href="student_exam.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Exam</a>
-                    <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
+                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widget</a>
                     <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
@@ -99,27 +97,29 @@
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" href="../index.php?Log Out">
-                            <a href="editProfile.php" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Settings</a>
-                            <a class="dropdown-item" href="../index.php?Log Out">
-                                <i class="bx bx-power-off me-2"></i>
-                                <span class="align-middle">Log Out</span>
-                            </a>
-
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="edit_name.php" class="dropdown-item" >Edit Name</a>
+                            <a href="edit_password.php" class="dropdown-item" >Edit Password</a>
+                           
                         </div>
+
                     </div>
                 </div>
             </nav>
-            
-           
             <!-- Navbar End -->
+
 
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-6 text-center">
-                        <h3>Student Page</h3>
+                        <h3>Edit Profile page</h3>
+                        <div >
+                            <a href="edit_name.php" class="btn btn-primary py-3 w-100 mb-4" >Edit Name</a>
+                            <a href="edit_password.php" class="btn btn-primary py-3 w-100 mb-4" >Edit Password</a>
+                            
+                        </div>
+                        
                     </div>
                 </div>
             </div>

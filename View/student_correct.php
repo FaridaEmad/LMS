@@ -1,3 +1,58 @@
+<?php
+
+    session_start();
+    if(!isset($_SESSION["userRole"]))
+    {
+        header("location:../index.php");
+    }
+    else
+    {
+        if($_SESSION["userRole"] != "student")
+        {
+            header("location:../index.php");
+        }
+    }
+    require_once '../Controllers/ExamController.php';
+    require_once '../Models/exam.php';
+    require_once '../Models/answer.php';
+    require_once '../Controllers/AnswerController.php';
+    require_once '../Models/question.php';
+    require_once '../Controllers/QuestionController.php';
+    require_once '../Controllers/GradeController.php';
+    require_once '../Models/grade.php';
+
+    $errMsq = "";
+
+    
+    $examController = new ExamController;
+    $examId = $_POST["stex2"]; 
+
+    $questions = new QuestionController;
+
+    $questions = $questions->getQuestion($examId);
+    $grades = 0;
+
+        foreach($questions as $question)
+        {
+            if(!empty($_POST[$question["questionId"]]))
+            {
+                $grades = $grades + $_POST[$question["questionId"]];
+            }
+        }
+        $grade = new Grade;
+        $gradeCon = new GradeController;
+        $grade->user_id = $_SESSION["userId"];
+        $grade->exam_id = $examId;
+        $grade->studentGrade = $grades;
+        if($gradeCon->addGrade($grade))
+        {
+            $done = "Exam submitted successfully";
+        }
+        else
+        {
+            $errMsq = $_SESSION["errMsg"];
+        }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,10 +87,41 @@
 </head>
 
 <body>
+    <style>
+.grCir {
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border-color: #198754 !important;
+    border: 25px;
+    align-items: center;
+    display: flex;
+    border-style: double;
+}
+.grCir h1{
+    margin-left: 95px;
+}
+.rdCir
+{
+    text-align: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border-color: #dc3545 !important;
+    border: 25px;
+    align-items: center;
+    display: flex;
+    border-style: double;
+}
+.rdCir h1{
+    margin-left: 95px;
+}
+    </style>
     <div class="container-xxl position-relative bg-white d-flex p-0">
 
-      <!-- Sidebar Start -->
-      <div class="sidebar pe-4 pb-3">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
@@ -60,18 +146,16 @@
                             <a href="element.html" class="dropdown-item">Other Elements</a>
                         </div>
                     </div>
-                    <a href="student_exam.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>Exam</a>
-                    <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                    <a href="student_exam.php" class="nav-item nav-link active"><i class="far fa-file-alt me-2"></i>Exams</a>                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
                     <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
                     <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="signin.html" class="dropdown-item">Sign In</a>
                             <a href="signup.html" class="dropdown-item">Sign Up</a>
                             <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item active">Prof Page</a>
+                            <a href="blank.html" class="dropdown-item active">Blank Page</a>
                         </div>
                     </div>
                 </div>
@@ -96,30 +180,40 @@
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" href="../index.php?Log Out">
-                            <a href="editProfile.php" class="dropdown-item">My Profile</a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
-                            <a class="dropdown-item" href="../index.php?Log Out">
-                                <i class="bx bx-power-off me-2"></i>
-                                <span class="align-middle">Log Out</span>
-                            </a>
-
+                            <a href="#" class="dropdown-item">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
-            
-           
             <!-- Navbar End -->
+
 
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>Student Page</h3>
+                    <div class="col-md-6 text-center d-flex align-items-center justify-content-center">
+                        <?php 
+                            if($grades < count($questions)/2)
+                            {?>
+                            <div class="bg-seccuess rdCir"> 
+                                <h1 class="text-danger"><?php echo $grades?>/<?php echo count($questions); ?></h1>
+                            </div>
+                        <?php
+                            }
+                            else
+                            {?>
+                            <div class="bg-seccuess grCir"> 
+                                <h1 class="text-success"><?php echo $grades?>/<?php echo count($questions); ?></h1>
+                            </div>
+                            <?php 
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -152,16 +246,16 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="../lib/chart/chart.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>
