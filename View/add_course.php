@@ -96,7 +96,7 @@ if(isset($_POST['courseName'])&& isset($_POST['coursePrerequisite'])&&isset($_PO
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="admin_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                  
                     <a href="add_course.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>add course</a>
                     <a href="view_courses_admin.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view courses</a>

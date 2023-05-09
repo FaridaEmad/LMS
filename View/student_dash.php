@@ -133,36 +133,35 @@
                                     <a href="stud_viewgrade.php">
                                         <div class="bg-warning p-4">
                                             <h3 class="text-light">View Grade</h3>
+                                            <i class="fa fa-percent" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
                                 <div class="col-4 rounded">
                                     <a href="add_rate.php">
-                                        <div class="bg-info p-4">
+                                        <div class="bg-info  p-4">
                                             <h3 class="text-light">Rate</h3>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+
                                         </div>
                                         </a>
                                 </div>
                                 <div class="col-4 rounded">
                                     <a href="student_exam.php">
                                         <div class="bg-danger p-4">
-                                            <h3 class="text-light">Exam</h3>
+                                         <h3 class="text-light">Exam</h3>
+                                         <i class="fa fa-file" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
                             </div>
                             <div class="row rounded m-3">
-                                <div class="col-4 rounded">
-                                    <a href="student_takeExam.php">
-                                        <div class="bg-primary p-4">
-                                            <h3 class="text-light">Take Exam</h3>
-                                        </div>
-                                        </a>
-                                </div>
+                              
                                 <div class="col-4 rounded">
                                     <a href="trackingPerformance.php">
                                         <div class="bg-success pt-4 px-4">
                                             <h3 class="text-light">Track Performance</h3>
+                                            <i class="fa fa-signal" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -170,6 +169,7 @@
                                     <a href="view courses_student.php">
                                         <div class="bg-secondary p-4">
                                             <h3 class="text-light">View Course</h3>
+                                            <i class="fa fa-book" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>

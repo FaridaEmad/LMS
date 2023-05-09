@@ -73,6 +73,13 @@
                   
                    
                     <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
+                    <div class="nav-item dropdown">
+                               <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
+                              <div class="dropdown-menu bg-transparent border-0">
+                                <a href="add_rate.php" class="dropdown-item">Add Rate</a>
+                                <a href="view_rate.php" class="dropdown-item">View all ratings</a>
+                              </div>
+                            </div>
                    
                 </div>
             </nav>
@@ -121,8 +128,9 @@
                             <div class="row rounded m-3">
                                 <div class="col-4 rounded">
                                     <a href="prof_addExam.php">
-                                        <div class="bg-primary p-4">
+                                        <div class="bg-dark p-4">
                                             <h3 class="text-light">Add Exam</h3>
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -130,6 +138,7 @@
                                     <a href="prof_addQues.php">
                                         <div class="bg-warning p-4">
                                             <h3 class="text-light">Add Question</h3>
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -137,6 +146,8 @@
                                     <a href="prof_addAns.php">
                                         <div class="bg-info p-4">
                                             <h3 class="text-light">Add Answers</h3>
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            
                                         </div>
                                         </a>
                                 </div>
@@ -146,16 +157,19 @@
                                     <a href="prof_viewExam.php">
                                         <div class="bg-danger p-4">
                                             <h3 class="text-light">View Exam</h3>
+                                            <i class="fa fa-clone" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
                                 <div class="col-4 rounded">
                                     <a href="prof-viewgrade.php">
-                                        <div class="bg-success p-4">
+                                        <div class="bg-success  p-4">
                                             <h3 class="text-light">View Grade</h3>
+                                            <i class="fa fa-percent" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
+                             
                               
                             </div>
                         </div>

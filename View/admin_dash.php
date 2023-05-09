@@ -64,7 +64,7 @@
                   
                     <a href="addMember.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Member</a>
                     <a href="deleteMember.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Delete Member</a>
-                    
+                    <a href="send_email_form.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Send Emails</a>
                     
               
                 
@@ -113,6 +113,7 @@
                                     <a href="add_course.php">
                                         <div class="bg-success p-4">
                                             <h3 class="text-light">Add Course</h3>
+                                            <i class="fa fa-tasks" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -120,6 +121,7 @@
                                     <a href="view_courses_admin.php">
                                         <div class="bg-primary p-4">
                                             <h3 class="text-light">View Course</h3>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -127,6 +129,7 @@
                                     <a href="add_rate.php">
                                         <div class="bg-warning p-4">
                                             <h3 class="text-light">Add Rate</h3>
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -136,6 +139,7 @@
                                     <a href="addMember.php">
                                         <div class="bg-info p-4">
                                             <h3 class="text-light">Add Member</h3>
+                                            <i class="fa fa-user-plus" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -143,6 +147,15 @@
                                     <a href="deleteMember.php">
                                         <div class="bg-danger p-4">
                                             <h3 class="text-light">Del Member</h3>
+                                            <i class="fa fa-user-times" aria-hidden="true"></i>
+                                        </div>
+                                        </a>
+                                </div>
+                                <div class="col-4 rounded ">
+                                    <a href="view_rate.php">
+                                        <div class="bg-dark p-4">
+                                            <h3 class="text-light">View Rate</h3>
+                                            <i class="fa fa-registered" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
