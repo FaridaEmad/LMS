@@ -15,7 +15,7 @@ class AuthController2
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-            $query="insert into user values ('','$user->userName','$user->email','$user->password',1,1)";
+            $query="insert into user values ('','$user->userName','$user->email','$user->password','$user->dept_id','$user->role_id')";
             $result=$this->db->insert($query);
             if($result!=false)
             {

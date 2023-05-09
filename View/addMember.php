@@ -1,6 +1,19 @@
 <?php
+ session_start();
+ if(!isset($_SESSION["userRole"]))
+ {
+     header("location:../index.php");
+ }
+
 require_once '../Models/user.php';
 require_once '../Controllers/AuthController2.php';
+require_once '../Controllers/RoleController.php';
+require_once '../Controllers/DeptController.php';
+$RoleCont= new RoleController;
+$DeptCont= new DeptController;
+$roles = $RoleCont->getRoles();
+$depts = $DeptCont->getDept();
+
 
    /* if(!isset($_SESSION["userId"]))
     {
@@ -9,16 +22,18 @@ require_once '../Controllers/AuthController2.php';
     $errMsg= "";
     $AddMsg="";
 
-if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR']) )
+if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR']) &&  isset($_POST['roleR']) &&  isset($_POST['deptR']) )
 {
-    if(!empty($_POST['name'] )&& !empty($_POST['emailR'] )&& !empty($_POST['passwordR']))
+    if(!empty($_POST['name'] )&& !empty($_POST['emailR'] )&& !empty($_POST['passwordR']) && !empty($_POST['roleR'] ) && !empty($_POST['deptR'] ))
     {
         $user = new User;
-        $authController2=new AuthController2;
+        $authController2 =new AuthController2;
         $user->userName=$_POST['name'];
         $user->email=$_POST['emailR'];
         $user->password=$_POST['passwordR'];
-        if($authController2->register($user))
+        $user->role_id=$_POST['roleR'];
+        $user->dept_id=$_POST['deptR'];
+        if( $authController2->register($user))
         {
             $AddMsg="Added successfully";
 
@@ -43,7 +58,7 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
         else
         {
             
-            $errMsg= $_SESSION =["errMsg"];
+            $errMsg= "You Have Entered Something Wrong";
         }
     }
     else
@@ -107,32 +122,14 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Admin</span>
+                        <span><?php echo $_SESSION["userRole"]?></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="button.html" class="dropdown-item">Buttons</a>
-                            <a href="typography.html" class="dropdown-item">Typography</a>
-                            <a href="element.html" class="dropdown-item">Other Elements</a>
-                        </div>
-                    </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
-                            <a href="signup.html" class="dropdown-item">Sign Up</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item active">Blank Page</a>
-                        </div>
-                    </div>
+                    
+                  
+              
                 </div>
             </nav>
         </div>
@@ -146,12 +143,7 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+               
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -190,9 +182,44 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
                             <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="passwordR" aria-describedby="password">
                             <label for="floatingPassword">Password</label>
                         </div>
+                        <div>
+                        <div class="form-floating mb-4">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="roleR">
+                                    <option selected disabled>Select Role</option>
+                                    <?php
+                                        foreach($roles as $role)
+                                        {
+                                        ?>
+                                                    
+                                                    <option value= "<?php echo $role["roleId"] ?>" > <?php echo $role["roleName"] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                        </select>
+
+
+                        </div>
+                        <div class="form-floating mb-4">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="deptR">
+                                    <option selected disabled>Select Department</option>
+                                    <?php
+                                        foreach($depts as $dept)
+                                        {
+                                        ?>
+                                                    
+                                                    <option value= "<?php echo $dept["deptId"] ?>" > <?php echo $dept["deptName"] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                        </select>
+                        
+
+                        </div>
                         <div class="row mb-3">
                                     <span class="errMsg"><?php echo $errMsg; ?></span>
+
                                 </div>
+
                                 <button type="submit" class="btn btn-primary">Add</button>
 
                        
