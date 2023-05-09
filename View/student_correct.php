@@ -41,9 +41,9 @@
         }
         $grade = new Grade;
         $gradeCon = new GradeController;
-        $grade->user_id = $_SESSION["userId"];
-        $grade->exam_id = $examId;
-        $grade->studentGrade = $grades;
+        $grade->setuser_id($_SESSION["userId"]);
+        $grade->setexam_id($examId);
+        $grade->setstudentGrade($grades);
         if($gradeCon->addGrade($grade))
         {
             $done = "Exam submitted successfully";

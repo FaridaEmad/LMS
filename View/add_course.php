@@ -30,10 +30,10 @@ if(isset($_POST['courseName'])&& isset($_POST['coursePrerequisite'])&&isset($_PO
     if( !empty($_POST['courseName'])&&!empty($_post['coursePrerequisite_id'])&&!empty($_post['coursePrerequisite'])&&!empty($_post['user_id'])&&!empty($_POST['add'])){
       $course_=new Course;
      
-      $course_->courseName=$_POST['courseName'];
-      $course_->coursePrerequisite=$_POST['coursePrerequisit'];
-      $course_->coursePrerequisite_id=$_POST['coursePrerequisit_id'];
-      $course_->user_id=$_POST['userId'];
+      $course_->setcourseName($_POST['courseName']);
+      $course_->setcoursePrerequisite($_POST['coursePrerequisit']);
+      $course_->setcoursePrerequisite_id($_POST['coursePrerequisit_id']);
+      $course_->setuser_id($_POST['userId']);
       if($courseA->addCourse($course_)){
         header("location: view_courses_admin.php");
       }

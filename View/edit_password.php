@@ -23,9 +23,9 @@
                 {
                     $user=new User;
                     $UserContr=new UserController;
-                    $user->password= $_POST['passwordN'];
-                    $user->password= $_POST['passwordC'];
-                    $user->userId=$_SESSION["userId"];
+                    $user->setpassword($_POST['passwordN']);
+                    $user->setpassword($_POST['passwordC']);
+                    $user->setuserId($_SESSION["userId"]);
                     if($UserContr-> updatePassword($user))
                     {
                         $changeMsg="Password Changed Successfully";

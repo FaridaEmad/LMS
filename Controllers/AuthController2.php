@@ -15,14 +15,19 @@ class AuthController2
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-            $query="insert into user values ('','$user->userName','$user->email','$user->password','$user->dept_id','$user->role_id')";
+            $userName = $user->getuserName();
+            $email = $user->getemail();
+            $password = $user->getpassword();
+            $dept_id = $user->getdept_id();
+            $role_id = $user->getrole_id();
+            $query="insert into user values ('','$userName','$email','$password','$dept_id','$role_id')";
             $result=$this->db->insert($query);
             if($result!=false)
             {
                 session_start();
-               $_SESSION["userId"]=$result;
-                $_SESSION["userName"]=$user->userName;
-                $_SESSION["userPassword"]=$user->password;
+                $_SESSION["userId"]=$result;
+                $_SESSION["userName"]=$user->getuserName();
+                $_SESSION["userPassword"]=$user->getpassword();
                // $_SESSION["userRole"]="Client";
             //    $_SESSION["userRole"]="Client";
                 $this->db->closeConnection();
