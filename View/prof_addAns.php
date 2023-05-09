@@ -25,6 +25,7 @@
         session_start();
     }
     $errMsq = "";
+    $addmsg = "";
     $questions = $questionController->getQuestionContent($_SESSION["userId"]);
     if(isset($_POST['addAbtn']) && isset($_POST["answer"]))
     {
@@ -38,7 +39,7 @@
 
             if($answerCon->addAnswer($answer))
             {
-                header("location: prof_dash.php");
+                $addmsg = "Added successfully!!";
             }
             else
             {
@@ -186,6 +187,9 @@
                                 </div>
                                 <input type="submit" name="addAbtn" class="btn btn-primary" value="Add">
                             </form>
+                            <div class="row">
+                                <h5 class="text-center text-success"><?php echo $addmsg; ?></h5>
+                            </div>
                         </div>
                     </div>
                 </div>

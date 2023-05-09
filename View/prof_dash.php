@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="prof_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="prof_dash.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -74,7 +74,7 @@
                    
                     <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
                     <div class="nav-item dropdown">
-                               <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
+                               <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
                               <div class="dropdown-menu bg-transparent border-0">
                                 <a href="add_rate.php" class="dropdown-item">Add Rate</a>
                                 <a href="view_rate.php" class="dropdown-item">View all ratings</a>
@@ -125,7 +125,7 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-10 text-center">
                         <div class="dash">
-                            <div class="row rounded m-3">
+                            <div class="row rounded d-flex justify-content-center m-3">
                                 <div class="col-4 rounded">
                                     <a href="prof_addExam.php">
                                         <div class="bg-dark p-4">
@@ -152,7 +152,7 @@
                                         </a>
                                 </div>
                             </div>
-                            <div class="row rounded m-3">
+                            <div class="row rounded d-flex justify-content-center m-3">
                                 <div class="col-4 rounded">
                                     <a href="prof_viewExam.php">
                                         <div class="bg-danger p-4">
