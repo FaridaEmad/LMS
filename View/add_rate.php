@@ -30,7 +30,7 @@ $uniName = $university->getuniversity_name();
 
     if(isset($_POST['question']) && isset($_POST['addQbtn']))
     {
-        if(!empty($_POST['question']) && !empty($_POST['examQ']))
+        if(!empty($_POST['question']) && !empty($_POST['ratingValue']))
         {
             $rating = new rating;
             $ratingCon = new RatingController;
@@ -153,14 +153,14 @@ $uniName = $university->getuniversity_name();
                             <h5 class="mb-4">Add Rating</h5>
                             <form action="add_rate.php" method="POST">
                             <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Enter The Faculty Member's Name You Want</label>
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputPassword3" name="examDur">
+                                        <input type="text" class="form-control" id="inputPassword3" name="question">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Rating Value</label>
-                                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="examQ">
+                                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="ratingValue">
                                     <option selected disabled>Select A Rating's Value</option>
                                     <?php
                                         foreach($ratings as $rating)
