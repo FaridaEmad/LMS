@@ -65,7 +65,7 @@ class GradeController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select exam_id,studentGrade from grade where user_id = $userId";
+            $query="select exam_id , studentGrade from grade where user_id = $userId";
             return $this->db->select($query);
          }
          else

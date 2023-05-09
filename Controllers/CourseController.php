@@ -49,9 +49,8 @@ class CourseController
          {
             $courseName = $course->getcourseName();
             $coursePre_id = $course->getcoursePrerequisite_id();
-            $coursePre = $course->getcoursePrerequisite();
             $user_id = $course->getuser_id();
-            $query="insert into course values ('','$courseName','$coursePre_id','$coursePre','$user_id')";
+            $query="insert into course values ('','$courseName','$coursePre_id','$user_id')";
             return $this->db->insert($query);
          }
          else
@@ -67,9 +66,7 @@ class CourseController
            {
             $user_id = $course->getuser_id();
             $courseId = $course->getcourseId();
-            $courseName = $course->getcourseName();
-            $coursePre_id = $course->getcoursePrerequisite_id();
-              $query="insert into user_course  values ('','$user_id','$courseId','$courseName','$coursePre_id') ";
+              $query="insert into user_course  values ('','$user_id','$courseId') ";
               return $this->db->insert($query);
            }
            else
@@ -78,6 +75,35 @@ class CourseController
               return false; 
            }
         } 
+      public function getPre($courseId)
+      {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select coursePrerequisiteId from course where courseId = $courseId";
+              return $this->db->select($query);
+           }
+           else
+           {
+              echo "Error in Database Connection ";
+              return false; 
+           }
+      }
+
+      public function getMycourses($user_id)
+      {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select course_id from user_course where user_id = $user_id ";
+              return $this->db->select($query);
+           }
+           else
+           {
+              echo "Error in Database Connection ";
+              return false; 
+           }
+      }
   
     public function deletetCourse($courseId)
     {

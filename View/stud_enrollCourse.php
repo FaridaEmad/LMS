@@ -1,24 +1,96 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["userRole"]))
+session_start();
+ if(!isset($_SESSION["userRole"]))
+ {
+     header("location:../index.php");
+ }
+
+require_once '../Controllers/CourseController.php';
+require_once '../Models/course.php';
+require_once '../Models/user.php';
+$course=new CourseController;
+$courses=$course->getCourse();
+$coursee=new Course;
+$pre = "";
+$err = "";
+$enroll = "";
+if(isset($_POST['enroll'])){
+    if (!empty($_POST["courseId"]))
     {
-        header("location:../index.php");
+        $checkcourses = $course->getMycourses($_SESSION["userId"]);
+        $taken = false;
+        foreach($checkcourses as $checkcourse)
+        {
+            $mycourseid = $checkcourse["course_id"];
+            if($mycourseid == $_POST["courseId"])
+            {
+                $taken = true;
+            }
+        }
+        if(!$taken){
+            $courseCont = new CourseController;
+            $coursePre = $courseCont->getPre($_POST["courseId"]);
+            if(!empty($_POST["coursePre"]))
+            {
+                $precont = new CourseController;
+                $mycourses = $precont->getMycourses($_SESSION["userId"]);
+                $flag = false;
+                foreach($mycourses as $mycourse)
+                {
+                    $mycourseid = $mycourse["course_id"];
+                    if($mycourseid == $_POST["coursePre"])
+                    {
+                        $flag = true;
+                    }
+                }
+                if($flag)
+                {
+                    $course = new Course;
+                    $course->setuser_id($_SESSION["userId"]);
+                    $course->setcourseId($_POST["courseId"]);
+                    if($courseCont->enroll_course($course))
+                    {
+                        $enroll = "Enrolled succesfully";
+                    }
+                    else
+                    {
+                        $err = $_SESSION["errMsg"];
+                    }
+                }
+                else
+                {
+                    $err = " You have to enrol the pre fisrt";
+                }
+            }
+            else
+            {
+                $course = new Course;
+                $course->setuser_id($_SESSION["userId"]);
+                $course->setcourseId($_POST["courseId"]);
+                if($courseCont->enroll_course($course))
+                {
+                    $enroll = "Enrolled succesfully";
+                }
+                else
+                {
+                    $err = $_SESSION["errMsg"];
+                }
+            }
+        }
+        else
+        {
+            $err = "You have taken this course before";
+        }
     }
     else
     {
-        if($_SESSION["userRole"] != "student")
-        {
-            header("location:../index.php");
-        }
+        $err = "fill";
     }
+}
+
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>LMS</title>
@@ -69,37 +141,26 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="student_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                   
                     <a href="view courses_student.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>view subject </a>
                     <a href="" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
                     <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>enroll subject</a>
-                    <a href="stud_enrollCourse.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
-                    <a href="student_exam.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Take Exam</a>
-                    <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="add_rate.php" class="dropdown-item">Add Rate</a>
-                            <a href="view_rate.php" class="dropdown-item">View all ratings</a>
-                        </div>
-                    </div>
-                    
-                   
+                    <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
+                  
                 </div>
             </nav>
         </div>
         <!-- Sidebar End -->
 
-
-        <!-- Content Start -->
+<!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
-               
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -107,7 +168,7 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" href="../index.php?Log Out">
-                            <a href="editProfile.php" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a class="dropdown-item" href="../index.php?Log Out">
                                 <i class="bx bx-power-off me-2"></i>
@@ -121,71 +182,60 @@
             
            
             <!-- Navbar End -->
+            <div>
+            <div class="bg-light rounded h-100 p-4">
+                            courses list</div>
+                            <?php
+              if (count($courses) == 0) {
+              ?>
+                <div class="alert alert-danger" role="alert">
+                                there are no courses
+                            </div>
+              <?php
+              } else {
 
-            <!-- Blank Start -->
-            
-            <div class="container-fluid pt-4 px-4">
-                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-10 text-center">
-                        <div class="dash">
-                            <div class="row rounded m-3">
-                                <div class="col-4 rounded">
-                                    <a href="stud_viewgrade.php">
-                                        <div class="bg-warning p-4">
-                                            <h3 class="text-light">View Grade</h3>
-                                        </div>
-                                        </a>
+              ?>                  
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">coerseID</th>
+                                            <th scope="col">courseNAME</th>
+                                            <th scope="col">userID</th>
+                                            <th scope="col">coursePrerequisiteId</th>
+                                            <th scope="col">action</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>  
+                                    <?php
+
+                                    foreach ($courses as $course) {
+                                         ?>                              
+                                    <tr>
+                                        <td scope="col"><?php echo $course["courseId"] ?></td>
+                                        <td scope="col"><?php echo $course["courseName"] ?></td>
+                                        <td scope="col"><?php echo $course["user_id"] ?></td>
+                                        <td scope="col"><?php echo $course["coursePrerequisiteId"] ?></td>
+                                        <td scope="col"> 
+                                            <form action="stud_enrollCourse.php" method="POST">
+                                                <input type="hidden" name="courseId" value="<?php echo $course["courseId"] ?>">
+                                                <input type="hidden" name="coursePre" value="<?php echo $course["coursePrerequisiteId"] ?>">
+                                                <button type="submit" name="enroll" class="btn btn-outline-danger">
+                                                <span class="tf-icons bx bx-trash"></span> enroll
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                       }}
+                                        ?>
+                                </tbody>
+                            </table>
                                 </div>
-                                <div class="col-4 rounded">
-                                    <a href="add_rate.php">
-                                        <div class="bg-info p-4">
-                                            <h3 class="text-light">Rate</h3>
-                                        </div>
-                                        </a>
-                                </div>
-                                <div class="col-4 rounded">
-                                    <a href="student_exam.php">
-                                        <div class="bg-danger p-4">
-                                            <h3 class="text-light">Exam</h3>
-                                        </div>
-                                        </a>
+                                <h5 class="text-danger text-center"> <?php echo $err; ?></h5>
+                                <h5 class="text-success text-center"> <?php echo $enroll; ?></h5>
                                 </div>
                             </div>
-                            <div class="row rounded m-3">
-                                <div class="col-4 rounded">
-                                    <a href="student_takeExam.php">
-                                        <div class="bg-primary p-4">
-                                            <h3 class="text-light">Take Exam</h3>
-                                        </div>
-                                        </a>
-                                </div>
-                                <div class="col-4 rounded">
-                                    <a href="trackingPerformance.php">
-                                        <div class="bg-success pt-4 px-4">
-                                            <h3 class="text-light">Track Performance</h3>
-                                        </div>
-                                        </a>
-                                </div>
-                                <div class="col-4 rounded">
-                                    <a href="view courses_student.php">
-                                        <div class="bg-secondary p-4">
-                                            <h3 class="text-light">View Course</h3>
-                                        </div>
-                                        </a>
-                                </div>
-                                
-                              
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-
-          
-            <!-- Blank End -->
-
-
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">

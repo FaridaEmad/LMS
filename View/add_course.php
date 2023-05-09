@@ -31,7 +31,6 @@ if(isset($_POST['courseName'])&& isset($_POST['coursePrerequisite'])&&isset($_PO
       $course_=new Course;
      
       $course_->setcourseName($_POST['courseName']);
-      $course_->setcoursePrerequisite($_POST['coursePrerequisit']);
       $course_->setcoursePrerequisite_id($_POST['coursePrerequisit_id']);
       $course_->setuser_id($_POST['userId']);
       if($courseA->addCourse($course_)){
