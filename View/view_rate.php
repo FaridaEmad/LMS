@@ -153,7 +153,7 @@
                                         ?>
                                                     <tr>
                                                         <th scope="row"><?php echo $rating["ratingId"] ?></th>
-                                                        <td><?php echo "professor" ?></td>
+                                                        <td><?php echo $rating["ratingName"] ?></td>
                                                         <td><?php echo $rating["ratingValue"] ?></td>
                                                         <td>
                                                             <form action="view_rate.php" method="POST">
