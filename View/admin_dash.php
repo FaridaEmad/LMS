@@ -108,7 +108,7 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-10 text-center">
                         <div class="dash">
-                            <div class="row rounded m-3">
+                            <div class="row d-flex justify-content-center rounded m-3">
                                 <div class="col-4 rounded">
                                     <a href="add_course.php">
                                         <div class="bg-success p-4">
@@ -134,7 +134,7 @@
                                         </a>
                                 </div>
                             </div>
-                            <div class="row rounded m-3">
+                            <div class="row rounded d-flex justify-content-center m-3">
                                 <div class="col-4 rounded">
                                     <a href="addMember.php">
                                         <div class="bg-info p-4">

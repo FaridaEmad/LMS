@@ -25,7 +25,7 @@
         session_start();
     }
     $errMsq = "";
-
+    $addmsg = "";
     $exams = $examController->getExam($_SESSION["userId"]);
 
     if(isset($_POST['question']) && isset($_POST['addQbtn']))
@@ -39,7 +39,8 @@
 
             if($questionCon->addQuestion($question))
             {
-                header("location: prof_addQues.php");
+                $addmsg = "Added successfully!!";
+            }
             }
             else
             {
@@ -50,7 +51,6 @@
         {
             $errMsq = "Please fill all fields";
         }
-    }
     
 ?>
 <!DOCTYPE html>
@@ -178,6 +178,9 @@
                                 </div>
                                 <input type="submit" name="addQbtn" class="btn btn-primary" value="Add">
                             </form>
+                            <div class="row">
+                                <h5 class="text-center text-success"><?php echo $addmsg; ?></h5>
+                            </div>
                         </div>
                     </div>
                 </div>

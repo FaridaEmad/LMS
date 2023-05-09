@@ -5,23 +5,26 @@
      header("location:../index.php");
  }
 
+
 require_once '../Controllers/CourseController.php';
 require_once '../Models/course.php';
+require_once '../Models/user.php';
 $course=new CourseController;
-$courses=$course->getCourseStudent($_SESSION["userId"]);
-$deleteMsg='';
-
+$courses =$course->search($_POST["search"]);
+$deleteMsg = false;
 if(isset($_POST["delete"]))
     {
         if(!empty($_POST["courseId"]))
         {
-            $course->deletetCourseStudent($_POST["courseId"]);
+            $course->deletetCourse($_POST["courseId"]);
         }
     }
 
+
 ?>
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>LMS</title>
@@ -52,12 +55,11 @@ if(isset($_POST["delete"]))
     <link href="../css/style.css" rel="stylesheet">
 </head>
 
-
 <body>
     <div class="container-xxl position-relative bg-white d-flex p-0">
 
-      <!-- Sidebar Start -->
-      <div class="sidebar pe-4 pb-3">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
                 <a href="../index.php" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
@@ -73,13 +75,28 @@ if(isset($_POST["delete"]))
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="student_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    
-                    <a href="view courses_student.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>view subject </a>
-                    <a href="" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
-                    <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>enroll subject</a>
-                    <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
-                   
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="button.html" class="dropdown-item">Buttons</a>
+                            <a href="typography.html" class="dropdown-item">Typography</a>
+                            <a href="element.html" class="dropdown-item">Other Elements</a>
+                        </div>
+                    </div>
+                    <a href="add_course.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>add course</a>
+                    <a href="view_courses_admin.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view courses</a>
+                    <a href="prof_addExam.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="signin.html" class="dropdown-item">Sign In</a>
+                            <a href="signup.html" class="dropdown-item">Sign Up</a>
+                            <a href="404.html" class="dropdown-item">404 Error</a>
+                            <a href="blank.html" class="dropdown-item active">Prof Page</a>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -93,84 +110,92 @@ if(isset($_POST["delete"]))
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
-                
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" href="../index.php?Log Out">
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="#" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a class="dropdown-item" href="../index.php?Log Out">
                                 <i class="bx bx-power-off me-2"></i>
                                 <span class="align-middle">Log Out</span>
-                            </a>
-
+                            </a>   
                         </div>
                     </div>
                 </div>
             </nav>
-            
-           
             <!-- Navbar End -->
-            <div class="col-12">
-                        <div class="bg-light rounded h-100 p-4">
-                            courses list
-                           <a class="binmjh" href="enroll_subject.php" role="button"> <button type="button" class="btn btn-outline-primary m-2">enroll course</button></a>
-                            <?php
-              if (count($courses) == 0) {
-              ?>
+            
+    <div class="col-12">
+            <a class="binmjh" href="add_course.php" role="button"> <button type="button" class="btn btn-outline-primary m-2" >add course</button></a>
+                <div class="bg-light rounded h-100 p-4">
+                    courses list</div>
+            <?php
+            if (count($courses) == 0) {
+            ?>
                 <div class="alert alert-danger" role="alert">
-                                there are no  enrolling courses
-                            </div>
-              <?php
-              } else {
+                                there are no courses
+                            </div> 
+            <?php
+            } else {
 
-              ?>                  
-              <div class="row d-flex justify-content-center">
-
-              <div class="col-6">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                           
-                                            <th scope="col">courseNAME</th>
-                                           
-                                            <th scope="col" width=30>action</th>
-                                          
-                                        </tr>
-                                    </thead>
-                                    <tbody>  
+            ?>
+            <div class="row d-flex justify-content-center">
+                <div class="col-6">
+                <form method="post" action="view_course_searched.php">
+                <div class="input-group m-3">
+                    <input type="text" class="form-control" placeholder="Search ..." required name='search' aria-describedby="button-addon2">
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2" name="searchBt"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+                </form>
+                </div>
+            </div>
+            
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">coerseID</th>
+                            <th scope="col">courseNAME</th>
+                            <th scope="col">coursePrerequisiteId</th>
+                            <th scope="col">action</th>
+                        </tr>
+                    </thead>
+                    <tbody>  
+                        <?php
+                        
+                            foreach ($courses as $course) {
+                            ?>                              
+                            <tr>
+                                <td scope="col"><?php echo $course["courseId"] ?></td>
+                                <td scope="col"><?php echo $course["courseName"] ?></td>
+                                <td scope="col"><?php echo $course["coursePrerequisiteId"] ?></td>
+                                <td>  
+                                    <form action="view_courses_admin.php" method="POST">
+                                        <input type="hidden" name="courseId" value="<?php 
+                                        echo $course["courseId"] ?>  "> 
+                                        <button type="submit" name="delete" class="btn btn-outline-danger">
+                                        <span class="tf-icons bx bx-trash"></span> delete
+                                        </button>
+                                    </form></td>
+                            </tr>
                                     <?php
-
-                                      foreach ($courses as $course) {
-                                         ?>                              
-                                    <tr>
-                                        <td scope="col"><?php echo $course["courseName"] ?></td>
-                                        <td scope="col">  
-                                            <form action="view courses_student.php" method="POST">
-                              <input type="hidden" name="courseId" value="<?php echo $course["course_id"] ?>"> 
-                              <button type="submit" name="delete" class="btn btn-outline-danger">
-                                <span class="tf-icons bx bx-trash"></span> delete
-                              </button>
-                            </form></td>
-                                    </tr>
-                                    <?php
-                                       }}
+                                       }
+                                     }
                                         ?>
                                 </tbody>
                             </table>
-                            </div>
-                            </div>
                                 </div>
                                          </div>
-                             
-                           
-   
-   
-        
+                                </table>
+                            </div>
+                        </div>
+
+
+         
 
 
             <!-- Footer Start -->

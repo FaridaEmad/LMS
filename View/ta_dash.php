@@ -122,7 +122,7 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-10 text-center">
                         <div class="dash">
-                            <div class="row rounded m-3">
+                            <div class="row d-flex justify-content-center rounded m-3">
                                 <div class="col-4 rounded">
                                     <a href="prof-viewgrade.php">
                                         <div class="bg-warning p-4">
