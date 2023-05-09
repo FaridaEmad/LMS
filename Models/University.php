@@ -2,7 +2,7 @@
 
 class University
 {
- private $university_name;
+ private $university_name = "The University";
  
  public function setuniversity_name($university_name){
     $this->university_name=$university_name;

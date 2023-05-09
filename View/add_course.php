@@ -19,6 +19,9 @@ if(!isset($_SESSION["userRole"]))
 
 require_once '../Models/course.php';
 require_once '../Controllers/CourseController.php';
+require_once "../Models/University.php";
+$university = new University;
+$uniName = $university->getuniversity_name();
 
 
 $courseA=new CourseController;
@@ -112,9 +115,9 @@ if(isset($_POST['courseName'])&& isset($_POST['coursePrerequisite'])&&isset($_PO
             
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">

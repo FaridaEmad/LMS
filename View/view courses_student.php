@@ -18,7 +18,9 @@ if(isset($_POST["delete"]))
             $course->deletetCourseStudent($_POST["courseId"]);
         }
     }
-
+    require_once "../Models/University.php";
+    $university = new University;
+    $uniName = $university->getuniversity_name();
 ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -59,9 +61,9 @@ if(isset($_POST["delete"]))
       <!-- Sidebar Start -->
       <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="../index.php" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
