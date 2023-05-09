@@ -4,7 +4,6 @@ class Course
 {
  private $courseId;
  private $courseName;
- private $coursePrerequisite;
  private $user_id;
  private $coursePrerequisite_id;
 
@@ -24,14 +23,6 @@ class Course
 public function getcourseName(){
  return $this->courseName;
 }
-
-public function setcoursePrerequisite($coursePrerequisite){
-    $this->coursePrerequisite=$coursePrerequisite;
-  }
-  
- public function getcoursePrerequisite(){
-  return $this->coursePrerequisite;
- }
 
  public function setuser_id($user_id){
     $this->user_id=$user_id;

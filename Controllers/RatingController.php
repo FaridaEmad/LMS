@@ -31,7 +31,10 @@ class RatingController
         $this->db=new DBController;
         if($this->db->openConnection())
         {
-           $query="insert into rating values ('','$rating->ratingId','$rating->user_id','$rating->ratingValue')";
+           $ratingId = $rating->getratingId();
+           $user_id = $rating->getuser_id();
+           $ratingValue = $rating->getratingValue();
+           $query="insert into rating values ('','$ratingId','$user_id','$ratingValue')";
            return $this->db->insert($query);
         }
         else

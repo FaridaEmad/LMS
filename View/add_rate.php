@@ -7,10 +7,11 @@
     }
     else
     {
-        if($_SESSION["userRole"] != "student")
+        if($_SESSION["userRole"] != "Admin")
         {
             header("location:../index.php");
         }
+
     }
     require_once '../Models/rating.php';
     require_once '../Controllers/RatingController.php';
@@ -29,8 +30,8 @@
         {
             $rating = new rating;
             $ratingCon = new RatingController;
-            $rating->ratingValue = $_POST['ratingValue'];
-            $rating->user_id = $_SESSION["userId"];
+            $rating->setratingValue($_POST['ratingValue']);
+            $rating->setuser_id( $_SESSION["userId"]);
             if($ratingCon->addRating($rating))
             {
                 header("location: view_rate.php");
