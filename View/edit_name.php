@@ -31,9 +31,9 @@
             }
             $user=new User;
             $UserContr=new UserController;
-            $user->userName= $_POST['nameN'];
+            $user->setuserName($_POST['nameN']);
             
-            $user->userId=$_SESSION["userId"];
+            $user->setuserId($_SESSION["userId"]);
             if($UserContr->updateName($user))
             {
                 $changeMsg="Name has been changed successfully";

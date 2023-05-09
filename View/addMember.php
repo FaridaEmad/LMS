@@ -28,11 +28,11 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
     {
         $user = new User;
         $authController2 =new AuthController2;
-        $user->userName=$_POST['name'];
-        $user->email=$_POST['emailR'];
-        $user->password=$_POST['passwordR'];
-        $user->role_id=$_POST['roleR'];
-        $user->dept_id=$_POST['deptR'];
+        $user->setuserName($_POST['name']);
+        $user->setemail($_POST['emailR']);
+        $user->setpassword($_POST['passwordR']);
+        $user->setrole_id($_POST['roleR']);
+        $user->setdept_id($_POST['deptR']);
         if( $authController2->register($user))
         {
             $AddMsg="Added successfully";

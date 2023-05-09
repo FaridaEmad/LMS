@@ -29,8 +29,8 @@
         {
             $rating = new rating;
             $ratingCon = new RatingController;
-            $rating->ratingValue = $_POST['ratingValue'];
-            $rating->user_id = $_SESSION["userId"];
+            $rating->setratingValue($_POST['ratingValue']);
+            $rating->setuser_id( $_SESSION["userId"]);
             if($ratingCon->addRating($rating))
             {
                 header("location: view_rate.php");
