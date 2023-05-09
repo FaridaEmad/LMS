@@ -20,7 +20,7 @@ class AuthController2
             if($result!=false)
             {
                 session_start();
-                $_SESSION["userId"]=$result;
+               $_SESSION["userId"]=$result;
                 $_SESSION["userName"]=$user->userName;
                 $_SESSION["userPassword"]=$user->password;
                // $_SESSION["userRole"]="Client";
