@@ -1,17 +1,24 @@
 <?php
-   session_start();
-   if(!isset($_SESSION["userRole"]))
-   {
-       header("location:../index.php");
-   }
+    session_start();
+    if(!isset($_SESSION["userRole"]))
+    {
+        header("location:../index.php");
+    }
+    else
+    {
+        if($_SESSION["userRole"] != "student")
+        {
+            header("location:../index.php");
+        }
+    }
 
 require_once '../Controllers/GradeController.php';
 require_once '../Models/grade.php';
 
 $gradeController = new GradeController;
 
-
-$grades = $gradeController->getstudGrade();
+$userId = $_SESSION ["userId"];
+$grades = $gradeController->getstudGrade($userId);
 ?>
 
 
@@ -150,17 +157,13 @@ $grades = $gradeController->getstudGrade();
                                         <tbody>
 
                                     <?php
-                                  foreach($grades as$grade)
+                                  foreach($grades as $grade)
                                   {
                                     ?>
-                                  
-                                                <tr>
-                                                    <th scope="row"><?php echo $grade["exam_id"] ?></th>
-                                                    
-                                                    <td><?php echo $grade["studentGrade"] ?></td>
-                                                    <td></td>
-                                                </tr>
-                                            
+                                        <tr>
+                                            <th scope="row"><?php echo $grade["exam_id"]?></th>
+                                            <th><?php echo $grade["studentGrade"] ?></th>
+                                        </tr>
                                     <?php
                                   }
                                   ?>

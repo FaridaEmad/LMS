@@ -12,12 +12,12 @@ class GradeController
     //3. Close connection
 
 
-   public function getGrade()
+   public function getGrade($userId)
    {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select exam_id,user_id,studentGrade from grade";
+            $query="select exam_id ,grade.user_id ,studentGrade from grade join exam on exam_id = examId where exam.user_id = $userId";
             return $this->db->select($query);
          }
          else
@@ -57,12 +57,12 @@ class GradeController
       }
    }
 
-   public function getstudGrade()
+   public function getstudGrade($userId)
    {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select exam_id,studentGrade from grade join user on user_id = userId";
+            $query="select exam_id,studentGrade from grade where user_id = $userId";
             return $this->db->select($query);
          }
          else

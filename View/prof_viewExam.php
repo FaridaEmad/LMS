@@ -5,13 +5,7 @@
     {
         header("location:../index.php");
     }
-    else
-    {
-        if($_SESSION["userRole"] != "professsor")
-        {
-            header("location:../index.php");
-        }
-    }
+    
     require_once '../Controllers/ExamController.php';
     require_once '../Models/exam.php';
 

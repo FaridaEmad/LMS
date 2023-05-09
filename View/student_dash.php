@@ -1,10 +1,16 @@
 <?php
- session_start();
- if(!isset($_SESSION["userRole"]))
- {
-     header("location:../index.php");
- }
-
+    session_start();
+    if(!isset($_SESSION["userRole"]))
+    {
+        header("location:../index.php");
+    }
+    else
+    {
+        if($_SESSION["userRole"] != "student")
+        {
+            header("location:../index.php");
+        }
+    }
 ?>
 
 
@@ -71,7 +77,7 @@
                     <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
                     <a href="student_exam.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Take Exam</a>
                     <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
-                    
+                    <a href="add_rate.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Rate</a>
                    
                 </div>
             </nav>
@@ -148,7 +154,7 @@
                                 </div>
                                 <div class="col-4 rounded">
                                     <a href="trackingPerformance.php">
-                                        <div class="bg-success p-4">
+                                        <div class="bg-success pt-4 px-4">
                                             <h3 class="text-light">Track Performance</h3>
                                         </div>
                                         </a>

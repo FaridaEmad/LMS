@@ -8,8 +8,8 @@
 require_once '../Models/grade.php';
 require_once '../Controllers/GradeController.php';
 $gradeController = new GradeController;
-
-$grades = $gradeController->getGrade();
+$userId = $_SESSION["userId"];
+$grades = $gradeController->getGrade($userId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
