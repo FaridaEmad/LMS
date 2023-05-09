@@ -77,7 +77,14 @@
                     <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
                     <a href="student_exam.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Take Exam</a>
                     <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
-                    <a href="add_rate.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Rate</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="add_rate.php" class="dropdown-item">Add Rate</a>
+                            <a href="view_rate.php" class="dropdown-item">View all ratings</a>
+                        </div>
+                    </div>
+                    
                    
                 </div>
             </nav>
@@ -130,9 +137,9 @@
                                         </a>
                                 </div>
                                 <div class="col-4 rounded">
-                                    <a href="student_correct.php">
+                                    <a href="add_rate.php">
                                         <div class="bg-info p-4">
-                                            <h3 class="text-light">Correct</h3>
+                                            <h3 class="text-light">Rate</h3>
                                         </div>
                                         </a>
                                 </div>
