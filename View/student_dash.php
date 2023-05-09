@@ -71,9 +71,7 @@
                 <div class="navbar-nav w-100">
                     <a href="student_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                   
-                    <a href="view courses_student.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>view subject </a>
-                    <a href="" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
-                    <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>enroll subject</a>
+                    <a href="view courses_student.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
                     <a href="stud_enrollCourse.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
                     <a href="student_exam.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Take Exam</a>
                     <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
