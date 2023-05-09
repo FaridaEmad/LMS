@@ -77,6 +77,14 @@ $grades = $gradeController->getGrade($userId);
 
                     
                     <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="add_rate.php" class="dropdown-item">Add Rate</a>
+                            <a href="view_rate.php" class="dropdown-item">View all ratings</a>
+                        </div>
+                    </div>
+                  
                  
                     
                 </div>
@@ -120,12 +128,7 @@ $grades = $gradeController->getGrade($userId);
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Grades</h6>
-                         <!--   <a href="#" class="col-md-3 btn btn-primary float-end" >
-                           
-                           <span class="tf-icons bx bx-add-to-queue"></span>Add new Grade
-                       </a>
-                       <br>
-                       <br>-->
+                       
                       
                             <?php
                                 if(count($grades) == 0)
