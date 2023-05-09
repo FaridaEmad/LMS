@@ -29,7 +29,10 @@ class AnswerController
       $this->db=new DBController;
       if($this->db->openConnection())
       {
-         $query="insert into answer values ('','$answer->answerContent','$answer->flag','$answer->question_id')";
+         $content = $answer->getAnswerContent();
+         $flag = $answer->getflag();
+         $quesId = $answer->getquestion_id();
+         $query="insert into answer values ('','$content','$flag','$quesId')";
          return $this->db->insert($query);
       }
       else

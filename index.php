@@ -14,8 +14,8 @@ if(isset($_POST['email']) && isset($_POST['password']) )
     {
         $user=new User;
         $auth=new AuthController;
-        $user->email=$_POST['email'];
-        $user->password=$_POST['password'];
+        $user->setemail($_POST['email']);
+        $user->setpassword($_POST['password']);
         if(!$auth->login($user))
         {
             if(!isset($_SESSION["userId"]))

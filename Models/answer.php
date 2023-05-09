@@ -10,9 +10,12 @@ class Answer
     public function setanswerId($answerId){
         $this->answerId=$answerId;
       }
-     return $this->answerContent;
+    public function getAnswerContent(){
+        return $this->answerContent;
     }
-
+    public function setAnswerContent($answerContent){
+      $this->answerContent = $answerContent;
+  }
     public function setflag($flag){
         $this->flag=$flag;
       }
