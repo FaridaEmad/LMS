@@ -7,10 +7,11 @@
     }
     else
     {
-        if($_SESSION["userRole"] != "student")
+        if($_SESSION["userRole"] != "Admin")
         {
             header("location:../index.php");
         }
+
     }
     require_once '../Models/rating.php';
     require_once '../Controllers/RatingController.php';
