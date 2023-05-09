@@ -2,10 +2,12 @@
 
 class Lecture
 {
- public $lectureId;
- public $lectureNumber;
- public $lectureTitle;
- public $course_id;
+ private $lectureId;
+ private $lectureNumber;
+ private $lectureTitle;
+ private $course_id;
+
+
 
 }
 

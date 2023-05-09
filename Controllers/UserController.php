@@ -30,7 +30,12 @@ class UserController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into user values ('','$user->userName','$user->email','$user->password','$user->dept_id','$user->role_id')";
+            $userName = $user->getuserName();
+            $email = $user->getemail();
+            $password = $user->getpassword();
+            $dept_id = $user->getdept_id();
+            $role_id = $user->getrole_id();
+            $query="insert into user values ('','$userName','$email','$password','$dept_id','$role_id')";
             return $this->db->insert($query);
          }
          else
@@ -71,7 +76,9 @@ class UserController
                $this->db=new DBController;
                if($this->db->openConnection())
                {
-                  $query="update user  SET password = $user->password where userId = $user->userId";
+                  $password = $user->getpassword();
+                  $userId = $user->getuserId();
+                  $query="update user  SET password = $password where userId = $userId";
                   return $this->db->update($query);
                }
                else
@@ -85,7 +92,9 @@ class UserController
                   $this->db=new DBController;
                   if($this->db->openConnection())
                   {
-                     $query="update user  SET userName = \"$user->userName\" where userId = $user->userId";
+                     $userName = $user->getuserName();
+                     $userId = $user->getuserId();
+                     $query="update user  SET userName = \"$userName\" where userId = $userId";
                      return $this->db->update($query);
                   }
                   else

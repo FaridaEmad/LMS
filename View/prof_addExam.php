@@ -27,9 +27,9 @@
         {
             $exam = new Exam;
             $examCon = new ExamController;
-            $exam->examName = $_POST['examName'];
-            $exam->examTime = $_POST['examDur'];
-            $exam->user_id = $_SESSION["userId"];
+            $exam->setexamName($_POST['examName']);
+            $exam->setexamTime($_POST['examDur']);
+            $exam->setuser_id($_SESSION["userId"]);
             if($examCon->addExam($exam))
             {
                 header("location: prof_viewExam.php");

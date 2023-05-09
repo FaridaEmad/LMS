@@ -32,9 +32,9 @@
         {
             $answer = new Answer;
             $answerCon = new AnswerController;
-            $answer->answerContent = $_POST["answer"];
-            $answer->flag = $_POST["answerFalg"];
-            $answer->question_id = $_POST['quesForA'];
+            $answer->setAnswerContent($_POST["answer"]);
+            $answer->setflag($_POST["answerFalg"]);
+            $answer->setquestion_id($_POST['quesForA']);
 
             if($answerCon->addAnswer($answer))
             {

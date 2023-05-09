@@ -78,7 +78,10 @@ class ExamController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into exam values ('','$exam->examName','$exam->examTime','$exam->user_id')";
+            $examName = $exam->getexamName();
+            $examTime = $exam->getexamTime();
+            $userId = $exam->getuser_id();
+            $query="insert into exam values ('','$examName','$examTime','$userId')";
             return $this->db->insert($query);
          }
          else

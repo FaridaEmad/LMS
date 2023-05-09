@@ -34,8 +34,8 @@
         {
             $question = new Question;
             $questionCon = new QuestionController;
-            $question->questionContent = $_POST['question'];
-            $question->exam_id = $_POST['examQ'];
+            $question->setquestionContent($_POST['question']);
+            $question->setexam_id($_POST['examQ']);
 
             if($questionCon->addQuestion($question))
             {

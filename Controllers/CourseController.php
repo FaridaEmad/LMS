@@ -47,7 +47,11 @@ class CourseController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into course values ('','$course->courseName','$course->coursePrerequisite_id','$course->coursePrerequisite','$course->user_id')";
+            $courseName = $course->getcourseName();
+            $coursePre_id = $course->getcoursePrerequisite_id();
+            $coursePre = $course->getcoursePrerequisite();
+            $user_id = $course->getuser_id();
+            $query="insert into course values ('','$courseName','$coursePre_id','$coursePre','$user_id')";
             return $this->db->insert($query);
          }
          else
@@ -61,7 +65,11 @@ class CourseController
            $this->db=new DBController;
            if($this->db->openConnection())
            {
-              $query="insert into user_course  values ('','$course->user_id','$course->courseId','$course->courseName','$course->coursePrerequisite_id') ";
+            $user_id = $course->getuser_id();
+            $courseId = $course->getcourseId();
+            $courseName = $course->getcourseName();
+            $coursePre_id = $course->getcoursePrerequisite_id();
+              $query="insert into user_course  values ('','$user_id','$courseId','$courseName','$coursePre_id') ";
               return $this->db->insert($query);
            }
            else

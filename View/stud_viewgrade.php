@@ -91,6 +91,13 @@ $grades = $gradeController->getstudGrade($userId);
 
                   
                     <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="add_rate.php" class="dropdown-item">Add Rate</a>
+                            <a href="view_rate.php" class="dropdown-item">View all ratings</a>
+                        </div>
+                    </div>
                
                 </div>
             </nav>
