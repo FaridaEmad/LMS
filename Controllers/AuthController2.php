@@ -24,12 +24,12 @@ class AuthController2
             $result=$this->db->insert($query);
             if($result!=false)
             {
-                session_start();
-                $_SESSION["userId"]=$result;
-                $_SESSION["userName"]=$user->getuserName();
-                $_SESSION["userPassword"]=$user->getpassword();
+               // session_start();
+              // $_SESSION["userId"]=$result;
+               //$_SESSION["userName"]=$user->getuserName();
+              // $_SESSION["userPassword"]=$user->getpassword();
                // $_SESSION["userRole"]="Client";
-            //    $_SESSION["userRole"]="Client";
+              //    $_SESSION["userRole"]="Client";
                 $this->db->closeConnection();
                 return true;
             }
