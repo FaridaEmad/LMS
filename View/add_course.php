@@ -151,9 +151,7 @@ if ($errMsg != "") {
 }
 
 ?>
-                         
-                                  
-                            <form action="add_course.php" method="POST">
+                   <form action="add_course.php" method="POST">
                                 <div class="mb-3">
                                     <label for="courseName" class="form-label">courseName</label>
                                     <input type="text" class="form-control" id="exampleInputPassword1" name="courseNameA">
@@ -165,15 +163,18 @@ if ($errMsg != "") {
                                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
                                     <!-- </div> -->
                                 </div>
-                                
+                    
+                                <div class="mb-3">
+                                    <label for="courseID" class="form-label">user id</label>
+                                    <input type="text" class="form-control" id="exampleInputcourseID"
+                                        aria-describedby="emailHelp" name="user_idA">
+                                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
+                                    <!-- </div> -->
                                 </div>
-                                 </div>
-                        
-                                    <div>
-                                      <button type= "submit" name="Add" class="btn btn-primary">Add</button>
-                                  </div>
-                                                
-                            </form>
+                                <div class="col-sm-10">
+                                                    <button type="submit" name="Add" class="btn btn-primary" name="add">Add</button>
+                                                </div>
+                   </form>
                      <div class="add">   
                     <?php
                     echo $AddMsg;
