@@ -48,6 +48,7 @@ class CourseController
          if($this->db->openConnection())
          {
             $courseName = $course->getcourseName();
+            $coursePre_id = NULL;
             $coursePre_id = $course->getcoursePrerequisite_id();
             $user_id = $course->getuser_id();
             $query="insert into course values ('','$courseName','$coursePre_id','$user_id')";

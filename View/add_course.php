@@ -17,15 +17,15 @@ $AddMsg="";
 
 
   
-if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && isset($_POST["user_idA"])&& isset($_POST["Add"]))
+if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) &&  isset($_POST["Add"]))
  {
-    if(!empty($_POST["courseNameA"] ) && !empty($_POST["coursePrerequisite_idA"]) && !empty($_POST["user_idA"]))
+    if(!empty($_POST["courseNameA"] ) && !empty($_POST["coursePrerequisite_idA"]) )
     {
       $course=new Course;
       $courseCont=new CourseController;
-      $course->setcourseName($_POST["ourseNameA"]);
+      $course->setcourseName($_POST["courseNameA"]);
       $course->setcoursePrerequisite_id($_POST["coursePrerequisite_idA"]);
-      $course->setuser_id($_POST["user_idA"]);
+      $course->setuser_id($_SESSION["userId"]);
       if($courseCont->addCourse($course))
       {
         $AddMsg="Added successfully";
@@ -165,13 +165,7 @@ if ($errMsg != "") {
                                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
                                     <!-- </div> -->
                                 </div>
-                                <div class="mb-3">
-                                    <label for="courseID" class="form-label">user id</label>
-                                    <input type="text" class="form-control" id="exampleInputcourseID"
-                                        aria-describedby="emailHelp" name="user_idA">
-                                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
-                                    <!-- </div> -->
-                                </div>
+                                
                                 </div>
                                  </div>
                         
