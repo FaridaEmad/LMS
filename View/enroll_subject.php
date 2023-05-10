@@ -148,7 +148,7 @@ if(isset($_POST['enroll'])){
                                     <tr>
                                         <td scope="col"><?php echo $course["courseId"] ?></td>
                                         <td scope="col"><?php echo $course["courseName"] ?></td>
-                                        <td scope="col"><?php echo $course["coursePrerequisite"] ?></td>
+                                        <td scope="col"><?php echo $course["coursePrerequisiteId"] ?></td>
                                         <td scope="col">  <form action="enroll_subject.php" method="POST">
                                   <input type="hidden" name="courseId" value="">
                               <button type="submit" name="enroll" class="btn btn-outline-danger">
@@ -157,7 +157,8 @@ if(isset($_POST['enroll'])){
                             </td>
                                     </tr>
                                     <?php
-                                       }}
+                                       }
+                                    }
                                         ?>
                                 </tbody>
                             </table>
