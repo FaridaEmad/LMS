@@ -9,17 +9,22 @@
     require_once '../Controllers/UserController.php';
     $errMsg = "";
     $changeMsg="";
-    if(!isset($_SESSION["userRole"]))
+   /* if(!isset($_SESSION["userRole"]))
     {
         header("location:../index.php");
     }
     else
     {
-        if($_SESSION["userRole"] != "Admin")
+        if($_SESSION["userRole"] !="Admin")
         {
             header("location:../index.php");
         }
+    //}*/
+    if(!isset($_SESSION["userId"]))
+    {
+        session_start();
     }
+    
     
     if(isset($_POST['nameN']))
     {
@@ -138,7 +143,7 @@
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            
+                        <a href="editProfile.php" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a href="#" class="dropdown-item">Log Out</a>
                         </div>

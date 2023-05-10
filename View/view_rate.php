@@ -7,14 +7,14 @@
     }
     else
     {
-        if($_SESSION["userRole"] == "student")
+        if($_SESSION["userRole"] =="student")
         {
             header("location:../index.php");
         }
     }
     require_once '../Controllers/RatingController.php';
     require_once '../Models/rating.php';
-
+    
     $ratingController = new RatingController;
 
     if(isset($_POST["deleteRating"]))

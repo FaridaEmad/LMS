@@ -1,45 +1,45 @@
-
-
 <?php
-
-
-
 session_start();
-if(!isset($_SESSION["userRole"]))
-{
-    header("location:../index.php");
-}
-// else
-// {
-//     if($_SESSION["userRole"] != "admin")
-//     {
-//         header("location:../index.php");
-//     }
-// }
+
+   /* if($_SESSION["userRole"]!="admin")
+    {
+        header("location:../index.php");
+    }*/
+
 
 require_once '../Models/course.php';
 require_once '../Controllers/CourseController.php';
+$errMsg="";
+$AddMsg="";
+//$coursePres=$courseCont->getPre();
 
-
-$courseA=new CourseController;
-$courses=$courseA->getCourse();
-$errMsg='';
 
   
-if(isset($_POST['courseName'])&& isset($_POST['coursePrerequisite'])&&isset($_POST['coursePrerequisite_id']) &&isset($_POST['user_id'])&&isset($_POST['add'])) {
-    if( !empty($_POST['courseName'])&&!empty($_post['coursePrerequisite_id'])&&!empty($_post['coursePrerequisite'])&&!empty($_post['user_id'])&&!empty($_POST['add'])){
-      $course_=new Course;
-     
-      $course_->setcourseName($_POST['courseName']);
-      $course_->setcoursePrerequisite_id($_POST['coursePrerequisit_id']);
-      $course_->setuser_id($_POST['userId']);
-      if($courseA->addCourse($course_)){
-        header("location: view_courses_admin.php");
+if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && isset($_POST["user_idA"])&& isset($_POST["Add"]))
+ {
+    if(!empty($_POST["courseNameA"] ) && !empty($_POST["coursePrerequisite_idA"]) && !empty($_POST["user_idA"]))
+    {
+      $course=new Course;
+      $courseCont=new CourseController;
+      $course->setcourseName($_POST["courseNameA"]);
+      $course->setcoursePrerequisite_id($_POST["coursePrerequisite_idA"]);
+      $course->setuser_id($_POST["user_idA"]);
+      if($courseCont->addCourse($course))
+      {
+        $AddMsg="Added successfully";
+
+       
       }
       else{
         $errmsg="failed addition";
       }
-    }}
+    }
+    else
+    {
+        $errMsg="Please Fill All Fields";
+    }
+   
+}
   
 ?>
 <!DOCTYPE html>
@@ -139,7 +139,7 @@ if(isset($_POST['courseName'])&& isset($_POST['coursePrerequisite'])&&isset($_PO
                            
                             <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">new course</h6>
-                            <form>
+                            
                             <?php
 
 if ($errMsg != "") {
@@ -151,33 +151,36 @@ if ($errMsg != "") {
 ?>
                          
                                   
-                                <form action="add_course.php" method="POST">
+                            <form action="add_course.php" method="POST">
                                 <div class="mb-3">
                                     <label for="courseName" class="form-label">courseName</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" name="courseName">
+                                    <input type="text" class="form-control" id="exampleInputPassword1" name="courseNameA">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="courseID" class="form-label">coursePrerequisiteId</label>
-                                    <input type="text" class="form-control" id="exampleInputcourse_id"
-                                        aria-describedby="emailHelp" name="coursePrerequisite_id">
-                                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
-                                    <!-- </div> -->
-                                </div>
-                                <div class="mb-3">
-                                    <label for="coursePrequisite" class="form-label">coursePrequisite</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" name="coursePrerequisite">
+                                <label for="coursePrerequisite_id" class="form-label">coursePrerequisite Id</label>
+                                    <input type="text" class="form-control" id="exampleInputcourseID"
+                                        aria-describedby="emailHelp" name="coursePrerequisite_idA">
                                 </div>
                                 <div class="mb-3">
                                     <label for="courseID" class="form-label">user id</label>
                                     <input type="text" class="form-control" id="exampleInputcourseID"
-                                        aria-describedby="emailHelp" name="user_id">
+                                        aria-describedby="emailHelp" name="user_idA">
                                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
                                     <!-- </div> -->
                                 </div>
-                                <div class="col-sm-10">
-                                                    <button type="submit" class="btn btn-primary">Add</button>
-                                                </div>
+                                </div>
+                                 </div>
+                        
+                                    <div>
+                                      <button type= "submit" name="Add" class="btn btn-primary">Add</button>
+                                  </div>
+                                                
                             </form>
+                     <div class="add">   
+                    <?php
+                    echo $AddMsg;
+                    ?>
+                    </div>
                         </div>
                     </div> </div>
             <!-- Footer Start -->

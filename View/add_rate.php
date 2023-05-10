@@ -5,14 +5,14 @@
     {
         header("location:../index.php");
     }
-    else
+    /*else
     {
         if($_SESSION["userRole"] != "Admin")
         {
             header("location:../index.php");
         }
 
-    }
+    }*/
     require_once '../Models/rating.php';
     require_once '../Controllers/RatingController.php';
     $ratingController = new RatingController;

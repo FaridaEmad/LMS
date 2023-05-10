@@ -6,6 +6,7 @@ class Course
  private $courseName;
  private $user_id;
  private $coursePrerequisite_id;
+ 
 
 
  public function setcourseId($courseId){
