@@ -10,8 +10,14 @@ class Answer
     public function setanswerId($answerId){
         $this->answerId=$answerId;
       }
+      
+     public function getanswerId(){
+      return $this->answerId;
+     }
+     
+  
     public function getAnswerContent(){
-        return $this->answerContent;
+     return $this->answerContent;
     }
     public function setAnswerContent($answerContent){
       $this->answerContent = $answerContent;
@@ -34,5 +40,6 @@ class Answer
 
 
 }
+
 
 ?>

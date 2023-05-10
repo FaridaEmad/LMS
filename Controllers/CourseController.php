@@ -27,12 +27,12 @@ class CourseController
             return false; 
          }
     }
-    public function getCourseStudent()
+    public function getCourseStudent($user_id)
     {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select courseId ,courseName from user_course";
+            $query="SELECT course_id , course.courseName FROM user_course JOIN course on course_id = courseId WHERE user_course.user_id = $user_id";
             return $this->db->select($query);
          }
          else
@@ -124,7 +124,7 @@ class CourseController
        $this->db=new DBController;
        if($this->db->openConnection())
        {
-          $query= "delete from user_course where courseId = $courseId";
+          $query= "delete from user_course where course_id = $courseId";
           return $this->db->delete($query);
        }
        else
@@ -132,6 +132,22 @@ class CourseController
           echo "Error in Database Connection";
           return false; 
        }
+    }
+    
+    public function search($search)
+    {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select * from course where courseName LIKE '%$search%'";
+            return $this->db->select($query);
+         }
+
+         else
+         {
+            echo "Error in Database Connection";
+            return false; 
+         }
     }
  }
    

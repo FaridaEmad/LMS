@@ -4,7 +4,9 @@
  {
      header("location:../index.php");
  }
-
+ require_once "../Models/University.php";
+ $university = new University;
+ $uniName = $university->getuniversity_name();
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +66,7 @@
                   
                     <a href="addMember.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Add Member</a>
                     <a href="deleteMember.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Delete Member</a>
-                    
+                    <a href="send_email_form.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Send Emails</a>
                     
               
                 
@@ -78,9 +80,9 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -108,11 +110,12 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-10 text-center">
                         <div class="dash">
-                            <div class="row rounded m-3">
+                            <div class="row d-flex justify-content-center rounded m-3">
                                 <div class="col-4 rounded">
                                     <a href="add_course.php">
                                         <div class="bg-success p-4">
                                             <h3 class="text-light">Add Course</h3>
+                                            <i class="fa fa-tasks" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -120,6 +123,7 @@
                                     <a href="view_courses_admin.php">
                                         <div class="bg-primary p-4">
                                             <h3 class="text-light">View Course</h3>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -127,15 +131,17 @@
                                     <a href="add_rate.php">
                                         <div class="bg-warning p-4">
                                             <h3 class="text-light">Add Rate</h3>
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
                             </div>
-                            <div class="row rounded m-3">
+                            <div class="row rounded d-flex justify-content-center m-3">
                                 <div class="col-4 rounded">
                                     <a href="addMember.php">
                                         <div class="bg-info p-4">
                                             <h3 class="text-light">Add Member</h3>
+                                            <i class="fa fa-user-plus" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -143,6 +149,15 @@
                                     <a href="deleteMember.php">
                                         <div class="bg-danger p-4">
                                             <h3 class="text-light">Del Member</h3>
+                                            <i class="fa fa-user-times" aria-hidden="true"></i>
+                                        </div>
+                                        </a>
+                                </div>
+                                <div class="col-4 rounded ">
+                                    <a href="view_rate.php">
+                                        <div class="bg-dark p-4">
+                                            <h3 class="text-light">View Rate</h3>
+                                            <i class="fa fa-registered" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>

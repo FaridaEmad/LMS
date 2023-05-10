@@ -12,7 +12,9 @@
             header("location:../index.php");
         }
     }
-
+    require_once "../Models/University.php";
+    $university = new University;
+    $uniName = $university->getuniversity_name();
     require_once '../Models/answer.php';
     require_once '../Controllers/AnswerController.php';
     require_once '../Models/question.php';
@@ -25,6 +27,7 @@
         session_start();
     }
     $errMsq = "";
+    $addmsg = "";
     $questions = $questionController->getQuestionContent($_SESSION["userId"]);
     if(isset($_POST['addAbtn']) && isset($_POST["answer"]))
     {
@@ -38,7 +41,7 @@
 
             if($answerCon->addAnswer($answer))
             {
-                header("location: prof_dash.php");
+                $addmsg = "Added successfully!!";
             }
             else
             {
@@ -126,9 +129,9 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                 
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -186,6 +189,9 @@
                                 </div>
                                 <input type="submit" name="addAbtn" class="btn btn-primary" value="Add">
                             </form>
+                            <div class="row">
+                                <h5 class="text-center text-success"><?php echo $addmsg; ?></h5>
+                            </div>
                         </div>
                     </div>
                 </div>

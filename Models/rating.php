@@ -5,6 +5,7 @@ class Rating
     private $ratingId;
     private $user_id;
     private $ratingValue;
+    private $ratingName;
 
     public function setratingId($ratingId){
         $this->ratingId=$ratingId;
@@ -29,6 +30,14 @@ class Rating
      public function getratingValue(){
       return $this->ratingValue;
      }
+
+     public function setratingName($ratingName){
+      $this->ratingName=$ratingName;
+    }
+    
+   public function getratingName(){
+    return $this->ratingName;
+   }
 
   
    

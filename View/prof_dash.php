@@ -4,9 +4,10 @@
  {
      header("location:../index.php");
  }
-
+require_once "../Models/University.php";
+$university = new University;
+$uniName = $university->getuniversity_name();
 ?>
- 
  
  
  <!DOCTYPE html>
@@ -62,7 +63,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="prof_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="prof_dash.php" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -73,6 +74,13 @@
                   
                    
                     <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
+                    <div class="nav-item dropdown">
+                               <a href="#" class="nav-link dropdown-toggle " data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
+                              <div class="dropdown-menu bg-transparent border-0">
+                                <a href="add_rate.php" class="dropdown-item">Add Rate</a>
+                                <a href="view_rate.php" class="dropdown-item">View all ratings</a>
+                              </div>
+                            </div>
                    
                 </div>
             </nav>
@@ -84,9 +92,9 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+                <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
               
                
                 <div class="navbar-nav align-items-center ms-auto">
@@ -95,16 +103,14 @@
                             <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="editProfile.php" class="dropdown-item" >My Profile</a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0" href="../index.php?Log Out">
+                            <a href="editProfile.php" class="dropdown-item">My Profile</a>
                             <a href="#" class="dropdown-item">Settings</a>
                             <a class="dropdown-item" href="../index.php?Log Out">
                                 <i class="bx bx-power-off me-2"></i>
                                 <span class="align-middle">Log Out</span>
-                            </a> 
-                            
+                            </a>
 
-  
                         </div>
                     </div>
                 </div>
@@ -118,11 +124,12 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-10 text-center">
                         <div class="dash">
-                            <div class="row rounded m-3">
+                            <div class="row rounded d-flex justify-content-center m-3">
                                 <div class="col-4 rounded">
                                     <a href="prof_addExam.php">
-                                        <div class="bg-primary p-4">
+                                        <div class="bg-dark p-4">
                                             <h3 class="text-light">Add Exam</h3>
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -130,6 +137,7 @@
                                     <a href="prof_addQues.php">
                                         <div class="bg-warning p-4">
                                             <h3 class="text-light">Add Question</h3>
+                                            <i class="fa fa-question-circle" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -137,25 +145,30 @@
                                     <a href="prof_addAns.php">
                                         <div class="bg-info p-4">
                                             <h3 class="text-light">Add Answers</h3>
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            
                                         </div>
                                         </a>
                                 </div>
                             </div>
-                            <div class="row rounded m-3">
+                            <div class="row rounded d-flex justify-content-center m-3">
                                 <div class="col-4 rounded">
                                     <a href="prof_viewExam.php">
                                         <div class="bg-danger p-4">
                                             <h3 class="text-light">View Exam</h3>
+                                            <i class="fa fa-clone" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
                                 <div class="col-4 rounded">
                                     <a href="prof-viewgrade.php">
-                                        <div class="bg-success p-4">
+                                        <div class="bg-success  p-4">
                                             <h3 class="text-light">View Grade</h3>
+                                            <i class="fa fa-percent" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
+                             
                               
                             </div>
                         </div>

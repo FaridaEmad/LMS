@@ -1,48 +1,28 @@
 <?php
-session_start();
-
-   /* if($_SESSION["userRole"]!="admin")
-    {
-        header("location:../index.php");
-    }*/
-
-
-require_once '../Models/course.php';
-require_once '../Controllers/CourseController.php';
-require_once "../Models/University.php";
-$university = new University;
-$uniName = $university->getuniversity_name();
-$errMsg="";
-$AddMsg="";
-
-
-  
-if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && isset($_POST["user_idA"])&& isset($_POST["Add"]))
+ session_start();
+ if(!isset($_SESSION["userRole"]))
  {
-    if(!empty($_POST["courseNameA"] ) && !empty($_POST["coursePrerequisite_idA"]) && !empty($_POST["user_idA"]))
-    {
-      $course=new Course;
-      $courseCont=new CourseController;
-      $course->setcourseName($_POST["courseNameA"]);
-      $course->setcoursePrerequisite_id($_POST["coursePrerequisite_idA"]);
-      $course->setuser_id($_POST["user_idA"]);
-      if($courseCont->addCourse($course))
-      {
-        $AddMsg="Added successfully";
+     header("location:../index.php");
+ }
+ require_once "../Models/University.php";
+ $university = new University;
+ $uniName = $university->getuniversity_name();
 
-       
-      }
-      else{
-        $errMsg="failed addition";
-      }
-    }
-    else
+require_once '../Controllers/CourseController.php';
+require_once '../Models/course.php';
+require_once '../Models/user.php';
+$course=new CourseController;
+$courses =$course->search($_POST["search"]);
+$deleteMsg = false;
+if(isset($_POST["delete"]))
     {
-        $errMsg="Please Fill All Fields";
+        if(!empty($_POST["courseId"]))
+        {
+            $course->deletetCourse($_POST["courseId"]);
+        }
     }
-   
-}
-  
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -83,9 +63,9 @@ if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && is
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="../index.php" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
@@ -97,12 +77,28 @@ if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && is
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="admin_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                 
+                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Elements</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="button.html" class="dropdown-item">Buttons</a>
+                            <a href="typography.html" class="dropdown-item">Typography</a>
+                            <a href="element.html" class="dropdown-item">Other Elements</a>
+                        </div>
+                    </div>
                     <a href="add_course.php" class="nav-item nav-link"><i class="fa fa-th me-2"></i>add course</a>
                     <a href="view_courses_admin.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view courses</a>
-                   
-                 
+                    <a href="prof_addExam.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="signin.html" class="dropdown-item">Sign In</a>
+                            <a href="signup.html" class="dropdown-item">Sign Up</a>
+                            <a href="404.html" class="dropdown-item">404 Error</a>
+                            <a href="blank.html" class="dropdown-item active">Prof Page</a>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>
@@ -111,13 +107,12 @@ if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && is
 
         <!-- Content Start -->
         <div class="content">
-            
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <div>
-                    <h2><?php echo $uniName;?></h2>
-                </div>
-               
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -136,55 +131,75 @@ if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && is
                 </div>
             </nav>
             <!-- Navbar End -->
-            <div class="col-12">
-                        <div class="bg-light rounded h-100 p-4">
-                           
-                            <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">new course</h6>
-                            
-                            <?php
+            
+    <div class="col-12">
+            <a class="binmjh" href="add_course.php" role="button"> <button type="button" class="btn btn-outline-primary m-2" >add course</button></a>
+                <div class="bg-light rounded h-100 p-4">
+                    courses list</div>
+            <?php
+            if (count($courses) == 0) {
+            ?>
+                <div class="alert alert-danger" role="alert">
+                                there are no courses
+                            </div> 
+            <?php
+            } else {
 
-if ($errMsg != "") {
-?>
-    <div class="alert alert-danger" role="alert"><?php echo $errMsg ?></div>
-<?php
-}
-
-?>
-                         
-                                  
-                            <form action="add_course.php" method="POST">
-                                <div class="mb-3">
-                                    <label for="courseName" class="form-label">courseName</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" name="courseNameA">
-                                </div>
-                                <div class="mb-3">
-                                <label for="coursePrerequisite_id" class="form-label">coursePrerequisite Id</label>
-                                    <input type="text" class="form-control" id="exampleInputcourseID"
-                                        aria-describedby="emailHelp" name="coursePrerequisite_idA">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="courseID" class="form-label">user id</label>
-                                    <input type="text" class="form-control" id="exampleInputcourseID"
-                                        aria-describedby="emailHelp" name="user_idA">
-                                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
-                                    <!-- </div> -->
-                                </div>
-                                </div>
-                                 </div>
+            ?>
+            <div class="row d-flex justify-content-center">
+                <div class="col-6">
+                <form method="post" action="view_course_searched.php">
+                <div class="input-group m-3">
+                    <input type="text" class="form-control" placeholder="Search ..." required name='search' aria-describedby="button-addon2">
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2" name="searchBt"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </div>
+                </form>
+                </div>
+            </div>
+            
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">coerseID</th>
+                            <th scope="col">courseNAME</th>
+                            <th scope="col">coursePrerequisiteId</th>
+                            <th scope="col">action</th>
+                        </tr>
+                    </thead>
+                    <tbody>  
+                        <?php
                         
-                                    <div>
-                                      <button type= "submit" name="Add" class="btn btn-primary">Add</button>
-                                  </div>
-                                                
-                            </form>
-                     <div class="add">   
-                    <?php
-                    echo $AddMsg;
-                    ?>
-                    </div>
+                            foreach ($courses as $course) {
+                            ?>                              
+                            <tr>
+                                <td scope="col"><?php echo $course["courseId"] ?></td>
+                                <td scope="col"><?php echo $course["courseName"] ?></td>
+                                <td scope="col"><?php echo $course["coursePrerequisiteId"] ?></td>
+                                <td>  
+                                    <form action="view_courses_admin.php" method="POST">
+                                        <input type="hidden" name="courseId" value="<?php 
+                                        echo $course["courseId"] ?>  "> 
+                                        <button type="submit" name="delete" class="btn btn-outline-danger">
+                                        <span class="tf-icons bx bx-trash"></span> delete
+                                        </button>
+                                    </form></td>
+                            </tr>
+                                    <?php
+                                       }
+                                     }
+                                        ?>
+                                </tbody>
+                            </table>
+                                </div>
+                                         </div>
+                                </table>
+                            </div>
                         </div>
-                    </div> </div>
+
+
+         
+
+
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">

@@ -14,7 +14,9 @@
     }
     require_once '../Controllers/ExamController.php';
     require_once '../Models/exam.php';
-
+    require_once "../Models/University.php";
+    $university = new University;
+    $uniName = $university->getuniversity_name();
     $examController = new ExamController;
 
     $exams = $examController->getExamForStudent();
@@ -73,7 +75,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="student_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     
                     <a href="student_exam.php" class="nav-item nav-link active"><i class="far fa-file-alt me-2"></i>Exams</a>
                     <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
@@ -89,9 +91,9 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
             
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">

@@ -11,6 +11,9 @@
             header("location:../index.php");
         }
     }
+    require_once "../Models/University.php";
+$university = new University;
+$uniName = $university->getuniversity_name();
 ?>
 
 
@@ -71,9 +74,7 @@
                 <div class="navbar-nav w-100">
                     <a href="student_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                   
-                    <a href="view courses_student.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>view subject </a>
-                    <a href="" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
-                    <a href="enroll_subject.php" class="nav-item nav-link"><i class="fa fa-table me-2"></i>enroll subject</a>
+                    <a href="view courses_student.php" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
                     <a href="stud_enrollCourse.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>enroll course</a>
                     <a href="student_exam.php" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Take Exam</a>
                     <a href="stud_viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
@@ -96,9 +97,9 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -128,41 +129,40 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-10 text-center">
                         <div class="dash">
-                            <div class="row rounded m-3">
+                            <div class="row rounded d-flex justify-content-center m-3">
                                 <div class="col-4 rounded">
                                     <a href="stud_viewgrade.php">
                                         <div class="bg-warning p-4">
                                             <h3 class="text-light">View Grade</h3>
+                                            <i class="fa fa-percent" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
                                 <div class="col-4 rounded">
                                     <a href="add_rate.php">
-                                        <div class="bg-info p-4">
+                                        <div class="bg-info  p-4">
                                             <h3 class="text-light">Rate</h3>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+
                                         </div>
                                         </a>
                                 </div>
                                 <div class="col-4 rounded">
                                     <a href="student_exam.php">
                                         <div class="bg-danger p-4">
-                                            <h3 class="text-light">Exam</h3>
+                                         <h3 class="text-light">Exam</h3>
+                                         <i class="fa fa-file" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
                             </div>
-                            <div class="row rounded m-3">
-                                <div class="col-4 rounded">
-                                    <a href="student_takeExam.php">
-                                        <div class="bg-primary p-4">
-                                            <h3 class="text-light">Take Exam</h3>
-                                        </div>
-                                        </a>
-                                </div>
+                            <div class="row d-flex justify-content-center rounded m-3">
+                              
                                 <div class="col-4 rounded">
                                     <a href="trackingPerformance.php">
                                         <div class="bg-success pt-4 px-4">
                                             <h3 class="text-light">Track Performance</h3>
+                                            <i class="fa fa-signal" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>
@@ -170,6 +170,7 @@
                                     <a href="view courses_student.php">
                                         <div class="bg-secondary p-4">
                                             <h3 class="text-light">View Course</h3>
+                                            <i class="fa fa-book" aria-hidden="true"></i>
                                         </div>
                                         </a>
                                 </div>

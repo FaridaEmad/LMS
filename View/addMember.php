@@ -10,6 +10,9 @@ require_once '../Models/user.php';
 require_once '../Controllers/AuthController2.php';
 require_once '../Controllers/RoleController.php';
 require_once '../Controllers/DeptController.php';
+require_once "../Models/University.php";
+$university = new University;
+$uniName = $university->getuniversity_name();
 $RoleCont= new RoleController;
 $DeptCont= new DeptController;
 $roles = $RoleCont->getRoles();
@@ -127,7 +130,7 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="admin_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     
                   
               
@@ -141,9 +144,9 @@ if( isset($_POST['name']) && isset($_POST['emailR']) && isset($_POST['passwordR'
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">

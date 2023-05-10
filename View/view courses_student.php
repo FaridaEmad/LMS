@@ -8,17 +8,19 @@
 require_once '../Controllers/CourseController.php';
 require_once '../Models/course.php';
 $course=new CourseController;
-$courses=$course->getCourseStudent();
+$courses=$course->getCourseStudent($_SESSION["userId"]);
 $deleteMsg='';
 
-if (isset($_POST["delete"])) {
-    if (!empty($_POST["courseId"])) {
-      if ($course->deletetCourse($_POST["courseId"])) {
-        $deleteMsg = true;
-        $courses =$course->getCourseStudent();
-      }
+if(isset($_POST["delete"]))
+    {
+        if(!empty($_POST["courseId"]))
+        {
+            $course->deletetCourseStudent($_POST["courseId"]);
+        }
     }
-  }
+    require_once "../Models/University.php";
+    $university = new University;
+    $uniName = $university->getuniversity_name();
 ?>
  <!DOCTYPE html>
 <html lang="en">
@@ -59,9 +61,9 @@ if (isset($_POST["delete"])) {
       <!-- Sidebar Start -->
       <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="../index.php" class="navbar-brand mx-4 mb-3">
-                    <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
-                </a>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
                         <img class="rounded-circle" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
@@ -73,7 +75,7 @@ if (isset($_POST["delete"])) {
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="student_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     
                     <a href="view courses_student.php" class="nav-item nav-link"><i class="far fa-file-alt me-2"></i>view subject </a>
                     <a href="" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>view course</a>
@@ -129,6 +131,9 @@ if (isset($_POST["delete"])) {
               } else {
 
               ?>                  
+              <div class="row d-flex justify-content-center">
+
+              <div class="col-6">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -148,8 +153,7 @@ if (isset($_POST["delete"])) {
                                         <td scope="col"><?php echo $course["courseName"] ?></td>
                                         <td scope="col">  
                                             <form action="view courses_student.php" method="POST">
-                              <input type="hidden" name="courseId" value="<?php 
-                               echo $course["courseId"] ?>  "> 
+                              <input type="hidden" name="courseId" value="<?php echo $course["course_id"] ?>"> 
                               <button type="submit" name="delete" class="btn btn-outline-danger">
                                 <span class="tf-icons bx bx-trash"></span> delete
                               </button>
@@ -160,6 +164,8 @@ if (isset($_POST["delete"])) {
                                         ?>
                                 </tbody>
                             </table>
+                            </div>
+                            </div>
                                 </div>
                                          </div>
                              

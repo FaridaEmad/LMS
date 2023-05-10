@@ -17,7 +17,7 @@ class RatingController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select ratingId , user_id , ratingValue from rating where user_id = $userId";
+            $query="select ratingId , user_id , ratingValue , ratingName from rating where user_id = $userId";
             return $this->db->select($query);
          }
          else
@@ -34,7 +34,8 @@ class RatingController
            $ratingId = $rating->getratingId();
            $user_id = $rating->getuser_id();
            $ratingValue = $rating->getratingValue();
-           $query="insert into rating values ('','$ratingId','$user_id','$ratingValue')";
+           $ratingName = $rating->getratingName();
+           $query="insert into rating values ('','$ratingId','$user_id','$ratingValue', '$ratingName')";
            return $this->db->insert($query);
         }
         else
