@@ -23,7 +23,7 @@ if(isset($_POST["courseNameA"]) && isset($_POST["coursePrerequisite_idA"]) && is
     {
       $course=new Course;
       $courseCont=new CourseController;
-      $course->setcourseName($_POST["courseNameA"]);
+      $course->setcourseName($_POST["ourseNameA"]);
       $course->setcoursePrerequisite_id($_POST["coursePrerequisite_idA"]);
       $course->setuser_id($_POST["user_idA"]);
       if($courseCont->addCourse($course))
@@ -159,9 +159,11 @@ if ($errMsg != "") {
                                     <input type="text" class="form-control" id="exampleInputPassword1" name="courseNameA">
                                 </div>
                                 <div class="mb-3">
-                                <label for="coursePrerequisite_id" class="form-label">coursePrerequisite Id</label>
-                                    <input type="text" class="form-control" id="exampleInputcourseID"
+                                    <label for="courseID" class="form-label">coursePrerequisiteId</label>
+                                    <input type="text" class="form-control" id="exampleInputcourse_id"
                                         aria-describedby="emailHelp" name="coursePrerequisite_idA">
+                                    <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else. -->
+                                    <!-- </div> -->
                                 </div>
                                 <div class="mb-3">
                                     <label for="courseID" class="form-label">user id</label>
