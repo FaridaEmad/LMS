@@ -18,26 +18,26 @@
     require_once "../Models/University.php";
 $university = new University;
 $uniName = $university->getuniversity_name();
-    $ratingController = new RatingController;
-
+$ratingController = new RatingController;
+$ratted = "";
     if(!isset($_SESSION["userId"]))
     {
         session_start();
     }
     $errMsq = "";
     $ratings = $ratingController->getRating($_SESSION["userId"]);
-
-    if(isset($_POST['question']) && isset($_POST['addQbtn']))
+    $profs = $ratingController->getProf();
+    if(isset($_POST["ratingValue"]) && isset($_POST["rate"]))
     {
-        if(!empty($_POST['question']) && !empty($_POST['ratingValue']))
+        if(!empty($_POST["ratingValue"]) && !empty($_POST["ratingPer"]))
         {
             $rating = new rating;
             $ratingCon = new RatingController;
             $rating->setratingValue($_POST['ratingValue']);
-            $rating->setuser_id( $_SESSION["userId"]);
+            $rating->setuser_id( $_POST["ratingPer"]);
             if($ratingCon->addRating($rating))
             {
-                header("location: view_rate.php");
+                $ratted = "Rate added Successfully!!!";
             }
             else
             {
@@ -104,7 +104,7 @@ $uniName = $university->getuniversity_name();
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="admin_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="student_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -151,32 +151,36 @@ $uniName = $university->getuniversity_name();
                         <div class="bg-light rounded h-100 p-4">
                             <h5 class="mb-4">Add Rating</h5>
                             <form action="add_rate.php" method="POST">
-                            <div class="row mb-3">
-                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputPassword3" name="question">
-                                    </div>
-                                </div>
+                            
                                 <div class="row mb-3">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">Rating Value</label>
-                                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="ratingValue">
+                                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="ratingPer">
                                     <option selected disabled>Select A Rating's Value</option>
                                     <?php
-                                        foreach($ratings as $rating)
+                                        foreach($profs as $prof)
                                         {
                                         ?>
                                                     
-                                                    <option value= "<?php echo $rating["ratingId"] ?>" > <?php echo $rating["ratingValue"] ?></option>
+                                                    <option value= "<?php echo $prof["userId"] ?>" > <?php echo $prof["userName"] ?></option>
                                         <?php
                                         }
                                         ?>
                                 </select>
                                 </div>
                                 <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Rating Value from 1 to 10</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPassword3" name="ratingValue">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
                                     <span class="errMsg"><?php echo $errMsq; ?></span>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary" name="rate">Add</button>
                             </form>
+                            <div class="row">
+                                <h5 class="text-center text-success"><?php echo $ratted; ?></h5>
+                            </div>
                         </div>
                     </div>
                 </div>

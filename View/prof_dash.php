@@ -168,6 +168,14 @@ $uniName = $university->getuniversity_name();
                                         </div>
                                         </a>
                                 </div>
+                                <div class="col-4 rounded">
+                                    <a href="prof_viewRate.php">
+                                        <div class="bg-dark  p-4">
+                                            <h3 class="text-light">View Rate</h3>
+                                            <i class="fa fa-percent" aria-hidden="true"></i>
+                                        </div>
+                                        </a>
+                                </div>
                              
                               
                             </div>
@@ -176,44 +184,6 @@ $uniName = $university->getuniversity_name();
                     </div>
                 </div>
             </div>
-
-
-
-
-  
-
-    
-         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             <!-- Blank End -->
 
 

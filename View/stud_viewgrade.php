@@ -152,8 +152,8 @@ $grades = $gradeController->getstudGrade($userId);
                                 else
                                 {
                                    ?>
-
-                                      <div class="table-responsive">
+"
+                                      <div class="table-responsive" id="tab3">
                                         <table class="table table-striped">
                                           <thead>
                                             <tr>
@@ -256,7 +256,7 @@ $grades = $gradeController->getstudGrade($userId);
 
 
 function createPDF() {
-        var sTable = document.getElementById('tab').innerHTML;
+        var sTable = document.getElementById('tab3').innerHTML;
 
         var style = "<style>";
         style = style + "table {width: 100%;font: 18px ;}";

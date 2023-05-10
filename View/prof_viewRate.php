@@ -1,22 +1,36 @@
-
 <?php
- session_start();
- if(!isset($_SESSION["userRole"]))
- {
-     header("location:../index.php");
- }
-require_once '../Models/grade.php';
-require_once '../Controllers/GradeController.php';
-require_once "../Models/University.php";
-$university = new University;
-$uniName = $university->getuniversity_name();
-$gradeController = new GradeController;
-$userId = $_SESSION["userId"];
-$grades = $gradeController->getGrade($userId);
+
+    session_start();
+    if(!isset($_SESSION["userRole"]))
+    {
+        header("location:../index.php");
+    }
+    else
+    {
+        if($_SESSION["userRole"] =="student")
+        {
+            header("location:../index.php");
+        }
+    }
+    require_once '../Controllers/RatingController.php';
+    require_once '../Models/rating.php';
+    require_once "../Models/University.php";
+    $university = new University;
+    $uniName = $university->getuniversity_name();
+    $ratingController = new RatingController;
+
+    if(isset($_POST["deleteRating"]))
+    {
+        if(!empty($_POST["raIdD"]))
+        {
+            $ratingController->deletetRating($_POST["raIdD"]);
+        }
+    }
+
+    $ratings = $ratingController->getRatingProf($_SESSION["userId"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 
 <head>
     <meta charset="utf-8">
@@ -54,7 +68,7 @@ $grades = $gradeController->getGrade($userId);
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="../index.php" class="navbar-brand mx-4 mb-3">
+                <a href="index.html" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-book" aria-hidden="true"></i>LMS</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -64,22 +78,11 @@ $grades = $gradeController->getGrade($userId);
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span><?php echo $_SESSION["userRole"]?></span>
+                        <span>Professor</span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="prof_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
-                            <a href="prof_viewExam.php" class="dropdown-item">View all exams</a>
-                            <a href="element.html" class="dropdown-item">Other Elements</a>
-                        </div>
-                    </div>
-
-                    
-                    <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -87,8 +90,6 @@ $grades = $gradeController->getGrade($userId);
                             <a href="view_rate.php" class="dropdown-item">View all ratings</a>
                         </div>
                     </div>
-                  
-                 
                     
                 </div>
             </nav>
@@ -103,7 +104,7 @@ $grades = $gradeController->getGrade($userId);
             <div>
                     <h2><?php echo $uniName;?></h2>
                 </div>
-            
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
@@ -120,95 +121,68 @@ $grades = $gradeController->getGrade($userId);
             </nav>
             <!-- Navbar End -->
 
-            <!-- table start -->
-          
-             
 
-            <!-- table Start -->
-   
-              <div class="container-fluid pt-4 px-4">
+            <!-- Blank Start -->
+            <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-12">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Grades</h6>
-                       
-                      
+                            <h6 class="mb-4">All Ratings</h6>
                             <?php
-                                if(count($grades) == 0)
+                                if(count($ratings) == 0)
                                 {
                                     ?>
-                                    <div class="alert alert-danger" role="alert"> No Added Grade</div>
+                                    <div class="alert alert-danger" role="alert"> There are no ratings yet</div>
                                     <?php
                                 }
-
                                 else
                                 {
-                                   ?>
-
-                                      <div class="table-responsive" id="tab2">
-                                        <table class="table table-striped" >
-                                          <thead>
-                                            <tr>
-                                                
-                                                <th scope="col">Exam ID</th>
-                                                <th scope="col">Student ID</th>
-                                                <th scope="col">Student Grade</th>
-                                                
-                                            </tr>
-                                          </thead>
-                                        <tbody>
-
-                                    <?php
-                                  foreach($grades as$grade)
-                                  {
                                     ?>
-                                  
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
                                                 <tr>
-                                                    <th scope="row"><?php echo $grade["exam_id"] ?></th>
-                                                    <td><?php echo $grade["user_id"] ?></td>
-                                                    <td><?php echo $grade["studentGrade"] ?></td>
-                                                    
+                                                    <th scope="col">Rating ID</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Rating Value</th>
+                                                    <th scope="col">Delete</th>
                                                 </tr>
-                                            
+                                            </thead>
+                                            <tbody>
                                     <?php
-                                  }
-                                  ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <?php
+                                    foreach($ratings as $rating)
+                                    {
+                                        ?>
+                                                    <tr>
+                                                        <th scope="row"><?php echo $rating["ratingId"] ?></th>
+                                                        <td><?php echo $rating["userName"] ?></td>
+                                                        <td><?php echo $rating["ratingValue"] ?></td>
+                                                        <td>
+                                                            <form action="view_rate.php" method="POST">
+                                                                <input type="hidden" name="raIdD" value="<?php echo $rating["ratingId"] ?>">
+                                                                <button type="submit" name="deleteRating" class="btn btn-danger">
+                                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                
+                                        <?php
+                                    }
+                                    ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <?php
                                 }
-                              ?>
-                             <div class="row">
-                                    <div class="col-3 d-flex justify-content-center">
-                                        <button class="btn btn-primary" onclick="downloadPDFWithBrowserPrint()">Print Screen</button>
-                                    </div>
-                                    <div class="col-3 d-flex justify-content-center">
-                                        <input type="button" class="btn btn-primary" value="Create PDF" id="btPrint" onclick="createPDF()" />
-                                    </div>
-                             </div>
-                            
-
-                   </div>
+                            ?>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-         
-                                 
- 
-                                
-                                
-                            
-                                    
-                            
-                      
-
-                    <!-- table End -->
-                    
-            
+            <!-- Blank End -->
 
 
-           
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
@@ -245,38 +219,6 @@ $grades = $gradeController->getGrade($userId);
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-
-    <script>
-    function downloadPDFWithBrowserPrint() {
-        window.print();
-    }
-    document.querySelector('#browserPrint').addEventListener('click', downloadPDFWithBrowserPrint);
-
-
-function createPDF() {
-        var sTable = document.getElementById('tab2').innerHTML;
-
-        var style = "<style>";
-        style = style + "table {width: 100%;font: 18px ;}";
-        style = style + "table, th, td {border: solid 1px #000; border-collapse: collapse;";
-        style = style + "padding: 2px 3px;text-align: center;}";
-        style = style + "</style>";
-
-        var win = window.open('', '', 'height=700,width=700');
-
-        win.document.write('<html><head>');
-        win.document.write('<title>LMS</title>');
-        win.document.write(style);
-        win.document.write('</head>');
-        win.document.write('<body>');
-        win.document.write(sTable);
-        win.document.write('</body></html>');
-
-        win.document.close();
-
-        win.print();
-    }
-    </script>
 
 </body>
 

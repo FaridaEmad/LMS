@@ -1,3 +1,15 @@
+
+<?php
+ session_start();
+ if(!isset($_SESSION["userRole"]))
+ {
+     header("location:../index.php");
+ }
+require_once "../Models/University.php";
+$university = new University;
+$uniName = $university->getuniversity_name();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
