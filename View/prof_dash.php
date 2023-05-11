@@ -120,8 +120,56 @@
             <!-- Blank Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>Profffff page</h3>
+                    <div class="col-10 text-center">
+                        <div class="dash">
+                            <div class="row rounded m-3">
+                                <div class="col-4 rounded">
+                                    <a href="prof_addExam.php">
+                                        <div class="bg-primary p-4">
+                                            <h3 class="text-light">Add Exam</h3>
+                                        </div>
+                                        </a>
+                                </div>
+                                <div class="col-4 rounded">
+                                    <a href="prof_addAns.php">
+                                        <div class="bg-primary p-4">
+                                            <h3 class="text-light">Add Question</h3>
+                                        </div>
+                                        </a>
+                                </div>
+                                <div class="col-4 rounded">
+                                    <a href="prof_addQues.php">
+                                        <div class="bg-primary p-4">
+                                            <h3 class="text-light">Add Answers</h3>
+                                        </div>
+                                        </a>
+                                </div>
+                            </div>
+                            <div class="row rounded m-3">
+                                <div class="col-4 rounded">
+                                    <a href="prof_addExam.php">
+                                        <div class="bg-primary p-4">
+                                            <h3 class="text-light">Add Exam</h3>
+                                        </div>
+                                        </a>
+                                </div>
+                                <div class="col-4 rounded">
+                                    <a href="prof_addAns.php">
+                                        <div class="bg-primary p-4">
+                                            <h3 class="text-light">Add Question</h3>
+                                        </div>
+                                        </a>
+                                </div>
+                                <div class="col-4 rounded">
+                                    <a href="prof_addQues.php">
+                                        <div class="bg-primary p-4">
+                                            <h3 class="text-light">Add Answers</h3>
+                                        </div>
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
