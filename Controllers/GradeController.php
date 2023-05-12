@@ -12,12 +12,12 @@ class GradeController
     //3. Close connection
 
 
-   public function getGrade()
+   public function getGrade($userId)
    {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select exam_id,user_id,studentGrade from grade";
+            $query="select exam_id ,grade.user_id ,studentGrade from grade join exam on exam_id = examId where exam.user_id = $userId";
             return $this->db->select($query);
          }
          else
@@ -33,7 +33,10 @@ class GradeController
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="insert into grade values ('','$grade->exam_id','$grade->user_id','$grade->studentGrade')";
+            $exam_id = $grade->getexam_id();
+            $user_id = $grade->getruser_id();
+            $studentGrade = $grade->getstudentGrade();
+            $query="insert into grade values ('','$exam_id','$user_id','$studentGrade')";
             return $this->db->insert($query);
          }
          else
@@ -57,12 +60,12 @@ class GradeController
       }
    }
 
-   public function getstudGrade()
+   public function getstudGrade($userId)
    {
          $this->db=new DBController;
          if($this->db->openConnection())
          {
-            $query="select exam_id,studentGrade from grade join user on user_id = userId";
+            $query="select exam_id , studentGrade from grade where user_id = $userId";
             return $this->db->select($query);
          }
          else
@@ -71,6 +74,20 @@ class GradeController
             return false; 
          }
    }
+   /*public function getstudGrade2($userId)
+   {
+         $this->db=new DBController;
+         if($this->db->openConnection())
+         {
+            $query="select studentGrade from grade where user_id = $userId";
+            return $this->db->select($query);
+         }
+         else
+         {
+            echo "Error in Database Connection";
+            return false; 
+         }
+   }*/
 }
 
 ?>

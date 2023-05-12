@@ -49,8 +49,8 @@
 }
 
 .btn-lg-square {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 60px;
 }
 
 .btn-square,
@@ -311,3 +311,7 @@
     color: black;
     font-weight: 500;
 }
+
+
+
+

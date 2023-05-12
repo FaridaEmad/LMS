@@ -1,3 +1,15 @@
+<?php
+ session_start();
+ if(!isset($_SESSION["userRole"]))
+ {
+     header("location:../index.php");
+ }
+ require_once "../Models/University.php";
+ $university = new University;
+ $uniName = $university->getuniversity_name();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,31 +59,28 @@
                     </div>
                     <div class="ms-3">
                         <h6 class="mb-0">Jhon Doe</h6>
-                        <span>Co-teacher</span>
+                        <span><?php echo $_SESSION["userRole"]?></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="ta_dash.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Exams</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="prof_addExam.php" class="dropdown-item">Add Exam</a>
                             <a href="prof_viewExam.php" class="dropdown-item">View all exams </a>
                         </div>
+
+                        <a href="prof-viewgrade.php" class="nav-item nav-link "><i class="far fa-file-alt me-2"></i>Grade</a>
+                        <div class="nav-item dropdown">
+                               <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Rating</a>
+                              <div class="dropdown-menu bg-transparent border-0">
+                                <a href="add_rate.php" class="dropdown-item">Add Rate</a>
+                                <a href="view_rate.php" class="dropdown-item">View all ratings</a>
+                              </div>
+                            </div>
                     </div>
-                    <a href="widget.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Widgets</a>
-                    <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
-                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
-                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><i class="far fa-file-alt me-2"></i>Pages</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a href="signin.html" class="dropdown-item">Sign In</a>
-                            <a href="signup.html" class="dropdown-item">Sign Up</a>
-                            <a href="404.html" class="dropdown-item">404 Error</a>
-                            <a href="blank.html" class="dropdown-item active">Prof Page</a>
-                        </div>
-                    </div>
+               
                 </div>
             </nav>
         </div>
@@ -82,19 +91,14 @@
         <div class="content">
             <!-- Navbar Start -->
             <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
-                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
-                </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
-                    <i class="fa fa-bars"></i>
-                </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
-                </form>
+            <div>
+                    <h2><?php echo $uniName;?></h2>
+                </div>
+              
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
+                            <img class="rounded-circle me-lg-2" src="../img/user.jpg" alt="" style="width: 40px; height: 40px;">
                             <span class="d-none d-lg-inline-flex">John Doe</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
@@ -112,13 +116,45 @@
 
 
             <!-- Blank Start -->
+
+
+        
+              
             <div class="container-fluid pt-4 px-4">
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                    <div class="col-md-6 text-center">
-                        <h3>TA page</h3>
+                    <div class="col-10 text-center">
+                        <div class="dash">
+                            <div class="row d-flex justify-content-center rounded m-3">
+                                <div class="col-4 rounded">
+                                    <a href="prof-viewgrade.php">
+                                        <div class="bg-warning p-4">
+                                            <h3 class="text-light">View Grade</h3>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </div>
+                                        </a>
+                                </div>
+                                <div class="col-4 rounded">
+                                    <a href="prof_addExam.php">
+                                        <div class="bg-danger p-4">
+                                            <h3 class="text-light">Add Exam</h3>
+                                            <i class="fa fa-plus " aria-hidden="true "></i>
+                                        </div>
+                                        </a>
+                                </div>
+                               
+                            </div>
+                      
+                                
+                              
+                            
+                        </div>
+                        
                     </div>
                 </div>
             </div>
+
+
+
             <!-- Blank End -->
 
 

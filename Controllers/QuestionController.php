@@ -46,7 +46,9 @@ class QuestionController
       $this->db=new DBController;
       if($this->db->openConnection())
       {
-         $query="insert into question values ('','$question->questionContent','$question->exam_id')";
+         $content = $question->getquestionContent();
+         $exam_id = $question->getexam_id();
+         $query="insert into question values ('','$content','$exam_id')";
          return $this->db->insert($query);
       }
       else
